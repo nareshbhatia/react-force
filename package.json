@@ -1,0 +1,106 @@
+{
+  "name": "root",
+  "description": "Foundational components and utilities for React applications",
+  "private": true,
+  "author": "Naresh Bhatia",
+  "license": "MIT",
+  "homepage": "https://github.com/nareshbhatia/react-force",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nareshbhatia/react-force.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "javascript",
+    "material-ui",
+    "react",
+    "typescript"
+  ],
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "lerna run build",
+    "changed": "lerna changed",
+    "cz-commit": "git-cz",
+    "del-dist": "lerna run --parallel del-dist",
+    "format": "lerna run format",
+    "test": "lerna run test:prod"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-react": "^7.9.4",
+    "@babel/preset-typescript": "^7.9.0",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@material-ui/core": "^4.9.13",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.52",
+    "@storybook/addon-actions": "^5.3.18",
+    "@storybook/addon-console": "^1.2.1",
+    "@storybook/addon-links": "^5.3.18",
+    "@storybook/addons": "^5.3.18",
+    "@storybook/react": "^5.3.18",
+    "@testing-library/jest-dom": "^5.5.0",
+    "@testing-library/react": "^10.0.4",
+    "@types/classnames": "^2.2.10",
+    "@types/jest": "^25.2.1",
+    "@types/node": "^13.13.5",
+    "@types/numeral": "^0.0.27",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.7",
+    "@types/uuid": "^7.0.3",
+    "@typescript-eslint/eslint-plugin": "^2.31.0",
+    "@typescript-eslint/parser": "^2.31.0",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.0.1",
+    "babel-loader": "^8.1.0",
+    "babel-preset-react-app": "^9.1.2",
+    "classnames": "^2.2.6",
+    "colors": "^1.4.0",
+    "commitizen": "^4.1.2",
+    "cz-conventional-changelog": "^3.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-flowtype": "^4.7.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^4.0.0",
+    "glob-loader": "^0.3.0",
+    "husky": "^4.2.5",
+    "jest": "^26.0.1",
+    "lerna": "^3.20.2",
+    "numeral": "^2.0.6",
+    "prettier": "^2.0.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-test-renderer": "^16.13.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^3.8.3",
+    "uuid": "^8.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  }
+}
