@@ -1,28 +1,30 @@
 {
   "name": "@react-force/utils",
   "description": "JavaScript utilities",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
   "main": "dist/index.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "src/",
     "dist/"
   ],
   "scripts": {
-    "build": "yarn lint && yarn build-src && yarn build-declaration",
+    "build": "yarn build-src && yarn build-declaration",
     "build-src": "babel src --root-mode upward --out-dir dist --source-maps --extensions \".ts,.tsx\" --ignore **/*.story.tsx,**/*.test.ts,**/*.test.tsx,**/stories,**/test",
     "build-declaration": "tsc --emitDeclarationOnly",
+    "ci:build": "yarn build && yarn lint && yarn test:coverage",
     "del-dist": "rimraf dist",
     "format": "prettier --write 'src/**/*.ts*'",
     "lint": "eslint 'src/**/*.ts*'",
     "prebuild": "yarn del-dist",
+    "release": "yarn ci:build && npm publish",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "test": "jest --watch",
-    "test:prod": "jest --coverage --no-cache"
+    "test:coverage": "jest --coverage --no-cache"
   },
   "jest": {
     "verbose": true,
@@ -50,6 +52,5 @@
         "statements": 80
       }
     }
-  },
-  "gitHead": "f72690834a2629a5a40f17272913e995db2d55fa"
+  }
 }

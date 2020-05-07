@@ -1,33 +1,35 @@
 {
   "name": "@react-force/core",
   "description": "Foundational components for React applications",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
   "main": "dist/index.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "src/",
     "dist/"
   ],
   "scripts": {
-    "build": "yarn lint && yarn build-src && yarn build-declaration",
+    "build": "yarn build-src && yarn build-declaration",
     "build-src": "babel src --root-mode upward --out-dir dist --source-maps --extensions \".ts,.tsx\" --ignore **/*.story.tsx,**/*.test.ts,**/*.test.tsx,**/stories,**/test",
     "build-declaration": "tsc --emitDeclarationOnly",
     "build-storybook": "rimraf ../../docs && build-storybook -o ../../docs",
+    "ci:build": "yarn build && yarn lint && yarn test:coverage",
     "del-dist": "rimraf dist",
     "format": "prettier --write 'src/**/*.ts*'",
     "lint": "eslint 'src/**/*.ts*'",
     "prebuild": "yarn del-dist",
+    "release": "yarn ci:build && npm publish",
     "storybook": "start-storybook -p 6006",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "test": "jest --watch",
-    "test:prod": "jest --coverage --no-cache"
+    "test:coverage": "jest --coverage --no-cache"
   },
   "dependencies": {
-    "@react-force/utils": "^2.0.3"
+    "@react-force/utils": "^2.0.4"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.x",
@@ -66,6 +68,5 @@
         "statements": 80
       }
     }
-  },
-  "gitHead": "f72690834a2629a5a40f17272913e995db2d55fa"
+  }
 }

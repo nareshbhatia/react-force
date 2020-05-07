@@ -7,3 +7,34 @@
 Foundational components for React applications
 
 **Live demo:** https://nareshbhatia.github.io/react-force/
+
+## Build Process
+
+### Typical commits
+Always do commits in conventional commit format. This step can be repeated any
+number of times during the development process.
+
+
+```bash
+git status
+git add --all
+yarn cz-commit # interactive conventional commit
+git push
+```
+
+
+### Release to NPM
+
+```Bash
+# Make sure local build runs successfully
+yarn ci:build
+
+# Detemine which packages have changed
+yarn changed
+
+# 1. Go to each changed package.
+# 2. Manually change its version number in the package.json file. Use semver.
+# 3. Commit and push (see above)
+# 4. Release to npm
+yarn release
+```

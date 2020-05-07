@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "src",
-    "declarationDir": "dist/types",
+    "declarationDir": "dist"
   },
   "exclude": [
     "**/*.story.tsx",
