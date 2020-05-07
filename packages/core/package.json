@@ -16,6 +16,7 @@
     "build": "yarn lint && yarn build-src && yarn build-declaration",
     "build-src": "babel src --root-mode upward --out-dir dist --source-maps --extensions \".ts,.tsx\" --ignore **/*.story.tsx,**/*.test.ts,**/*.test.tsx,**/stories,**/test",
     "build-declaration": "tsc --emitDeclarationOnly",
+    "build-storybook": "rimraf ../../docs && build-storybook -o ../../docs",
     "del-dist": "rimraf dist",
     "format": "prettier --write 'src/**/*.ts*'",
     "lint": "eslint 'src/**/*.ts*'",
