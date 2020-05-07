@@ -8,6 +8,10 @@
   },
   "main": "dist/index.js",
   "types": "dist/types/index.d.ts",
+  "files": [
+    "src/",
+    "dist/"
+  ],
   "scripts": {
     "build": "yarn lint && yarn build-src && yarn build-declaration",
     "build-src": "babel src --root-mode upward --out-dir dist --source-maps --extensions \".ts,.tsx\" --ignore **/*.story.tsx,**/*.test.ts,**/*.test.tsx,**/stories,**/test",
