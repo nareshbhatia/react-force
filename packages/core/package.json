@@ -1,7 +1,7 @@
 {
   "name": "@react-force/core",
   "description": "Foundational components for React applications",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/types/index.d.ts",
@@ -18,7 +18,7 @@
     "test:prod": "jest --coverage --no-cache"
   },
   "dependencies": {
-    "@react-force/utils": "^2.0.0"
+    "@react-force/utils": "^2.0.1"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.x",
