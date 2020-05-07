@@ -20,6 +20,7 @@
     "format": "prettier --write 'src/**/*.ts*'",
     "lint": "eslint 'src/**/*.ts*'",
     "prebuild": "yarn del-dist",
+    "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "test": "jest --watch",
     "test:prod": "jest --coverage --no-cache"
   },

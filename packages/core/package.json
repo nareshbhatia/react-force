@@ -22,6 +22,7 @@
     "lint": "eslint 'src/**/*.ts*'",
     "prebuild": "yarn del-dist",
     "storybook": "start-storybook -p 6006",
+    "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "test": "jest --watch",
     "test:prod": "jest --coverage --no-cache"
   },
