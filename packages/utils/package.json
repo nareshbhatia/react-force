@@ -21,7 +21,6 @@
     "format": "prettier --write 'src/**/*.ts*'",
     "lint": "eslint 'src/**/*.ts*'",
     "prebuild": "yarn del-dist",
-    "release": "yarn ci:build && npm publish",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "test": "jest --watch",
     "test:coverage": "jest --coverage --no-cache"
