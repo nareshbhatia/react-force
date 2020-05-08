@@ -32,15 +32,17 @@ yarn ci:build
 # Detemine which packages have changed
 yarn changed
 
-# 1. Go to each changed package.
+# Go to each changed package.
 
-# 2. Manually change its version number in the package.json file. Use semver.
+# 1. Manually change the version number in package.json. Use semver.
 
-# 3. Commit and push (see above)
+# 2. Commit and push (see above)
 
 # 4. Rebuild the package
 yarn ci:build
 
 # 5. Release to npm
 npm publish
+
+# 6. Tag the release and push the tag to remote
 ```
