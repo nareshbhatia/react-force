@@ -105,24 +105,6 @@ describe('string primitives', () => {
     });
 });
 
-describe('string objects', () => {
-    describe('that are equal', () => {
-        it('returns true', () => {
-            expect(valueEqual(new String('asdf'), new String('asdf'))).toBe(
-                true
-            );
-        });
-    });
-
-    describe('that are not equal', () => {
-        it('returns false', () => {
-            expect(valueEqual(new String('asdf'), new String('sdfg'))).toBe(
-                false
-            );
-        });
-    });
-});
-
 describe('number primitives', () => {
     describe('that are equal', () => {
         it('returns true', () => {
@@ -137,24 +119,6 @@ describe('number primitives', () => {
     });
 });
 
-describe('number objects', () => {
-    describe('that are equal', () => {
-        it('returns true', () => {
-            expect(valueEqual(new Number(123.456), new Number(123.456))).toBe(
-                true
-            );
-        });
-    });
-
-    describe('that are not equal', () => {
-        it('returns false', () => {
-            expect(valueEqual(new Number(123.456), new Number(123.567))).toBe(
-                false
-            );
-        });
-    });
-});
-
 describe('boolean primitives', () => {
     describe('that are equal', () => {
         it('returns true', () => {
@@ -165,22 +129,6 @@ describe('boolean primitives', () => {
     describe('that are not equal', () => {
         it('returns false', () => {
             expect(valueEqual(true, false)).toBe(false);
-        });
-    });
-});
-
-describe('boolean objects', () => {
-    describe('that are equal', () => {
-        it('returns true', () => {
-            expect(valueEqual(new Boolean(true), new Boolean(true))).toBe(true);
-        });
-    });
-
-    describe('that are not equal', () => {
-        it('returns false', () => {
-            expect(valueEqual(new Boolean(true), new Boolean(false))).toBe(
-                false
-            );
         });
     });
 });
