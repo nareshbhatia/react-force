@@ -25,9 +25,9 @@ git push
 
 ### Release to NPM
 
-```Bash
+```bash
 # Make sure local build runs successfully
-yarn ci:build
+yarn build:local
 
 # Detemine which packages have changed
 yarn changed
@@ -38,11 +38,11 @@ yarn changed
 
 # 2. Commit and push (see above)
 
-# 4. Rebuild the package
-yarn ci:build
+# 3. Rebuild the package
+yarn build:local
 
-# 5. Release to npm
+# 4. Release to npm
 npm publish
 
-# 6. Tag the release and push the tag to remote
+# 5. Tag the release and push the tag to remote
 ```

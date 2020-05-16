@@ -5,7 +5,7 @@ branches:
 node_js:
     - node
 script:
-    - yarn ci:build
+    - yarn build:local
 after_success:
     - yarn report-coverage
 #   - yarn publish --yes

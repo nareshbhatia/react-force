@@ -14,10 +14,10 @@
   ],
   "scripts": {
     "build": "yarn build-src && yarn build-declaration",
+    "build:local": "yarn build && yarn lint && yarn test:coverage",
     "build-src": "babel src --root-mode upward --out-dir dist --source-maps --extensions \".ts,.tsx\" --ignore **/*.story.tsx,**/*.test.ts,**/*.test.tsx,**/stories,**/test",
     "build-declaration": "tsc --emitDeclarationOnly",
     "build-storybook": "rimraf ../../docs && build-storybook -o ../../docs",
-    "ci:build": "yarn build && yarn lint && yarn test:coverage",
     "del-dist": "rimraf dist",
     "format": "prettier --write 'src/**/*.ts*'",
     "lint": "eslint 'src/**/*.ts*'",
@@ -28,7 +28,7 @@
     "test:coverage": "jest --coverage --no-cache"
   },
   "dependencies": {
-    "@react-force/utils": "^2.0.4"
+    "@react-force/utils": "^2.1.0"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.x",

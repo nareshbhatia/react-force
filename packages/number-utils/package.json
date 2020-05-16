@@ -1,7 +1,7 @@
 {
-  "name": "@react-force/date-utils",
-  "description": "JavaScript utilities",
-  "version": "2.0.4",
+  "name": "@react-force/number-utils",
+  "description": "Number utilities",
+  "version": "2.0.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -26,14 +26,10 @@
     "test:coverage": "jest --coverage --no-cache"
   },
   "dependencies": {
-    "moment": "^2.25.3",
-    "moment-duration-format": "^2.3.2",
-    "moment-range": "^4.0.2",
-    "moment-timezone": "^0.5.29"
+    "numeral": "^2.0.6"
   },
   "devDependencies": {
-    "@types/moment-duration-format": "^2.2.2",
-    "@types/moment-timezone": "^0.5.13"
+    "@types/numeral": "^0.0.28"
   },
   "jest": {
     "verbose": true,

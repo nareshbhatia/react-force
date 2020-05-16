@@ -14,9 +14,9 @@
   ],
   "scripts": {
     "build": "yarn build-src && yarn build-declaration",
+    "build:local": "yarn build && yarn lint && yarn test:coverage",
     "build-src": "babel src --root-mode upward --out-dir dist --source-maps --extensions \".ts,.tsx\" --ignore **/*.story.tsx,**/*.test.ts,**/*.test.tsx,**/stories,**/test",
     "build-declaration": "tsc --emitDeclarationOnly",
-    "ci:build": "yarn build && yarn lint && yarn test:coverage",
     "del-dist": "rimraf dist",
     "format": "prettier --write 'src/**/*.ts*'",
     "lint": "eslint 'src/**/*.ts*'",
