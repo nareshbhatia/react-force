@@ -1,7 +1,7 @@
 {
-  "name": "@react-force/date-utils",
-  "description": "JavaScript utilities",
-  "version": "2.0.4",
+  "name": "@react-force/formik-mui",
+  "description": "Formik components using Material-UI",
+  "version": "2.0.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -17,23 +17,36 @@
     "build:local": "yarn build && yarn lint && yarn test:coverage",
     "build-src": "babel src --root-mode upward --out-dir dist --source-maps --extensions \".ts,.tsx\" --ignore **/*.story.tsx,**/*.test.ts,**/*.test.tsx,**/stories,**/test",
     "build-declaration": "tsc --emitDeclarationOnly",
+    "build-storybook": "rimraf ../../docs && build-storybook -o ../../docs",
     "del-dist": "rimraf dist",
     "format": "prettier --write 'src/**/*.ts*'",
     "lint": "eslint 'src/**/*.ts*'",
     "prebuild": "yarn del-dist",
+    "storybook": "start-storybook -p 6006",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
-    "test": "jest --watch",
-    "test:coverage": "jest --coverage --no-cache"
+    "test": "echo No tests in this package",
+    "test:coverage": "echo No tests in this package"
   },
   "dependencies": {
+    "@nareshbhatia/slate-editor": "^1.3.1",
+    "@react-force/date-utils": "^2.0.4",
+    "formik": "^2.1.4",
+    "immutable": "^4.0.0-rc.12",
     "moment": "^2.26.0",
-    "moment-duration-format": "^2.3.2",
-    "moment-range": "^4.0.2",
-    "moment-timezone": "^0.5.31"
+    "moment-timezone": "^0.5.31",
+    "react-text-mask": "^5.4.3",
+    "slate": "0.47.9",
+    "slate-html-serializer": "0.8.11",
+    "slate-react": "0.22.10"
+  },
+  "peerDependencies": {
+    "@material-ui/core": "^4.x",
+    "@material-ui/lab": "^4.x",
+    "react": "^16.x"
   },
   "devDependencies": {
-    "@types/moment-duration-format": "^2.2.2",
-    "@types/moment-timezone": "^0.5.13"
+    "@types/moment-timezone": "^0.5.13",
+    "@types/react-text-mask": "^5.4.6"
   },
   "jest": {
     "verbose": true,
@@ -53,9 +66,12 @@
       "tsx",
       "js"
     ],
+    "setupFilesAfterEnv": [
+      "./src/test/setupTestsAfterEnv.ts"
+    ],
     "coverageThreshold": {
       "global": {
-        "branches": 60,
+        "branches": 80,
         "functions": 70,
         "lines": 80,
         "statements": 80
