@@ -1,4 +1,5 @@
 export * from './CheckboxWithLabel';
+export * from './DateTimeField';
 export * from './DurationField';
 export * from './MultiSelectField';
 export * from './RichTextField';
