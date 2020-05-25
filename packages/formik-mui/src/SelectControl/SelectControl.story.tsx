@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 import { days } from '../test/mock-data';
-import { StoryContainer, StoryDecorator } from '../stories';
+import { StoryDecorator } from '../stories';
 import { SelectControl } from './SelectControl';
 
 const SelectControlExample = () => {
@@ -23,5 +23,4 @@ const SelectControlExample = () => {
 
 storiesOf('SelectControl', module)
     .addDecorator(StoryDecorator)
-    .addDecorator(StoryContainer)
     .add('Example', () => <SelectControlExample />);

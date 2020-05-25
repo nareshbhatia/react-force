@@ -6,12 +6,10 @@ import { useField, useFormikContext } from 'formik';
 import TextField, { TextFieldProps } from '@material-ui/core/TextField';
 
 interface AutocompleteInjectedProps<OptionType> {
-    multiple: boolean;
-    disableClearable: boolean;
-    disableCloseOnSelect: boolean;
     autoComplete: boolean;
     autoHighlight: boolean;
-    value: OptionType[];
+    clearOnEscape: boolean;
+    value: OptionType;
     options: OptionType[];
     getOptionLabel: (option: OptionType) => string;
     renderInput: (params: AutocompleteRenderInputParams) => ReactNode;
@@ -22,7 +20,7 @@ interface AutocompleteInjectedProps<OptionType> {
     ) => void;
 }
 
-export interface MultiSelectFieldProps<OptionType> {
+export interface SingleSelectFieldProps<OptionType> {
     name: string;
     label?: string;
     options: OptionType[];
@@ -33,46 +31,15 @@ export interface MultiSelectFieldProps<OptionType> {
 }
 
 /**
- * Formik field that provides multiple values for an array.
- *
- * Uses Material-UI's <Autocomplete> component for multiple selections.
- * The key prop to focus on is `renderContainer` which is the function
- * responsible for rendering the Autocomplete (see the default value of
- * this function: (props) => <Autocomplete {...props} />).
- *
- * The idea here is that the default use of <MultiSelectField> should be
- * very easy, however developers should be able to customize the behavior
- * of Autocomplete. For example, to show the AutoComplete in small size,
- * all you would have to do is to override renderContainer to pass
- * an extra prop:
- *
- * <MultiSelectField
- *     name="days"
- *     label="Days"
- *     options={days}
- *     getOptionLabel={(option: Day) => option.name}
- *     renderContainer={(props) => <Autocomplete {...props} size="small" />}
- * />
- *
- * Rest of the props (name, label, options & getOptionLabel) simply provide
- * the application specific content to renderContainer.
- *
- * This is a nice application of the "Render Prop" pattern. For details, see
- * https://blog.andrewbran.ch/polymorphic-react-components/
- *
- * @param name
- * @param label
- * @param options
- * @param getOptionLabel
- * @param renderContainer
+ * Formik field that selects single option from an array of options.
  */
-export function MultiSelectField<OptionType>({
+export function SingleSelectField<OptionType>({
     name,
     label,
     options,
     getOptionLabel,
     renderContainer = (props) => <Autocomplete {...props} />,
-}: MultiSelectFieldProps<OptionType>) {
+}: SingleSelectFieldProps<OptionType>) {
     const [field, meta] = useField(name);
     const formik = useFormikContext<any>();
 
@@ -81,11 +48,9 @@ export function MultiSelectField<OptionType>({
     };
 
     return renderContainer({
-        multiple: true,
-        disableClearable: true,
-        disableCloseOnSelect: true,
         autoComplete: true,
         autoHighlight: true,
+        clearOnEscape: true,
         value: field.value,
         options,
         getOptionLabel,

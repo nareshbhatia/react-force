@@ -1,5 +1,6 @@
 import React from 'react';
 import MomentUtils from '@date-io/moment';
+import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -10,7 +11,7 @@ export const StoryDecorator = (story: any) => {
         <ThemeProvider theme={theme}>
             <MuiPickersUtilsProvider utils={MomentUtils}>
                 <CssBaseline />
-                {story()}
+                <Box p={1}>{story()}</Box>
             </MuiPickersUtilsProvider>
         </ThemeProvider>
     );

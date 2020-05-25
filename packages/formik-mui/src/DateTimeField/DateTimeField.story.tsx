@@ -6,7 +6,7 @@ import { DateUtils } from '@react-force/date-utils';
 import { storiesOf } from '@storybook/react';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
-import { StoryContainer, StoryDecorator } from '../stories';
+import { StoryDecorator } from '../stories';
 import { DateTimeField } from './DateTimeField';
 
 const { dateToShortDateTimeStr } = DateUtils;
@@ -98,5 +98,4 @@ const DateTimeForm = () => {
 
 storiesOf('DateTimeField', module)
     .addDecorator(StoryDecorator)
-    .addDecorator(StoryContainer)
     .add('Example', () => <DateTimeForm />);
