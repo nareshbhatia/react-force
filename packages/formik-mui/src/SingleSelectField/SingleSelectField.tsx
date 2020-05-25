@@ -6,9 +6,9 @@ import { useField, useFormikContext } from 'formik';
 import TextField, { TextFieldProps } from '@material-ui/core/TextField';
 
 interface AutocompleteInjectedProps<OptionType> {
+    disableClearable: boolean;
     autoComplete: boolean;
     autoHighlight: boolean;
-    clearOnEscape: boolean;
     value: OptionType;
     options: OptionType[];
     getOptionLabel: (option: OptionType) => string;
@@ -48,9 +48,11 @@ export function SingleSelectField<OptionType>({
     };
 
     return renderContainer({
+        // Ensures a sane value that dependent fields can rely on, e.g a date
+        // field might rely on a valid timezone from this field
+        disableClearable: true,
         autoComplete: true,
         autoHighlight: true,
-        clearOnEscape: true,
         value: field.value,
         options,
         getOptionLabel,

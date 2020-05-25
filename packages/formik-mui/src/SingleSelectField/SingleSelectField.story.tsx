@@ -35,7 +35,7 @@ const Example = () => {
                     actions.setSubmitting(false);
                 }}
             >
-                {({ resetForm }) => (
+                {({ resetForm, values }) => (
                     <Form>
                         <SingleSelectField
                             name="timezone"
@@ -43,6 +43,11 @@ const Example = () => {
                             options={timezones}
                             getOptionLabel={(option: Timezone) => option.label}
                         />
+
+                        <Typography variant="body1">
+                            {values.timezone ? values.timezone.label : 'null'}
+                        </Typography>
+
                         <Box mt={2}>
                             <Button
                                 variant="contained"
