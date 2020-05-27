@@ -1,7 +1,7 @@
 {
   "name": "@react-force/web-utils",
   "description": "Web API utilities",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -24,6 +24,12 @@
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "test": "echo No tests in this package",
     "test:coverage": "echo No tests in this package"
+  },
+  "dependencies": {
+    "debug": "^4.1.1"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.5"
   },
   "jest": {
     "verbose": true,

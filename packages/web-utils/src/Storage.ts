@@ -1,6 +1,10 @@
 /**
  * A thin wrapper on top of localStorage
  */
+import Debug from 'debug';
+
+const debug = Debug('rfwu:Storage');
+
 const isEnabled = checkLocalStorageEnabled();
 
 // Based on https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API#Feature-detecting_localStorage
@@ -21,9 +25,7 @@ function checkLocalStorageEnabled() {
  * @param {any} value - value to write (undefined written as empty string)
  */
 function set(key: string, value: any): void {
-    if (process.env.NODE_ENV === 'development') {
-        console.log(`Storage.set(${key}, ${JSON.stringify(value)})`);
-    }
+    debug(`Storage.set(${key}, ${JSON.stringify(value)})`);
 
     if (isEnabled) {
         localStorage.setItem(
@@ -52,9 +54,7 @@ function get(key: string, defaultValue?: any): any {
  * @param {string} key - name of the key to remove
  */
 function remove(key: string) {
-    if (process.env.NODE_ENV === 'development') {
-        console.log(`Storage.remove(${key})`);
-    }
+    debug(`Storage.remove(${key})`);
 
     if (isEnabled) {
         localStorage.removeItem(key);

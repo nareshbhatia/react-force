@@ -50,7 +50,7 @@
     "@types/moment-timezone": "^0.5.13",
     "@types/react-text-mask": "^5.4.6",
     "@types/yup": "^0.29.0",
-    "yup": "^0.29.0"
+    "yup": "^0.29.1"
   },
   "jest": {
     "verbose": true,
