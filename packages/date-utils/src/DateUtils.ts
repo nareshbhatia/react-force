@@ -31,13 +31,6 @@ function compare(date1: Date, date2: Date): number {
 }
 
 /**
- * Adjust the supplied date to the start of an hour
- */
-function adjustToStartOfHour(date: Date, timezone: string): Date {
-    return moment.tz(date, timezone).startOf('hour').toDate();
-}
-
-/**
  * Computes a date from a date part, a time part and a timezone
  * @param {string} datePart, ISO format e.g. 2019-12-25
  * @param {string} timePart, hh:mm (AM|am|PM|pm), e.g 12:15 AM
@@ -65,9 +58,33 @@ function computeDate(
 }
 
 /**
+ * @param {string} durationStr - duration in formats acceptable to moment, e.g. PT1H30M (ISO 8601), 01:30
+ * @returns {number} duration in milliseconds
+ */
+function durationStrToMillis(durationStr: string): number {
+    return moment.duration(durationStr).asMilliseconds();
+}
+
+/**
+ * @param {number} millis - duration in milliseconds
+ * @returns {string} duration in 'hh:mm' format, e.g. 01:30
+ */
+function formatMillisToDuration(millis: number): string {
+    return moment.duration(millis).format('hh:mm', { trim: false });
+}
+
+/**
+ * @param {number} millis - duration in milliseconds
+ * @returns {string} duration in ISO 8601 format, e.g. PT1H30M
+ */
+function formatMillisToISODuration(millis: number): string {
+    return moment.duration(millis).toJSON();
+}
+
+/**
  * @returns {string} e.g. Monday, January 1, 2016
  */
-function dateToDayDate(date: Date, timezone?: string): string {
+function formatToDayDate(date: Date, timezone?: string): string {
     const m = timezone ? moment(date).tz(timezone) : moment(date);
     return m.format('dddd, MMMM D, YYYY');
 }
@@ -75,7 +92,7 @@ function dateToDayDate(date: Date, timezone?: string): string {
 /**
  * @returns {string} e.g. Mon, Jan 1st, 2016 9:00 AM
  */
-function dateToLongDateTimeStr(date: Date, timezone?: string): string {
+function formatToLongDateTime(date: Date, timezone?: string): string {
     const m = timezone ? moment(date).tz(timezone) : moment(date);
     return m.format('ddd, MMM Do, YYYY h:mm A');
 }
@@ -83,7 +100,7 @@ function dateToLongDateTimeStr(date: Date, timezone?: string): string {
 /**
  * @returns {string} e.g. Jan 1, 2016 9:00 AM (no leading zero on day)
  */
-function dateToShortDateTimeStr(date: Date, timezone?: string): string {
+function formatToShortDateTime(date: Date, timezone?: string): string {
     const m = timezone ? moment(date).tz(timezone) : moment(date);
     return m.format('MMM D, YYYY h:mm A');
 }
@@ -91,7 +108,7 @@ function dateToShortDateTimeStr(date: Date, timezone?: string): string {
 /**
  * @returns {string} e.g. 9:00 AM
  */
-function dateToTimeStr(date: Date, timezone?: string): string {
+function formatToTime(date: Date, timezone?: string): string {
     const m = timezone ? moment(date).tz(timezone) : moment(date);
     return m.format('h:mm A');
 }
@@ -100,7 +117,7 @@ function dateToTimeStr(date: Date, timezone?: string): string {
  * Converts a Date object to a time string with leading zeros
  * @returns {string} e.g. 09:00 AM
  */
-function dateToFullTimeStr(date: Date, timezone?: string): string {
+function formatToFullTime(date: Date, timezone?: string): string {
     const m = timezone ? moment(date).tz(timezone) : moment(date);
     return m.format('hh:mm A');
 }
@@ -109,7 +126,7 @@ function dateToFullTimeStr(date: Date, timezone?: string): string {
  * Converts a Date object to a date only string in ISO 8601 format.
  * @returns {string} e.g. 2016-12-07
  */
-function dateToISODateString(date: Date, timezone?: string): string {
+function formatToISODate(date: Date, timezone?: string): string {
     const m = timezone ? moment(date).tz(timezone) : moment(date);
     return m.format('YYYY-MM-DD');
 }
@@ -120,7 +137,7 @@ function dateToISODateString(date: Date, timezone?: string): string {
  * The timezone is always zero UTC offset, as denoted by the suffix "Z"
  * @returns {string} e.g. 2016-12-07T00:00:00.000Z
  */
-function dateToISODateTimeString(date: Date): string {
+function formatToISODateTime(date: Date): string {
     return date.toISOString();
 }
 
@@ -128,11 +145,7 @@ function dateToISODateTimeString(date: Date): string {
  * @returns {string} e.g. Jan 1, 2016 - Jan 2, 2016 (no leading zero on day)
  * if beg & end are on the same day then simply returns the first date
  */
-function dateRangeToDateRangeString(
-    beg: Date,
-    end: Date,
-    timezone?: string
-): string {
+function formatToDateRange(beg: Date, end: Date, timezone?: string): string {
     const fmt = 'MMM D, YYYY';
     const mBeg = timezone ? moment(beg).tz(timezone) : moment(beg);
     const mEnd = timezone ? moment(end).tz(timezone) : moment(end);
@@ -144,12 +157,12 @@ function dateRangeToDateRangeString(
 /**
  * @returns {string} e.g. Mon, Jan 1st, 2016 9:00 AM - 10:00 AM
  */
-function dateRangeToLongTimeRangeString(
+function formatToLongTimeRange(
     beg: Date,
     end: Date,
     timezone?: string
 ): string {
-    return `${dateToLongDateTimeStr(beg, timezone)} - ${dateToTimeStr(
+    return `${formatToLongDateTime(beg, timezone)} - ${formatToTime(
         end,
         timezone
     )}`;
@@ -158,12 +171,12 @@ function dateRangeToLongTimeRangeString(
 /**
  * @returns {string} e.g. 9:00 AM - 10:00 AM
  */
-function dateRangeToShortTimeRangeString(
+function formatToShortTimeRange(
     beg: Date,
     end: Date,
     timezone?: string
 ): string {
-    return `${dateToTimeStr(beg, timezone)} - ${dateToTimeStr(end, timezone)}`;
+    return `${formatToTime(beg, timezone)} - ${formatToTime(end, timezone)}`;
 }
 
 /**
@@ -183,35 +196,34 @@ function guessLocalTz(): string {
 }
 
 /**
- * @param {number} millis - duration in milliseconds
- * @returns {string} duration in 'hh:mm' format, e.g. 01:30
- */
-function millisToDurationStr(millis: number): string {
-    return moment.duration(millis).format('hh:mm', { trim: false });
-}
-
-/**
- * @param {number} millis - duration in milliseconds
- * @returns {string} duration in ISO 8601 format, e.g. PT1H30M
- */
-function millisToISODuration(millis: number): string {
-    return moment.duration(millis).toJSON();
-}
-
-/**
- * @param {string} durationStr - duration in formats acceptable to moment, e.g. PT1H30M (ISO 8601), 01:30
- * @returns {number} duration in milliseconds
- */
-function durationStrToMillis(durationStr: string): number {
-    return moment.duration(durationStr).asMilliseconds();
-}
-
-/**
  * @param timezone
  * @returns {Date} start of today in the specified timezone
  */
 function startOfToday(timezone: string): Date {
     return moment().tz(timezone).startOf('day').toDate();
+}
+
+/**
+ * Returns start of the hour from the specified date
+ * If exactly at the hour mark, then returns the same date
+ * @param date
+ * @param timezone
+ */
+function startOfHour(date: Date, timezone: string): Date {
+    return moment.tz(date, timezone).startOf('hour').toDate();
+}
+
+/**
+ * Returns start of the next hour from the specified date
+ * If exactly at the hour mark, then returns the same date
+ * @param date
+ * @param timezone
+ */
+function startOfNextHour(date: Date, timezone: string): Date {
+    const m = moment.tz(date, timezone);
+    return m.minute() > 0 || m.second() > 0 || m.millisecond() > 0
+        ? m.add(1, 'hour').startOf('hour').toDate()
+        : date;
 }
 
 /**
@@ -229,25 +241,26 @@ export const DateUtils = {
     DateRegEx,
     TimeRegEx,
     DurationRegEx,
-    adjustToStartOfHour,
+    isEqual,
     compare,
     computeDate,
-    dateToDayDate,
-    dateToLongDateTimeStr,
-    dateToShortDateTimeStr,
-    dateToTimeStr,
-    dateToFullTimeStr,
-    dateToISODateString,
-    dateToISODateTimeString,
-    dateRangeToDateRangeString,
-    dateRangeToLongTimeRangeString,
-    dateRangeToShortTimeRangeString,
-    isEqual,
+    durationStrToMillis,
+    formatMillisToDuration,
+    formatMillisToISODuration,
+    formatToDayDate,
+    formatToLongDateTime,
+    formatToShortDateTime,
+    formatToTime,
+    formatToFullTime,
+    formatToISODate,
+    formatToISODateTime,
+    formatToDateRange,
+    formatToLongTimeRange,
+    formatToShortTimeRange,
     gmtOffset,
     guessLocalTz,
-    millisToDurationStr,
-    millisToISODuration,
-    durationStrToMillis,
     startOfToday,
+    startOfHour,
+    startOfNextHour,
     tzAbbr,
 };
