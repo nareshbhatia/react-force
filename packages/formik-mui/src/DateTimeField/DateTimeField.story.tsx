@@ -9,7 +9,7 @@ import * as yup from 'yup';
 import { StoryDecorator } from '../stories';
 import { DateTimeField } from './DateTimeField';
 
-const { dateToShortDateTimeStr } = DateUtils;
+const { formatToShortDateTime } = DateUtils;
 
 // Default timezone
 const DefaultTz = 'America/New_York';
@@ -47,11 +47,11 @@ const DateTimeForm = () => {
             onSubmit={(values, actions) => {
                 console.log(
                     'Str Time:',
-                    dateToShortDateTimeStr(values.startTime, DefaultTz)
+                    formatToShortDateTime(values.startTime, DefaultTz)
                 );
                 console.log(
                     'End Time:',
-                    dateToShortDateTimeStr(values.endTime, DefaultTz)
+                    formatToShortDateTime(values.endTime, DefaultTz)
                 );
                 actions.setSubmitting(false);
             }}

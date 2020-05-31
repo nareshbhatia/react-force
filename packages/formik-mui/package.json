@@ -1,7 +1,7 @@
 {
   "name": "@react-force/formik-mui",
   "description": "Formik components using Material-UI",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -28,6 +28,7 @@
     "test:coverage": "echo No tests in this package"
   },
   "dependencies": {
+    "@date-io/moment": "^1.3.13",
     "@material-ui/pickers": "^3.2.10",
     "@nareshbhatia/slate-editor": "^1.3.1",
     "formik": "^2.1.4",
@@ -37,7 +38,8 @@
     "react-text-mask": "^5.4.3",
     "slate": "0.47.9",
     "slate-html-serializer": "0.8.11",
-    "slate-react": "0.22.10"
+    "slate-react": "0.22.10",
+    "yup": "^0.29.1"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.x",
@@ -45,12 +47,10 @@
     "react": "^16.x"
   },
   "devDependencies": {
-    "@date-io/moment": "^1.3.13",
-    "@react-force/date-utils": "^2.1.1",
+    "@react-force/date-utils": "^3.0.0",
     "@types/moment-timezone": "^0.5.13",
     "@types/react-text-mask": "^5.4.6",
-    "@types/yup": "^0.29.0",
-    "yup": "^0.29.1"
+    "@types/yup": "^0.29.1"
   },
   "jest": {
     "verbose": true,

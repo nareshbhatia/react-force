@@ -2611,16 +2611,6 @@
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
 
-"@react-force/date-utils@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@react-force/date-utils/-/date-utils-2.1.1.tgz#12b6f989d7399fee5c1dd47fa277f0f90fbdd73b"
-  integrity sha512-QzHFjjEstsZNxsEgTo50hLBYjA34A6wU8o0YyXt7nwCydFz9TTIdhHo+J1x40b2VnofbDRRXs6dPsB/YOQStQg==
-  dependencies:
-    moment "^2.26.0"
-    moment-duration-format "^2.3.2"
-    moment-range "^4.0.2"
-    moment-timezone "^0.5.31"
-
 "@sinonjs/commons@^1.7.0":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-1.8.0.tgz#c8d68821a854c555bba172f3b06959a0039b236d"
@@ -3471,7 +3461,7 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@types/yup@^0.29.0":
+"@types/yup@^0.29.1":
   version "0.29.1"
   resolved "https://registry.yarnpkg.com/@types/yup/-/yup-0.29.1.tgz#42afc775ed43f8df24d4c0ec3a127fdd3d93281c"
   integrity sha512-QGerem3F2hYdk4PTYGo8fzToCn86edFbwCTKfwYtxSFebb6UpPj0aP6+eTvk8CrswnVQjoBNKmVPm6b74gQxLg==
