@@ -14,6 +14,25 @@ const errorToString = (error: any) => {
 };
 
 /**
+ * Returns a random string of specified length
+ * (based on https://stackoverflow.com/a/1349426/293680)
+ *
+ * @param length
+ */
+const getRandomString = (length: number): string => {
+    let result = '';
+    const characters =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(
+            Math.floor(Math.random() * charactersLength)
+        );
+    }
+    return result;
+};
+
+/**
  * isBlank
  * -------
  * Returns true if string is undefined or null or it's trimmed length is 0.
@@ -74,6 +93,7 @@ const sanitizeString = (str: string | undefined | null): string | null => {
 
 export const StringUtils = {
     errorToString,
+    getRandomString,
     isBlank,
     isEmpty,
     sanitizeString,
