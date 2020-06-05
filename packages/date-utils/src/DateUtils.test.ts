@@ -3,8 +3,9 @@ import { DateUtils } from './DateUtils';
 const {
     isEqual,
     compare,
-    computeDate,
+    createDate,
     durationStrToMillis,
+    format,
     formatMillisToDuration,
     formatMillisToISODuration,
     formatToDayDate,
@@ -82,14 +83,34 @@ describe('DateUtils', () => {
         });
     });
 
-    describe('computeDate()', () => {
-        it('returns a date from date part, time part and timezone', () => {
-            const actual = computeDate('2020-01-01', '09:00 AM', PST);
-            expect(isEqual(actual, PST0900)).toBe(true);
+    describe('createDate()', () => {
+        it('returns a date from date string, format and timezone', () => {
+            expect(
+                isEqual(
+                    createDate(
+                        '2020-01-01 09:00 AM',
+                        'YYYY-MM-DD hh:mm A',
+                        PST
+                    ),
+                    PST0900
+                )
+            ).toBe(true);
+            expect(
+                isEqual(
+                    createDate(
+                        '2020-01-01 09:00 AM',
+                        'YYYY-MM-DD hh:mm A',
+                        IST
+                    ),
+                    IST0900
+                )
+            ).toBe(true);
         });
 
         it('throws if computed date is invalid', () => {
-            expect(() => computeDate('2020-01-00', '09:00 AM', PST)).toThrow();
+            expect(() =>
+                createDate('2020-01-00 09:00 AM', 'YYYY-MM-DD hh:mm A', PST)
+            ).toThrow();
         });
     });
 
@@ -97,6 +118,15 @@ describe('DateUtils', () => {
         it('returns millis for the given duration string', () => {
             const millis = durationStrToMillis('PT1H30M');
             expect(millis).toEqual(NINETY_MINUTES);
+        });
+    });
+
+    describe('format()', () => {
+        it('formats date as specified by format and timezone', () => {
+            // Format in ISO 8601 format but without the timezone
+            expect(format(PST0900, 'YYYY-MM-DD[T]HH:mm:ss', PST)).toBe(
+                '2020-01-01T09:00:00'
+            );
         });
     });
 

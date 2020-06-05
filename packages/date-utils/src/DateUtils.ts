@@ -31,24 +31,28 @@ function compare(date1: Date, date2: Date): number {
 }
 
 /**
- * Computes a date from a date part, a time part and a timezone
- * @param {string} datePart, ISO format e.g. 2019-12-25
- * @param {string} timePart, hh:mm (AM|am|PM|pm), e.g 12:15 AM
- * @param {string} timezone, e.g. America/New_York
- * @returns {Date} e.g. 2016-12-07T00:00:00.000Z
- *     returns null if datePart is empty
+ * Creates a Date object from a date string, a format and a timezone.
+ *
+ * Example:
+ *   createDate('2020-01-01 09:00 AM', 'YYYY-MM-DD hh:mm A', 'Asia/Calcutta')
+ *   => 2020-01-01T09:00:00+05:30
+ *
+ * @param {string} dateString, e.g. 2020-01-01 09:00 AM
+ * @param {string} format, e.g YYYY-MM-DD hh:mm A
+ * @param {string} timezone, e.g. Asia/Calcutta
+ * @returns {Date} e.g. 2020-01-01T09:00:00+05:30
  *     throws if computed date is invalid
  */
-function computeDate(
-    datePart: string,
-    timePart: string,
+function createDate(
+    dateString: string,
+    format: string,
     timezone?: string
 ): Date {
     // Note: It is crucial to call moment.tz( ) instead of moment( ).tz( ).
     // This makes sure that the moment is constructed with the correct timezone.
     const m = timezone
-        ? moment.tz(`${datePart} ${timePart}`, 'YYYY-MM-DD hh:mm A', timezone)
-        : moment(`${datePart} ${timePart}`, 'YYYY-MM-DD hh:mm A');
+        ? moment.tz(dateString, format, timezone)
+        : moment(dateString, format);
 
     if (!m.isValid()) {
         throw new Error('Invalid date');
@@ -63,6 +67,17 @@ function computeDate(
  */
 function durationStrToMillis(durationStr: string): number {
     return moment.duration(durationStr).asMilliseconds();
+}
+
+/**
+ * Formats a Date object based on the specified format string and timezone.
+ * @param date
+ * @param format
+ * @param timezone
+ */
+function format(date: Date, format: string, timezone?: string): string {
+    const m = timezone ? moment(date).tz(timezone) : moment(date);
+    return m.format(format);
 }
 
 /**
@@ -243,8 +258,9 @@ export const DateUtils = {
     DurationRegEx,
     isEqual,
     compare,
-    computeDate,
+    createDate,
     durationStrToMillis,
+    format,
     formatMillisToDuration,
     formatMillisToISODuration,
     formatToDayDate,
