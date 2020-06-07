@@ -47,10 +47,10 @@
     "react": "^16.x"
   },
   "devDependencies": {
-    "@react-force/date-utils": "^3.0.0",
+    "@react-force/date-utils": "^3.1.0",
     "@types/moment-timezone": "^0.5.13",
     "@types/react-text-mask": "^5.4.6",
-    "@types/yup": "^0.29.1"
+    "@types/yup": "^0.29.2"
   },
   "jest": {
     "verbose": true,
