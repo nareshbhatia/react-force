@@ -4,7 +4,7 @@ import { days } from '../test/mock-data';
 import { StoryDecorator } from '../stories';
 import { SelectControl } from './SelectControl';
 
-const SelectControlExample = () => {
+const Example = () => {
     const [dayId, setDayId] = useState('Mon');
 
     return (
@@ -23,4 +23,4 @@ const SelectControlExample = () => {
 
 storiesOf('SelectControl', module)
     .addDecorator(StoryDecorator)
-    .add('Example', () => <SelectControlExample />);
+    .add('Example', () => <Example />);

@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { DateTimePicker } from '@material-ui/pickers';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 import classNames from 'classnames';
-import { useField, useFormikContext } from 'formik';
+import { useField } from 'formik';
 import moment from 'moment';
 import 'moment-timezone';
 
@@ -27,14 +27,13 @@ export const DateTimeField = ({
     ...rest
 }: DateTimeFieldProps) => {
     const classes = useStyles();
-    const [field] = useField<Date>(name);
-    const formik = useFormikContext<any>();
+    const [field, , helpers] = useField(name);
 
     const m = moment(field.value).tz(timezone);
 
     const handleChange = (date: MaterialUiPickersDate) => {
         if (date != null) {
-            formik.setFieldValue(name, date.toDate(), false);
+            helpers.setValue(date.toDate());
         }
     };
 

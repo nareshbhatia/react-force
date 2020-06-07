@@ -11,7 +11,7 @@ export const StoryDecorator = (story: any) => {
         <ThemeProvider theme={theme}>
             <MuiPickersUtilsProvider utils={MomentUtils}>
                 <CssBaseline />
-                <Box p={1}>{story()}</Box>
+                <Box p={2}>{story()}</Box>
             </MuiPickersUtilsProvider>
         </ThemeProvider>
     );

@@ -1,101 +1,79 @@
-import React from 'react';
+import React, { Fragment, useState } from 'react';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import { DateUtils } from '@react-force/date-utils';
 import { storiesOf } from '@storybook/react';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
+import { FormActions } from '../FormActions';
 import { StoryDecorator } from '../stories';
 import { DateTimeField } from './DateTimeField';
 
 const { formatToShortDateTime } = DateUtils;
 
-// Default timezone
+// Defaults
 const DefaultTz = 'America/New_York';
-
-interface FormEntity {
-    startTime: Date;
-    endTime: Date;
-}
-
-const validationSchema = yup.object().shape({
-    startTime: yup.date().required(),
-    endTime: yup.date().required(),
-});
+const EST0900AM = new Date('2019-01-01T14:00:00Z');
+const EST0500PM = new Date('2019-01-01T22:00:00Z');
 
 const useStyles = makeStyles((theme: Theme) => ({
     date: {
         marginRight: 12,
     },
-    time: {
-        width: 80,
-        marginRight: theme.spacing(3),
-    },
 }));
 
-const DateTimeForm = () => {
+const ExampleForm = () => {
     const classes = useStyles();
+    const [startTime, setStartTime] = useState(EST0900AM);
+    const [endTime, setEndTime] = useState(EST0500PM);
+
+    const validationSchema = yup.object().shape({
+        startTime: yup.date().required(),
+        endTime: yup.date().required(),
+    });
 
     return (
-        <Formik<FormEntity>
-            initialValues={{
-                startTime: new Date('2019-01-01T14:00:00Z'),
-                endTime: new Date('2019-01-01T22:00:00Z'),
-            }}
-            validationSchema={validationSchema}
-            onSubmit={(values, actions) => {
-                console.log(
-                    'Str Time:',
-                    formatToShortDateTime(values.startTime, DefaultTz)
-                );
-                console.log(
-                    'End Time:',
-                    formatToShortDateTime(values.endTime, DefaultTz)
-                );
-                actions.setSubmitting(false);
-            }}
-        >
-            {({ resetForm }) => (
-                <Form>
-                    <DateTimeField
-                        className={classes.date}
-                        name="startTime"
-                        label="Start Time"
-                        timezone={DefaultTz}
-                    />
-                    <DateTimeField
-                        className={classes.date}
-                        name="endTime"
-                        label="End Time"
-                        timezone={DefaultTz}
-                    />
+        <Fragment>
+            <Formik
+                initialValues={{ startTime, endTime }}
+                validationSchema={validationSchema}
+                onSubmit={(values, actions) => {
+                    setStartTime(values.startTime);
+                    setEndTime(values.endTime);
+                    actions.setSubmitting(false);
+                }}
+            >
+                {({ resetForm }) => (
+                    <Form>
+                        <DateTimeField
+                            className={classes.date}
+                            name="startTime"
+                            label="Start Time"
+                            timezone={DefaultTz}
+                        />
+                        <DateTimeField
+                            className={classes.date}
+                            name="endTime"
+                            label="End Time"
+                            timezone={DefaultTz}
+                        />
+                        <FormActions submitLabel="Save" resetForm={resetForm} />
+                    </Form>
+                )}
+            </Formik>
 
-                    <Box mt={4}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            type="submit"
-                        >
-                            Save
-                        </Button>
-                        &nbsp;
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            onClick={() => {
-                                resetForm();
-                            }}
-                        >
-                            Cancel
-                        </Button>
-                    </Box>
-                </Form>
-            )}
-        </Formik>
+            <Box mt={4}>
+                <Typography variant="h6">Form values</Typography>
+                <Typography>
+                    {formatToShortDateTime(startTime, DefaultTz)} -{' '}
+                    {formatToShortDateTime(endTime, DefaultTz)}
+                </Typography>
+            </Box>
+        </Fragment>
     );
 };
 
 storiesOf('DateTimeField', module)
     .addDecorator(StoryDecorator)
-    .add('Example', () => <DateTimeForm />);
+    .add('Example', () => <ExampleForm />);

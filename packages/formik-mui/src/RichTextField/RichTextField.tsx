@@ -2,7 +2,7 @@ import React from 'react';
 import FormControl, { FormControlProps } from '@material-ui/core/FormControl';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { SlateEditor } from '@nareshbhatia/slate-editor';
-import { useField, useFormikContext } from 'formik';
+import { useField } from 'formik';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -38,11 +38,10 @@ export const RichTextField = ({
     ...rest
 }: RichTextFieldProps) => {
     const classes = useStyles();
-    const [field, meta] = useField(name);
-    const formik = useFormikContext<any>();
+    const [field, meta, helpers] = useField(name);
 
     const handleChange = (option: any) => {
-        formik.setFieldValue(name, option.value);
+        helpers.setValue(option.value);
     };
 
     return (

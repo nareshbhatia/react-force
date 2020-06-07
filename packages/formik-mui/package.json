@@ -1,7 +1,7 @@
 {
   "name": "@react-force/formik-mui",
   "description": "Formik components using Material-UI",
-  "version": "2.0.4",
+  "version": "2.1.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -47,6 +47,7 @@
     "react": "^16.x"
   },
   "devDependencies": {
+    "@react-force/core": "^2.2.0",
     "@react-force/date-utils": "^3.1.0",
     "@types/moment-timezone": "^0.5.13",
     "@types/react-text-mask": "^5.4.6",

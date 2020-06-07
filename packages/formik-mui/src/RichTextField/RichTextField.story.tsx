@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { Fragment, useState } from 'react';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import { htmlSerializer } from '@nareshbhatia/slate-editor';
+import { HtmlView } from '@react-force/core';
 import { storiesOf } from '@storybook/react';
 import { Form, Formik } from 'formik';
+import { FormActions } from '../FormActions';
 import { StoryDecorator } from '../stories';
 import { RichTextField } from './RichTextField';
 
@@ -14,21 +16,20 @@ const useStyles = makeStyles({
     },
 });
 
-const TestForm = () => {
+const ExampleForm = () => {
     const classes = useStyles();
+    const [message, setMessage] = useState('<p>Hello World!</p>');
 
     return (
-        <Formik
-            initialValues={{
-                message: htmlSerializer.deserialize('<p>Hello World!</p>'),
-            }}
-            onSubmit={(values, actions) => {
-                console.log(htmlSerializer.serialize(values.message));
-                actions.setSubmitting(false);
-            }}
-        >
-            {({ resetForm }) => (
-                <Box p={1}>
+        <Fragment>
+            <Formik
+                initialValues={{ message: htmlSerializer.deserialize(message) }}
+                onSubmit={(values, actions) => {
+                    setMessage(htmlSerializer.serialize(values.message));
+                    actions.setSubmitting(false);
+                }}
+            >
+                {({ resetForm }) => (
                     <Form>
                         <RichTextField
                             name="message"
@@ -37,32 +38,19 @@ const TestForm = () => {
                             editorClassName={classes.editor}
                             fullWidth
                         />
-                        <Box mt={2}>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                type="submit"
-                            >
-                                Save
-                            </Button>
-                            &nbsp;
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                onClick={() => {
-                                    resetForm();
-                                }}
-                            >
-                                Cancel
-                            </Button>
-                        </Box>
+                        <FormActions submitLabel="Save" resetForm={resetForm} />
                     </Form>
-                </Box>
-            )}
-        </Formik>
+                )}
+            </Formik>
+
+            <Box mt={4}>
+                <Typography variant="h6">Form values</Typography>
+                <HtmlView html={message} />
+            </Box>
+        </Fragment>
     );
 };
 
 storiesOf('RichTextField', module)
     .addDecorator(StoryDecorator)
-    .add('Example', () => <TestForm />);
+    .add('Example', () => <ExampleForm />);

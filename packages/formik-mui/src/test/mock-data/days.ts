@@ -30,4 +30,14 @@ export const days: Array<Day> = [
         name: 'Friday',
         dayOfWeek: 5,
     },
+    {
+        id: 'Sat',
+        name: 'Saturday',
+        dayOfWeek: 6,
+    },
+    {
+        id: 'Sun',
+        name: 'Sunday',
+        dayOfWeek: 7,
+    },
 ];

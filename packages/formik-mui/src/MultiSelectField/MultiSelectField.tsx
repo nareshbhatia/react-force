@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import Autocomplete, {
     AutocompleteRenderInputParams,
 } from '@material-ui/lab/Autocomplete';
-import { useField, useFormikContext } from 'formik';
+import { useField } from 'formik';
 import TextField, { TextFieldProps } from '@material-ui/core/TextField';
 
 interface AutocompleteInjectedProps<OptionType> {
@@ -73,11 +73,10 @@ export function MultiSelectField<OptionType>({
     getOptionLabel,
     renderContainer = (props) => <Autocomplete {...props} />,
 }: MultiSelectFieldProps<OptionType>) {
-    const [field, meta] = useField(name);
-    const formik = useFormikContext<any>();
+    const [field, meta, helpers] = useField(name);
 
     const handleChange = (event: any, value: any) => {
-        formik.setFieldValue(name, value);
+        helpers.setValue(value);
     };
 
     return renderContainer({

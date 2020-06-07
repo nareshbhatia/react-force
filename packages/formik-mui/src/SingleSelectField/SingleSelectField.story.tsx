@@ -1,11 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Timezone, TzUtils } from '@react-force/date-utils';
 import { storiesOf } from '@storybook/react';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
+import { FormActions } from '../FormActions';
 import { StoryDecorator } from '../stories';
 import { SingleSelectField } from './SingleSelectField';
 
@@ -16,7 +16,7 @@ const DefaultTz = 'America/New_York';
 
 const timezones = getTimezones();
 
-const Example = () => {
+const ExampleForm = () => {
     const [timezone, setTimezone] = useState<Timezone | undefined>(
         findTimezone(timezones, DefaultTz)
     );
@@ -48,38 +48,21 @@ const Example = () => {
                             {values.timezone ? values.timezone.label : 'null'}
                         </Typography>
 
-                        <Box mt={2}>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                type="submit"
-                            >
-                                Save
-                            </Button>
-                            &nbsp;
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                onClick={() => {
-                                    resetForm();
-                                }}
-                            >
-                                Cancel
-                            </Button>
-                        </Box>
+                        <FormActions submitLabel="Save" resetForm={resetForm} />
                     </Form>
                 )}
             </Formik>
 
-            {timezone !== undefined ? (
-                <Box mt={6}>
-                    <Typography variant="h5">{timezone.label}</Typography>
-                </Box>
-            ) : null}
+            <Box mt={4}>
+                <Typography variant="h6">Form values</Typography>
+                {timezone !== undefined ? (
+                    <Typography>{timezone.label}</Typography>
+                ) : null}
+            </Box>
         </Fragment>
     );
 };
 
 storiesOf('SingleSelectField', module)
     .addDecorator(StoryDecorator)
-    .add('Example', () => <Example />);
+    .add('Example', () => <ExampleForm />);
