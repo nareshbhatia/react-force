@@ -4,17 +4,20 @@ import { MultiSelectChipControl } from './MultiSelectChipControl';
 
 const handleChange = jest.fn();
 
-const priorities = [
+type Priority = { id: string; name: string };
+
+const priorities: Array<Priority> = [
     { id: 'low', name: 'Low' },
     { id: 'medium', name: 'Medium' },
     { id: 'high', name: 'High' },
 ];
 
 const PriorityFilter = () => (
-    <MultiSelectChipControl
+    <MultiSelectChipControl<Priority>
         label="Priorities"
-        value={['medium']}
+        value={[priorities[1]]}
         options={priorities}
+        getOptionLabel={(option: Priority) => option.name}
         onChange={handleChange}
     />
 );
@@ -33,32 +36,32 @@ describe('MultiSelectChipControl', () => {
         const { container } = render(<PriorityFilter />);
 
         // TODO: Ideally we should be able to get each chip by using getByLabelText
-        const days = container.querySelectorAll('.MuiChip-root');
-        expect(days.length).toBe(3);
+        const chips = container.querySelectorAll('.MuiChip-root');
+        expect(chips.length).toBe(3);
 
         // Only "medium" should be selected
-        expect(days[0].classList.contains('MuiChip-colorPrimary')).toBe(false);
-        expect(days[1].classList.contains('MuiChip-colorPrimary')).toBe(true);
-        expect(days[2].classList.contains('MuiChip-colorPrimary')).toBe(false);
+        expect(chips[0].classList.contains('MuiChip-colorPrimary')).toBe(false);
+        expect(chips[1].classList.contains('MuiChip-colorPrimary')).toBe(true);
+        expect(chips[2].classList.contains('MuiChip-colorPrimary')).toBe(false);
     });
 
     it('clicking on an unselected chip selects it', async () => {
         const { container } = render(<PriorityFilter />);
 
-        const days = container.querySelectorAll('.MuiChip-root');
-        expect(days[0].classList.contains('MuiChip-colorPrimary')).toBe(false);
+        const chips = container.querySelectorAll('.MuiChip-root');
+        expect(chips[0].classList.contains('MuiChip-colorPrimary')).toBe(false);
 
-        fireEvent.click(days[0]);
-        expect(handleChange).toBeCalledWith(['medium', 'low']);
+        fireEvent.click(chips[0]);
+        expect(handleChange).toBeCalledWith([priorities[1], priorities[0]]);
     });
 
     it('clicking on an selected chip unselects it', async () => {
         const { container } = render(<PriorityFilter />);
 
-        const days = container.querySelectorAll('.MuiChip-root');
-        expect(days[1].classList.contains('MuiChip-colorPrimary')).toBe(true);
+        const chips = container.querySelectorAll('.MuiChip-root');
+        expect(chips[1].classList.contains('MuiChip-colorPrimary')).toBe(true);
 
-        fireEvent.click(days[1]);
+        fireEvent.click(chips[1]);
         expect(handleChange).toBeCalledWith([]);
     });
 });

@@ -4,7 +4,6 @@ export * from './DurationField';
 export * from './FormActions';
 export * from './MultiSelectField';
 export * from './RichTextField';
-export * from './SelectControl';
 export * from './SelectField';
 export * from './SingleSelectField';
 export * from './TextField';

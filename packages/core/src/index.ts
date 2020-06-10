@@ -13,5 +13,6 @@ export * from './MenuButton';
 export * from './MessageRenderer';
 export * from './MultiSelectChipControl';
 export * from './PopupMessage';
+export * from './SelectControl';
 export * from './contexts';
 export * from './models';

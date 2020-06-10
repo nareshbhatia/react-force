@@ -22,38 +22,36 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export interface MultiSelectChipControlProps<OptionType> {
     label?: string;
-    value: Array<string>;
-    options: Array<any>;
-    optionIdAttr?: string;
-    optionNameAttr?: string;
-    onChange: (value: Array<string>) => void;
+    value: Array<OptionType>;
+    options: Array<OptionType>;
+    getOptionLabel: (option: OptionType) => string;
+    onChange: (value: Array<OptionType>) => void;
 }
 
 export function MultiSelectChipControl<OptionType>({
     label,
     value,
     options,
-    optionIdAttr = 'id',
-    optionNameAttr = 'name',
+    getOptionLabel,
     onChange,
 }: MultiSelectChipControlProps<OptionType>) {
     const classes = useStyles();
 
-    const handleClick = (optionIdClicked: string) => {
+    const handleClick = (optionClicked: OptionType) => {
         // Transfer old options to newValue excluding the clicked option
         const newValue = [];
         let optionExisted = false;
-        value.forEach((optionId) => {
-            if (optionId === optionIdClicked) {
+        value.forEach((option) => {
+            if (option === optionClicked) {
                 optionExisted = true;
             } else {
-                newValue.push(optionId);
+                newValue.push(option);
             }
         });
 
         // If option was not selected earlier, then add it to the new value
         if (!optionExisted) {
-            newValue.push(optionIdClicked);
+            newValue.push(optionClicked);
         }
 
         onChange(newValue);
@@ -68,21 +66,18 @@ export function MultiSelectChipControl<OptionType>({
             )}
             <div className={classes.options}>
                 {options.map((option) => {
-                    const optionId = option[optionIdAttr];
-                    const optionName = option[optionNameAttr];
-
                     return (
                         <Chip
-                            key={optionId}
-                            label={optionName}
+                            key={getOptionLabel(option)}
+                            label={getOptionLabel(option)}
                             color={
-                                value.includes(optionId) ? 'primary' : 'default'
+                                value.includes(option) ? 'primary' : 'default'
                             }
                             className={classes.chip}
                             size="small"
                             clickable
                             onClick={() => {
-                                handleClick(optionId);
+                                handleClick(option);
                             }}
                         />
                     );

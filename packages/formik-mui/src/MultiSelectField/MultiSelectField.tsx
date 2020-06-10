@@ -25,7 +25,7 @@ interface AutocompleteInjectedProps<OptionType> {
 export interface MultiSelectFieldProps<OptionType> {
     name: string;
     label?: string;
-    options: OptionType[];
+    options: Array<OptionType>;
     getOptionLabel: (option: OptionType) => string;
     renderContainer?: (
         props: AutocompleteInjectedProps<OptionType>

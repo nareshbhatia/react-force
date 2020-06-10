@@ -25,6 +25,7 @@ export function SelectControl({
     fullWidth,
     helperText,
     isNullable = false,
+    id,
     label,
     margin,
     nullOptionName = '',
@@ -44,11 +45,11 @@ export function SelectControl({
                 fullWidth={fullWidth}
             >
                 {label ? (
-                    <InputLabel error={error} disabled={disabled}>
+                    <InputLabel htmlFor={id} error={error} disabled={disabled}>
                         {label}
                     </InputLabel>
                 ) : null}
-                <Select {...rest}>
+                <Select id={id} {...rest}>
                     {isNullable ? (
                         <MenuItem value="">{nullOptionName}</MenuItem>
                     ) : null}

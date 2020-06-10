@@ -1,35 +1,39 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 import { storiesOf } from '@storybook/react';
 import { StoryDecorator } from '../stories';
+import { Day, days } from '../test/mock-data';
 import { MultiSelectChipControl } from './MultiSelectChipControl';
 
-const days = [
-    { id: 'mon', name: 'Monday' },
-    { id: 'tue', name: 'Tuesday' },
-    { id: 'wed', name: 'Wednesday' },
-    { id: 'thu', name: 'Thursday' },
-    { id: 'fri', name: 'Friday' },
-    { id: 'sat', name: 'Saturday' },
-    { id: 'sun', name: 'Sunday' },
-];
-
 const DayFilter = () => {
-    const [selectedDays, setSelectedDays] = useState<Array<string>>([
-        'mon',
-        'wed',
-        'fri',
+    const [selectedDays, setSelectedDays] = useState<Array<Day>>([
+        days[0],
+        days[2],
+        days[4],
     ]);
-    const handleChange = (value: Array<string>) => {
+
+    const handleChange = (value: Array<Day>) => {
         setSelectedDays(value);
     };
 
     return (
-        <MultiSelectChipControl
-            label="DAYS"
-            value={selectedDays}
-            options={days}
-            onChange={handleChange}
-        />
+        <Fragment>
+            <MultiSelectChipControl<Day>
+                label="DAYS"
+                value={selectedDays}
+                options={days}
+                getOptionLabel={(option: Day) => option.name}
+                onChange={handleChange}
+            />
+
+            <Box mt={4} p={1}>
+                <Typography variant="h6">Selected Days</Typography>
+                <Typography>
+                    {selectedDays.map((day) => day.name).join(', ')}
+                </Typography>
+            </Box>
+        </Fragment>
     );
 };
 

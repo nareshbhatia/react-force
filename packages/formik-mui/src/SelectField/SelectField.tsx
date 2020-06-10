@@ -1,6 +1,6 @@
 import React from 'react';
+import { SelectControl, SelectControlProps } from '@react-force/core';
 import { useField } from 'formik';
-import { SelectControl, SelectControlProps } from '../SelectControl';
 
 export interface SelectFieldProps extends SelectControlProps {
     // make name a required prop
