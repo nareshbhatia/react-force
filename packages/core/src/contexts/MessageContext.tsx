@@ -1,38 +1,41 @@
-import React, { ReactNode, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Message } from '../models';
 
 // ---------- MessageContext ----------
-interface MessageContextValue {
-    message?: Message;
-    setMessage: (message?: Message) => void;
+type MessageSetter = (message?: Message) => void;
+
+const MessageContext = React.createContext<Message | undefined>(undefined);
+const MessageSetterContext = React.createContext<MessageSetter | undefined>(
+    undefined
+);
+
+// ---------- Hooks ----------
+function useMessageContext(): Message | undefined {
+    return useContext(MessageContext);
 }
 
-const MessageContext = React.createContext<MessageContextValue>({
-    message: undefined,
-    setMessage: () => {},
-});
+function useMessageSetterContext(): MessageSetter {
+    const messageSetter = useContext(MessageSetterContext);
+    if (messageSetter === undefined) {
+        /* istanbul ignore next */
+        throw new Error(
+            'useMessageSetterContext must be used within a MessageProvider'
+        );
+    }
+    return messageSetter;
+}
 
 // ---------- MessageProvider ----------
-type MessageProviderProps = { children: ReactNode };
-
-export const MessageProvider = ({ children }: MessageProviderProps) => {
-    const [message, setMessage] = useState<Message>();
+const MessageProvider: React.FC = ({ children }) => {
+    const [message, setMessage] = useState<Message | undefined>();
 
     return (
-        <MessageContext.Provider value={{ message, setMessage }}>
-            {children}
+        <MessageContext.Provider value={message}>
+            <MessageSetterContext.Provider value={setMessage}>
+                {children}
+            </MessageSetterContext.Provider>
         </MessageContext.Provider>
     );
 };
 
-// ---------- useMessageContext ----------
-export function useMessageContext() {
-    const messageContextValue = useContext(MessageContext);
-    /* istanbul ignore next */
-    if (messageContextValue === undefined) {
-        throw new Error(
-            'useMessageContext must be used within a MessageContext'
-        );
-    }
-    return messageContextValue;
-}
+export { MessageProvider, useMessageContext, useMessageSetterContext };

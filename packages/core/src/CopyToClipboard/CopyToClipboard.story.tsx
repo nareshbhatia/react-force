@@ -1,13 +1,13 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import { storiesOf } from '@storybook/react';
-import { useMessageContext } from '../contexts';
+import { useMessageSetterContext } from '../contexts';
 import { MessageFactory } from '../models';
 import { StoryDecorator } from '../stories';
 import { CopyToClipboard } from './CopyToClipboard';
 
 const Example = () => {
-    const messageContext = useMessageContext();
+    const setMessage = useMessageSetterContext();
     const message = MessageFactory.success('Text copied to clipboard');
 
     return (
@@ -15,7 +15,7 @@ const Example = () => {
             <CopyToClipboard
                 text="https://github.com/nareshbhatia/react-force"
                 onCopied={() => {
-                    messageContext.setMessage(message);
+                    setMessage(message);
                 }}
             />
         </Box>

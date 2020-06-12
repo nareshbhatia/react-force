@@ -31,6 +31,7 @@ export function MenuButton<OptionType>({
     };
 
     const handleClose = () => {
+        /* istanbul ignore next */
         setAnchorEl(null);
     };
 

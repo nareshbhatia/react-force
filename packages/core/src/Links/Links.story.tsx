@@ -3,14 +3,14 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import { storiesOf } from '@storybook/react';
-import { useMessageContext } from '../contexts';
+import { useMessageSetterContext } from '../contexts';
 import { MessageFactory } from '../models';
 import { StoryDecorator } from '../stories';
 import { FakeLink } from './FakeLink';
 import { IconLink } from './IconLink';
 
 const FakeLinkExample = () => {
-    const messageContext = useMessageContext();
+    const setMessage = useMessageSetterContext();
     const message = MessageFactory.success('Done!');
 
     return (
@@ -21,7 +21,7 @@ const FakeLinkExample = () => {
 
             <FakeLink
                 onClick={() => {
-                    messageContext.setMessage(message);
+                    setMessage(message);
                 }}
             >
                 Do Something...

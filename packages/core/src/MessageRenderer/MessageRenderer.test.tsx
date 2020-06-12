@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render } from '../test';
-import { MessageProvider, useMessageContext } from '../contexts';
+import { MessageProvider, useMessageSetterContext } from '../contexts';
 import { MessageFactory } from '../models';
 import { MessageRenderer } from './MessageRenderer';
 
@@ -8,10 +8,10 @@ const messageText = 'Username or password did not match';
 const message = MessageFactory.error(messageText);
 
 const SignInPage = () => {
-    const messageContextValue = useMessageContext();
+    const setMessage = useMessageSetterContext();
 
     const handleSignIn = () => {
-        messageContextValue.setMessage(message);
+        setMessage(message);
     };
 
     return (

@@ -1,9 +1,10 @@
 import React from 'react';
 import { PopupMessage } from '../PopupMessage';
-import { useMessageContext } from '../contexts';
+import { useMessageContext, useMessageSetterContext } from '../contexts';
 
 export const MessageRenderer = () => {
-    const { message, setMessage } = useMessageContext();
+    const message = useMessageContext();
+    const setMessage = useMessageSetterContext();
 
     return (
         <PopupMessage
