@@ -1,5 +1,6 @@
 export * from './CenteredMessage';
 export * from './Containers';
+export * from './CopyToClipboard';
 export * from './CssBaseline';
 export * from './DropdownButton';
 export * from './ErrorBoundary';

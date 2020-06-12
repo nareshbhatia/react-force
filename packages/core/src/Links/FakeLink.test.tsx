@@ -3,7 +3,7 @@ import { fireEvent, render } from '../test';
 import { FakeLink } from './FakeLink';
 
 describe('FakeLink', () => {
-    it('calls on click when clicked', () => {
+    it('calls onClick when clicked', () => {
         const handleClick = jest.fn();
 
         const { getByText } = render(

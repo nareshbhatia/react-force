@@ -11,7 +11,7 @@ import { IconLink } from './IconLink';
 
 const FakeLinkExample = () => {
     const messageContext = useMessageContext();
-    const message = MessageFactory.info('Done!');
+    const message = MessageFactory.success('Done!');
 
     return (
         <Box p={2}>
