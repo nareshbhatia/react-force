@@ -2,8 +2,12 @@ import React from 'react';
 import { render } from '../test';
 import { EnvProvider, useEnv } from './EnvContext';
 
+// Set username in window environment
 const varName = 'USERNAME';
 const varValue = 'john';
+(window as any)._env_ = {
+    USERNAME: varValue,
+};
 
 const ProfilePage = () => {
     const env = useEnv();
@@ -21,13 +25,7 @@ const TestContainer = () => {
 
 describe('<EnvContext />', () => {
     it('provides environment variables with values', () => {
-        // Set username in window environment
-        (window as any)._env_ = {
-            USERNAME: varValue,
-        };
-
         const { getByTestId } = render(<TestContainer />);
-
         expect(getByTestId('username').textContent).toBe(varValue);
     });
 });
