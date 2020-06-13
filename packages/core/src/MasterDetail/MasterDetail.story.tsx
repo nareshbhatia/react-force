@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { storiesOf } from '@storybook/react';
-import { useMessageSetterContext } from '../contexts';
+import { useMessageSetter } from '../contexts';
 import { JsProduct, Product, ProductStore } from '../test/mock-data';
 import { EntityId, MessageFactory } from '../models';
 import { StoryDecorator } from '../stories';
@@ -75,7 +75,7 @@ const Detail = ({
     onEntitySelected,
     onEntityUpdated,
 }: MasterDetailChildProps) => {
-    const setMessage = useMessageSetterContext();
+    const setMessage = useMessageSetter();
     const [product, setProduct] = useState<JsProduct | undefined>(
         getProduct(selectedEntity)
     );

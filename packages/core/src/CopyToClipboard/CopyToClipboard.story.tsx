@@ -1,13 +1,13 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import { storiesOf } from '@storybook/react';
-import { useMessageSetterContext } from '../contexts';
+import { useMessageSetter } from '../contexts';
 import { MessageFactory } from '../models';
 import { StoryDecorator } from '../stories';
 import { CopyToClipboard } from './CopyToClipboard';
 
 const Example = () => {
-    const setMessage = useMessageSetterContext();
+    const setMessage = useMessageSetter();
     const message = MessageFactory.success('Text copied to clipboard');
 
     return (

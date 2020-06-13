@@ -10,19 +10,19 @@ const MessageSetterContext = React.createContext<MessageSetter | undefined>(
 );
 
 // ---------- Hooks ----------
-function useMessageContext(): Message | undefined {
+function useMessage(): Message | undefined {
     return useContext(MessageContext);
 }
 
-function useMessageSetterContext(): MessageSetter {
-    const messageSetter = useContext(MessageSetterContext);
-    if (messageSetter === undefined) {
+function useMessageSetter(): MessageSetter {
+    const setMessage = useContext(MessageSetterContext);
+    if (setMessage === undefined) {
         /* istanbul ignore next */
         throw new Error(
-            'useMessageSetterContext must be used within a MessageProvider'
+            'useMessageSetter must be used within a MessageProvider'
         );
     }
-    return messageSetter;
+    return setMessage;
 }
 
 // ---------- MessageProvider ----------
@@ -38,4 +38,4 @@ const MessageProvider: React.FC = ({ children }) => {
     );
 };
 
-export { MessageProvider, useMessageContext, useMessageSetterContext };
+export { MessageProvider, useMessage, useMessageSetter };
