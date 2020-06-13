@@ -1,17 +1,36 @@
 import React from 'react';
-import { fireEvent, render } from '../test';
+import { fireEvent, render, waitFor } from '../test';
 import { CopyToClipboard } from './CopyToClipboard';
 
+// jsdom does not define clipboard. It should be defined before spying on it.
+// see: https://stackoverflow.com/questions/62351935/how-to-mock-navigator-clipboard-writetext-in-jest
+Object.assign(navigator, {
+    clipboard: {
+        writeText: () => {},
+    },
+});
+
+// ----- mocks -----
+const writeText = jest.spyOn(navigator.clipboard, 'writeText');
+const handleCopied = jest.fn();
+
+// Text to be copied
+const text = 'https://github.com/nareshbhatia/react-force';
+
 describe('CopyToClipboard', () => {
-    it.skip('calls onCopied when clicked', () => {
-        // ----- mocks -----
-        // TODO: unable to mock clipboard
-        // see: https://stackoverflow.com/questions/62351935/how-to-mock-navigator-clipboard-writetext-in-jest
-        const writeText = jest.spyOn(navigator.clipboard, 'writeText');
-        const handleCopied = jest.fn();
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
 
-        const text = 'https://github.com/nareshbhatia/react-force';
+    it('calls clipboard.writeText() when clicked', async () => {
+        const { getByText } = render(<CopyToClipboard text={text} />);
+        fireEvent.click(getByText('Copy'));
 
+        expect(writeText).toHaveBeenCalledTimes(1);
+        expect(writeText).toHaveBeenCalledWith(text);
+    });
+
+    it('calls onCopied() when clicked', async () => {
         const { getByText } = render(
             <CopyToClipboard text={text} onCopied={handleCopied} />
         );
@@ -19,6 +38,6 @@ describe('CopyToClipboard', () => {
 
         expect(writeText).toHaveBeenCalledTimes(1);
         expect(writeText).toHaveBeenCalledWith(text);
-        expect(handleCopied).toHaveBeenCalledTimes(1);
+        await waitFor(() => expect(handleCopied).toHaveBeenCalledTimes(1));
     });
 });
