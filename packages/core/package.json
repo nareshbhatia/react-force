@@ -1,7 +1,7 @@
 {
   "name": "@react-force/core",
   "description": "Foundational components for React applications",
-  "version": "2.5.1",
+  "version": "2.6.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -28,6 +28,7 @@
     "test:coverage": "jest --coverage --no-cache"
   },
   "dependencies": {
+    "@react-force/date-utils": "^3.2.0",
     "@react-force/utils": "^2.2.0"
   },
   "peerDependencies": {
