@@ -11,7 +11,11 @@ const Example = () => {
 
     return (
         <Box p={2}>
-            <TimezoneSelector timezone={timezone} onChange={setTimezone} />
+            <TimezoneSelector
+                label="Time Zone"
+                timezone={timezone}
+                onChange={setTimezone}
+            />
 
             <Box mt={4}>
                 <Typography variant="h6">Selected Time Zone</Typography>

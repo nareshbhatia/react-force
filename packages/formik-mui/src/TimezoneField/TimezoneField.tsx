@@ -2,57 +2,69 @@ import React, { ReactNode } from 'react';
 import Autocomplete, {
     AutocompleteRenderInputParams,
 } from '@material-ui/lab/Autocomplete';
+import { Timezone, timezones, TzUtils } from '@react-force/date-utils';
 import { useField } from 'formik';
 import TextField, { TextFieldProps } from '@material-ui/core/TextField';
 
-interface AutocompleteInjectedProps<OptionType> {
+const { findTimezone } = TzUtils;
+
+interface AutocompleteInjectedProps {
     disableClearable: boolean;
     autoComplete: boolean;
     autoHighlight: boolean;
-    value: OptionType;
-    options: OptionType[];
-    getOptionLabel: (option: OptionType) => string;
+    value: Timezone;
+    options: Timezone[];
+    getOptionLabel: (option: Timezone) => string;
     renderInput: (params: AutocompleteRenderInputParams) => ReactNode;
     onChange: (
         event: object,
-        value: OptionType | OptionType[] | null,
+        value: Timezone | Timezone[] | null,
         reason: string
     ) => void;
 }
 
-export interface SingleSelectFieldProps<OptionType> {
+export interface TimezoneFieldProps {
     name: string;
     label?: string;
-    options: OptionType[];
-    getOptionLabel: (option: OptionType) => string;
-    renderContainer?: (
-        props: AutocompleteInjectedProps<OptionType>
-    ) => JSX.Element;
+    renderContainer?: (props: AutocompleteInjectedProps) => JSX.Element;
 }
 
 /**
- * Formik field that selects single option from an array of options.
+ * Formik field to select a timezone.
+ *
+ * The internal implementation uses <AutoComplete> which is always given
+ * TimeZone objects:
+ *
+ * interface Timezone {
+ *   name: string;
+ *   label: string;
+ * }
+ *
+ * When exchanging with formik field, the objects are converted to timezone
+ * strings and vice-versa.
  */
-export function SingleSelectField<OptionType>({
+export function TimezoneField({
     name,
     label,
-    options,
-    getOptionLabel,
     renderContainer = (props) => <Autocomplete {...props} />,
-}: SingleSelectFieldProps<OptionType>) {
+}: TimezoneFieldProps) {
     const [field, meta, helpers] = useField(name);
 
-    const handleChange = (event: any, value: any) => {
-        helpers.setValue(value);
+    // Field value is always a string representing the timezone
+    const tz: string = field.value;
+
+    const handleChange = (event: any, timezone: any) => {
+        // Set field to only the name part
+        helpers.setValue(timezone.name);
     };
 
     return renderContainer({
         disableClearable: true,
         autoComplete: true,
         autoHighlight: true,
-        value: field.value,
-        options,
-        getOptionLabel,
+        value: findTimezone(timezones, tz) as Timezone,
+        options: timezones,
+        getOptionLabel: (option: Timezone) => option.label,
         renderInput: ({ helperText, ...params }: TextFieldProps) => (
             <TextField
                 label={label}
