@@ -25,6 +25,9 @@
     "test": "jest --watch",
     "test:coverage": "jest --coverage --no-cache"
   },
+  "dependencies": {
+    "@react-force/utils": "^2.2.1"
+  },
   "jest": {
     "verbose": true,
     "roots": [

@@ -1,13 +1,10 @@
-import { arrayToKeySet, KeySet } from '@react-force/utils';
+import { ArrayOrNone, arrayToKeySet, KeySet } from '@react-force/utils';
 
 export interface Entity {
     id: string;
 }
 
 // ----- Helper Methods -----
-
-export type ArrayOrNone<T> = Array<T> | null | undefined;
-
 export const getEntityIds = (entities: ArrayOrNone<Entity>): Array<string> =>
     entities ? entities.map((entity) => entity.id) : [];
 
