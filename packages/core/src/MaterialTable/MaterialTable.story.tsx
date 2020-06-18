@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import Box from '@material-ui/core/Box';
+import { getSortSpec } from '@react-force/models';
 import { storiesOf } from '@storybook/react';
 import { Product, productColumnDefs, ProductStore } from '../test/mock-data';
 import { StoryDecorator } from '../stories';
-import { calculateSortSpec, MaterialTable } from './MaterialTable';
+import { MaterialTable } from './MaterialTable';
 
 const productStore = new ProductStore();
 
@@ -14,7 +15,7 @@ const MaterialTableExample = () => {
         setSelectedEntity(entity);
     };
 
-    const sortSpec = calculateSortSpec(productColumnDefs);
+    const sortSpec = getSortSpec(productColumnDefs);
     const entityList = productStore.getEntities(sortSpec);
 
     return (

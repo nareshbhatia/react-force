@@ -5,7 +5,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Entity, SortOrder, SortSpec } from '@react-force/models';
+import { ColumnDef, Entity, SortOrder } from '@react-force/models';
 import classNames from 'classnames';
 
 /**
@@ -35,41 +35,6 @@ const useStyles = makeStyles({
         textOverflow: 'ellipsis',
     },
 });
-
-export interface ColumnDef<T extends Entity> {
-    /** The name of the entity field associated with this column */
-    field: string;
-
-    /** The name to render in the column header */
-    headerName: string;
-
-    /** Set to 'asc' or 'desc' to sort by this column */
-    sortOrder?: SortOrder;
-
-    /** Cell alignment */
-    align?: 'inherit' | 'left' | 'center' | 'right' | 'justify';
-
-    /** Cell width */
-    width?: number;
-
-    /** Function to render the cell */
-    cellRenderer?: (entity: T) => string;
-}
-
-/** Calculate the sort specification based on the specified columnDefs */
-export function calculateSortSpec<T extends Entity>(
-    columnDefs: Array<ColumnDef<T>>
-): SortSpec | undefined {
-    const columnDefWithSort = columnDefs.find(
-        (columnDef) => columnDef.sortOrder !== undefined
-    );
-    return columnDefWithSort
-        ? {
-              field: columnDefWithSort.field,
-              order: columnDefWithSort.sortOrder as SortOrder,
-          }
-        : undefined;
-}
 
 export interface MaterialTableProps<T extends Entity> extends TableProps {
     entityList: Array<T>;

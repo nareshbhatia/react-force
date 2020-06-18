@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
+import { ColumnDef, getSortSpec } from '@react-force/models';
 import { fireEvent, getByText, render } from '../test';
 import { newProduct, Product, ProductStore } from '../test/mock-data';
-import { calculateSortSpec, ColumnDef, MaterialTable } from '../MaterialTable';
+import { MaterialTable } from '../MaterialTable';
 import { MasterDetail, MasterDetailChildProps } from './MasterDetail';
 
 const productStore = new ProductStore();
@@ -21,7 +22,7 @@ const Master = ({
         onEntitySelected(entity);
     };
 
-    const sortSpec = calculateSortSpec(columnDefs);
+    const sortSpec = getSortSpec(columnDefs);
     const entityList = productStore.getEntities(sortSpec);
 
     return (

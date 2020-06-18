@@ -1,15 +1,16 @@
 import React from 'react';
+import { getSortSpec } from '@react-force/models';
 import { fireEvent, render } from '../test';
 import {
     productUnsortedColumnDefs,
     productColumnDefs,
     ProductStore,
 } from '../test/mock-data';
-import { calculateSortSpec, MaterialTable } from './MaterialTable';
+import { MaterialTable } from './MaterialTable';
 
 const handleEntityClicked = jest.fn();
 const productStore = new ProductStore();
-const sortSpec = calculateSortSpec(productColumnDefs);
+const sortSpec = getSortSpec(productColumnDefs);
 const entityList = productStore.getEntities(sortSpec);
 
 describe('MaterialTable', () => {

@@ -1,6 +1,5 @@
-import { EntityStore, SortSpec } from '@react-force/models';
+import { ColumnDef, EntityStore, SortSpec } from '@react-force/models';
 import numeral from 'numeral';
-import { ColumnDef } from '../../MaterialTable';
 import { newProduct, Product } from './Product';
 import { productData } from './productData';
 

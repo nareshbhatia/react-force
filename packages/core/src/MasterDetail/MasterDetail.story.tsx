@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { ViewVerticalContainer } from '../Containers';
+import { ColumnDef, getSortSpec } from '@react-force/models';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { MessageFactory } from '@react-force/models';
 import { storiesOf } from '@storybook/react';
+import { ViewVerticalContainer } from '../Containers';
 import { useMessageSetter } from '../contexts';
-import { newProduct, Product, ProductStore } from '../test/mock-data';
+import { MaterialTable } from '../MaterialTable';
 import { StoryDecorator } from '../stories';
-import { calculateSortSpec, ColumnDef, MaterialTable } from '../MaterialTable';
+import { newProduct, Product, ProductStore } from '../test/mock-data';
 import { MasterDetail, MasterDetailChildProps } from './MasterDetail';
 
 const productStore = new ProductStore();
@@ -35,7 +36,7 @@ const Master = ({
         onEntitySelected(entity);
     };
 
-    const sortSpec = calculateSortSpec(columnDefs);
+    const sortSpec = getSortSpec(columnDefs);
     const entityList = productStore.getEntities(sortSpec);
 
     return (
