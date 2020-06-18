@@ -1,45 +1,63 @@
 import React, { useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
-import { Entity } from '@react-force/models';
 import { HorizontalContainer, ScrollingContainer } from '../Containers';
 import { FloatingAddButton } from '../FloatingAddButton';
 
 /**
- * The MasterDetail component has two children - Master and Detail.
+ * The MasterDetail component has two children - Master and Detail. Both
+ * children can display one or more entities.
  *
- * Both children can display one or more entities. However there can only be
- * one selected entity at any time. A reference to this entity is kept in the
- * SelectionContext which is maintained by the MasterDetail component.
+ * MasterDetail has the concept of selection - you can have zero selections
+ * or one selection.
+ *
+ * Zero selections is generally the case when a new entity is being created
+ * and does not have an id yet. In this case, the selectionContext will have
+ * the following value:
+ * {
+ *     isNew: true
+ *     type: optional,
+ *     entityId: ''
+ *     version: 0
+ * }
+ *
+ * When an existing entity is selected, the selectionContext will have the
+ * following value:
+ * {
+ *     isNew: false
+ *     type: undefined,
+ *     entityId: existing entity's id
+ *     version: 0..n
+ * }
+ *
+ * The selectionContext is passed to child components so that they can
+ * control their presentation and behavior. Child components should never
+ * change the selectionContext directly. In order to change it, they can use
+ * the following props:
  *
  * Each child component has the ability to change the selected entity by calling
  * onEntitySelected(). For example, the Master can select an entity when the
  * entity is selected from a list. The Detail can select an entity when it
- * creates a new one and wants it to be the selected one.
+ * creates a new one and wants it to be the selected one. Note that the
+ * selected entity must always have an id, so an id must be assigned to it
+ * before selection (e.g. by saving it in the database).
  *
- * MasterDetail also has the ability to initiate the creation of a new entity
- * using an (optional) add button. In this case SelectionContext.isNew will be
- * set to true.
- *
- * @param MasterComponent
- * @param DetailComponent
- * @param masterWidth (optional)
- * @param hideAddEntityButton (optional, default=false)
+ * MasterDetail component can also initiate the creation of a new entity
+ * using an optional Add button.
  */
 
-/**
- * A function that returns a new entity of type T.
- * The optional parameter type can be used to control the exact type of entity
- * that is created.
- */
-export type EntityFactory<T extends Entity> = (type?: string) => T;
-
-export interface SelectionContext<T extends Entity> {
-    /** the selected entity */
-    entity: T;
-
-    /** is this a new Entity (e.g. not yet saved in the database */
+export interface SelectionContext {
+    /** is a new Entity being created (i.e. it doesn't have an id yet) */
     isNew: boolean;
+
+    /**
+     * specific type of entity that is being created. Use when entity
+     * has sub-types, e.g. Fruit can be Apple or Banana.
+     */
+    type?: string;
+
+    /** selected entity's id (empty string for a new entity) */
+    entityId: string;
 
     /**
      * Child components have the ability to tell the parent that the selected
@@ -50,72 +68,84 @@ export interface SelectionContext<T extends Entity> {
     version: number;
 }
 
-export interface MasterDetailChildProps<T extends Entity> {
-    selectionContext: SelectionContext<T>;
+export interface MasterDetailChildProps {
+    selectionContext: SelectionContext;
 
-    // Creates a new entity with an optional type.
-    // Sets context to {entity, isNew: true, version: 0}
-    onCreateNewEntity: (type?: string) => void;
+    // Requests parent to start the creation of a new entity.
+    // Parent changes selectionContext to:
+    // {
+    //    isNew: true
+    //    type: type,
+    //    entityId: ''
+    //    version: 0
+    // }
+    onStartNewEntity: (type?: string) => void;
 
-    // Sets context to {entity, isNew: false, version: 0}
-    onEntitySelected: (entity: T) => void;
+    // Informs parent that an existing entity has been selected.
+    // Parent changes selectionContext to:
+    // {
+    //    isNew: false
+    //    type: undefined,
+    //    entityId: entityId
+    //    version: 0
+    // }
+    onEntitySelected: (entityId: string) => void;
 
-    // Increments selected entity's version number
+    // Informs parent that an existing entity has been updated.
+    // Parent changes selectionContext to:
+    // {
+    //    isNew: false
+    //    type: undefined,
+    //    entityId: entityId
+    //    version: version + 1
+    // }
     onEntityUpdated: () => void;
 }
 
-export interface MasterDetailProps<T extends Entity> {
-    MasterComponent: React.FC<MasterDetailChildProps<T>>;
+export interface MasterDetailProps {
+    MasterComponent: React.FC<MasterDetailChildProps>;
 
-    DetailComponent: React.FC<MasterDetailChildProps<T>>;
+    DetailComponent: React.FC<MasterDetailChildProps>;
 
     // Width of master component. For supported values, see
     // https://material-ui.com/system/sizing/#supported-values
     masterWidth?: number | string;
 
     hideAddEntityButton?: boolean;
-
-    createEntity: EntityFactory<T>;
 }
 
-export function MasterDetail<T extends Entity>({
+export function MasterDetail({
     MasterComponent,
     DetailComponent,
     masterWidth,
     hideAddEntityButton,
-    createEntity,
-}: MasterDetailProps<T>) {
-    const [selectionContext, setSelectionContext] = useState<
-        SelectionContext<T>
-    >({
-        entity: createEntity(),
+}: MasterDetailProps) {
+    const [selectionContext, setSelectionContext] = useState<SelectionContext>({
         isNew: true,
+        entityId: '',
         version: 0,
     });
 
-    const handleCreateNewEntity = (type?: string) => {
+    const handleStartNewEntity = (type?: string) => {
         setSelectionContext({
-            entity: createEntity(type),
             isNew: true,
+            type,
+            entityId: '',
             version: 0,
         });
     };
 
-    const handleEntitySelected = (entity: T) => {
-        setSelectionContext({ entity, isNew: false, version: 0 });
+    const handleEntitySelected = (entityId: string) => {
+        setSelectionContext({ isNew: false, entityId, version: 0 });
     };
 
     const handleEntityUpdated = () => {
-        const { entity, version } = selectionContext;
-        setSelectionContext({
-            entity,
-            isNew: false,
-            version: version + 1,
-        });
+        const { entityId, version } = selectionContext;
+        setSelectionContext({ isNew: false, entityId, version: version + 1 });
     };
 
     const handleAddButtonClicked = () => {
-        handleCreateNewEntity();
+        handleStartNewEntity();
     };
 
     // Note: Need minHeight={0} on the parent of each scrolling container,
@@ -132,7 +162,7 @@ export function MasterDetail<T extends Entity>({
                 <ScrollingContainer data-testid="master-container">
                     <MasterComponent
                         selectionContext={selectionContext}
-                        onCreateNewEntity={handleCreateNewEntity}
+                        onStartNewEntity={handleStartNewEntity}
                         onEntitySelected={handleEntitySelected}
                         onEntityUpdated={handleEntityUpdated}
                     />
@@ -144,9 +174,9 @@ export function MasterDetail<T extends Entity>({
             <Divider orientation="vertical" />
             <ScrollingContainer flex="1" data-testid="detail-container">
                 <DetailComponent
-                    key={`${selectionContext.entity.id}-${selectionContext.version}`}
+                    key={`${selectionContext.entityId}-${selectionContext.version}`}
                     selectionContext={selectionContext}
-                    onCreateNewEntity={handleCreateNewEntity}
+                    onStartNewEntity={handleStartNewEntity}
                     onEntitySelected={handleEntitySelected}
                     onEntityUpdated={handleEntityUpdated}
                 />

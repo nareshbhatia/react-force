@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { ColumnDef, getSortSpec } from '@react-force/models';
 import { fireEvent, getByText, render } from '../test';
-import { newProduct, Product, ProductStore } from '../test/mock-data';
+import { Product, ProductStore } from '../test/mock-data';
 import { MaterialTable } from '../MaterialTable';
 import { MasterDetail, MasterDetailChildProps } from './MasterDetail';
 
@@ -10,7 +10,7 @@ const productStore = new ProductStore();
 const Master = ({
     selectionContext,
     onEntitySelected,
-}: MasterDetailChildProps<Product>) => {
+}: MasterDetailChildProps) => {
     const columnDefs: Array<ColumnDef<Product>> = [
         {
             field: 'name',
@@ -19,17 +19,17 @@ const Master = ({
     ];
 
     const handleEntityClicked = (entity: Product) => {
-        onEntitySelected(entity);
+        onEntitySelected(entity.id);
     };
 
     const sortSpec = getSortSpec(columnDefs);
     const entityList = productStore.getEntities(sortSpec);
 
     return (
-        <MaterialTable
+        <MaterialTable<Product>
             entityList={entityList}
             columnDefs={columnDefs}
-            selectedEntity={selectionContext.entity}
+            selectedEntity={productStore.getEntity(selectionContext.entityId)}
             onEntityClicked={handleEntityClicked}
         />
     );
@@ -39,16 +39,21 @@ const Detail = ({
     selectionContext,
     onEntitySelected,
     onEntityUpdated,
-}: MasterDetailChildProps<Product>) => {
-    const { entity, isNew } = selectionContext;
+}: MasterDetailChildProps) => {
+    const { isNew, entityId } = selectionContext;
+
+    // When isNew = true, we are always returning an existing product.
+    // This is bit of a cheating, however it is required for this example
+    // to work. If we don't return a saved product, the detail component
+    // will render as blank.
+    const entity = productStore.getEntity(isNew ? 'M14' : entityId);
+    if (!entity) {
+        return null;
+    }
 
     const handleSave = () => {
-        if (selectionContext.isNew) {
-            // This is bit of a cheating - we are always returning an
-            // existing product. However this is required to test the
-            // "New" case too. If we don't return a saved product,
-            // the detail component will render as blank.
-            onEntitySelected(productStore.getEntity('M14') as Product);
+        if (isNew) {
+            onEntitySelected(entity.id);
         } else {
             onEntityUpdated();
         }
@@ -68,11 +73,7 @@ const Detail = ({
 describe('MasterDetail', () => {
     it('clicking on an item in master shows it in detail', () => {
         const { getByTestId } = render(
-            <MasterDetail
-                MasterComponent={Master}
-                DetailComponent={Detail}
-                createEntity={newProduct}
-            />
+            <MasterDetail MasterComponent={Master} DetailComponent={Detail} />
         );
 
         // Select an item in master
@@ -91,11 +92,7 @@ describe('MasterDetail', () => {
 
     it('clicking on add button in master shows a new item in detail', () => {
         const { getByLabelText, getByTestId } = render(
-            <MasterDetail
-                MasterComponent={Master}
-                DetailComponent={Detail}
-                createEntity={newProduct}
-            />
+            <MasterDetail MasterComponent={Master} DetailComponent={Detail} />
         );
 
         // Add a new item
@@ -109,11 +106,7 @@ describe('MasterDetail', () => {
 
     it('saving a new item in detail makes it an existing item', async () => {
         const { getByLabelText, getByTestId } = render(
-            <MasterDetail
-                MasterComponent={Master}
-                DetailComponent={Detail}
-                createEntity={newProduct}
-            />
+            <MasterDetail MasterComponent={Master} DetailComponent={Detail} />
         );
 
         // Add a new item
@@ -138,11 +131,7 @@ describe('MasterDetail', () => {
 
     it('saving an existing item in detail saves it', async () => {
         const { getByLabelText, getByTestId } = render(
-            <MasterDetail
-                MasterComponent={Master}
-                DetailComponent={Detail}
-                createEntity={newProduct}
-            />
+            <MasterDetail MasterComponent={Master} DetailComponent={Detail} />
         );
 
         // Select an item in master

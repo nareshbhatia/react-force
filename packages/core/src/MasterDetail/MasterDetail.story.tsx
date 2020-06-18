@@ -10,7 +10,7 @@ import { ViewVerticalContainer } from '../Containers';
 import { useMessageSetter } from '../contexts';
 import { MaterialTable } from '../MaterialTable';
 import { StoryDecorator } from '../stories';
-import { newProduct, Product, ProductStore } from '../test/mock-data';
+import { Product, ProductStore } from '../test/mock-data';
 import { MasterDetail, MasterDetailChildProps } from './MasterDetail';
 
 const productStore = new ProductStore();
@@ -18,7 +18,7 @@ const productStore = new ProductStore();
 const Master = ({
     selectionContext,
     onEntitySelected,
-}: MasterDetailChildProps<Product>) => {
+}: MasterDetailChildProps) => {
     const columnDefs: Array<ColumnDef<Product>> = [
         {
             field: 'name',
@@ -33,7 +33,7 @@ const Master = ({
     ];
 
     const handleEntityClicked = (entity: Product) => {
-        onEntitySelected(entity);
+        onEntitySelected(entity.id);
     };
 
     const sortSpec = getSortSpec(columnDefs);
@@ -41,10 +41,12 @@ const Master = ({
 
     return (
         <Box p={1}>
-            <MaterialTable
+            <MaterialTable<Product>
                 entityList={entityList}
                 columnDefs={columnDefs}
-                selectedEntity={selectionContext.entity}
+                selectedEntity={productStore.getEntity(
+                    selectionContext.entityId
+                )}
                 onEntityClicked={handleEntityClicked}
             />
         </Box>
@@ -55,10 +57,19 @@ const Detail = ({
     selectionContext,
     onEntitySelected,
     onEntityUpdated,
-}: MasterDetailChildProps<Product>) => {
-    const setMessage = useMessageSetter();
-    const [product, setProduct] = useState<Product>(selectionContext.entity);
+}: MasterDetailChildProps) => {
+    const { isNew, entityId } = selectionContext;
 
+    // When isNew = true, we are always returning an existing product.
+    // This is bit of a cheating, however it is required for this example
+    // to work. If we don't return a saved product, the detail component
+    // will render as blank.
+    const entity = productStore.getEntity(isNew ? 'M14' : entityId) as Product;
+
+    const setMessage = useMessageSetter();
+    const [product, setProduct] = useState<Product>(entity);
+
+    /** handle change in form fields */
     const handleChange = (name: string) => (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
@@ -66,13 +77,9 @@ const Detail = ({
     };
 
     const handleSave = () => {
-        if (selectionContext.isNew) {
-            // This is bit of a cheating - we are always returning an
-            // existing product. However this is required to test the
-            // "New" case too. If we don't return a saved product,
-            // the detail component will render as blank.
+        if (isNew) {
             setMessage(MessageFactory.success('Product created'));
-            onEntitySelected(productStore.getEntity('M14') as Product);
+            onEntitySelected(entity.id);
         } else {
             setMessage(MessageFactory.success('Product saved'));
             onEntityUpdated();
@@ -80,14 +87,14 @@ const Detail = ({
     };
 
     const handleCancel = () => {
-        setProduct(selectionContext.entity);
+        setProduct(entity);
         setMessage(MessageFactory.success('Edits canceled'));
     };
 
     return (
         <Box p={2}>
             <Typography variant="h6" component="h2">
-                {selectionContext.isNew ? 'Add Product' : 'Edit Product'}
+                {isNew ? 'Add Product' : 'Edit Product'}
             </Typography>
             <form>
                 <TextField
@@ -157,7 +164,6 @@ storiesOf('MasterDetail', module)
                 MasterComponent={Master}
                 DetailComponent={Detail}
                 masterWidth={400}
-                createEntity={newProduct}
             />
         </ViewVerticalContainer>
     ));
