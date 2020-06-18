@@ -13,7 +13,6 @@ export interface Entity {
  */
 export type EntityFactory<T extends Entity> = (type?: string) => T;
 
-
 // ----- Helper Methods -----
 export const getEntityIds = (entities: ArrayOrNone<Entity>): Array<string> =>
     entities ? entities.map((entity) => entity.id) : [];

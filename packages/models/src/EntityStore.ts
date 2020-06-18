@@ -1,11 +1,5 @@
 import { Entity } from './Entity';
-
-export type SortOrder = 'asc' | 'desc';
-
-export interface SortSpec {
-    field: string;
-    order: SortOrder;
-}
+import { SortSpec } from './SortSpec';
 
 /**
  * A store of entities
