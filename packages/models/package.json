@@ -1,7 +1,7 @@
 {
-  "name": "@react-force/utils",
-  "description": "JavaScript utilities",
-  "version": "2.2.1",
+  "name": "@react-force/models",
+  "description": "Domain models",
+  "version": "1.0.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"

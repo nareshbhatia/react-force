@@ -1,10 +1,15 @@
 /**
+ * Useful Types
+ */
+export type ArrayOrNone<T> = Array<T> | null | undefined;
+
+/**
  * Compare functions
  * -----------------
  * Functions that compares two array elements as specified by
  * the Array sort function.
  */
-type CompareFunction<T> = (e1: T, e2: T) => number;
+export type CompareFunction<T> = (e1: T, e2: T) => number;
 
 function compareNumbers(e1: number, e2: number) {
     return e1 - e2;
