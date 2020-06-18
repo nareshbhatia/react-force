@@ -1,7 +1,7 @@
-import { Entity, EntityId } from '../../models';
+import { Entity } from '@react-force/models';
+import { v4 as uuidv4 } from 'uuid';
 
-export interface JsProduct {
-    id: EntityId;
+export interface Product extends Entity {
     name: string;
     department: string;
     manufacturer: string;
@@ -9,22 +9,11 @@ export interface JsProduct {
     isFeatured: boolean;
 }
 
-/* istanbul ignore next */
-export class Product implements Entity {
-    constructor(
-        public id: EntityId = '',
-        public name: string = '',
-        public department: string = '',
-        public manufacturer: string = '',
-        public price: number = 0,
-        public isFeatured: boolean = false
-    ) {}
-
-    serialize = () => ({
-        name: this.name,
-        department: this.department,
-        manufacturer: this.manufacturer,
-        price: this.price,
-        isFeatured: this.isFeatured,
-    });
-}
+export const newProduct = (): Product => ({
+    id: uuidv4(),
+    name: '',
+    department: '',
+    manufacturer: '',
+    price: 0,
+    isFeatured: false,
+});

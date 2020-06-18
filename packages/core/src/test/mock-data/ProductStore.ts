@@ -1,29 +1,12 @@
+import { EntityStore, SortSpec } from '@react-force/models';
 import numeral from 'numeral';
 import { ColumnDef } from '../../MaterialTable';
-import { EntityId, EntityStore, SortSpec } from '../../models';
-import { productData } from './product-data';
-import { Product } from './Product';
+import { newProduct, Product } from './Product';
+import { productData } from './productData';
 
 /* istanbul ignore next */
 export class ProductStore implements EntityStore<Product> {
-    products: Array<Product> = productData.map((jsProduct) => {
-        const {
-            id,
-            name,
-            department,
-            manufacturer,
-            price,
-            isFeatured,
-        } = jsProduct;
-        return new Product(
-            id,
-            name,
-            department,
-            manufacturer,
-            price,
-            isFeatured
-        );
-    });
+    products: Array<Product> = productData;
 
     size = () => this.products.length;
 
@@ -59,13 +42,13 @@ export class ProductStore implements EntityStore<Product> {
         return result;
     };
 
-    getEntity = (entityId: EntityId) =>
+    getEntity = (entityId: string) =>
         this.products.find((product) => product.id === entityId);
 
-    getEntitiesForIds = (entityIds: Array<EntityId>) => {
+    getEntitiesForIds = (entityIds: Array<string>) => {
         return entityIds.map((entityId) => {
             const entity = this.getEntity(entityId);
-            return entity ? entity : new Product(entityId, entityId);
+            return entity ? entity : newProduct();
         });
     };
 }

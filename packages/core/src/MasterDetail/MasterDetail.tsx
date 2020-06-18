@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
-import { v4 as uuidv4 } from 'uuid';
-import { EntityId } from '../models';
+import { Entity } from '@react-force/models';
 import { HorizontalContainer, ScrollingContainer } from '../Containers';
 import { FloatingAddButton } from '../FloatingAddButton';
 
@@ -10,22 +9,17 @@ import { FloatingAddButton } from '../FloatingAddButton';
  * The MasterDetail component has two children - Master and Detail.
  *
  * Both children can display one or more entities. However there can only be
- * one selected entity at a time. The MasterDetail component maintains which
- * entity is selected and passes it on to the child components.
+ * one selected entity at any time. A reference to this entity is kept in the
+ * SelectionContext which is maintained by the MasterDetail component.
  *
  * Each child component has the ability to change the selected entity by calling
  * onEntitySelected(). For example, the Master can select an entity when the
  * entity is selected from a list. The Detail can select an entity when it
- * creates a new one and wants it to be selected.
- *
- * Each child component has the ability to tell the parent that the selected
- * entity has been updated. This causes the version number of the entity
- * to be incremented and a new instance of the detail component to be created.
- * This is important to erase any stale state held in the detail component.
+ * creates a new one and wants it to be the selected one.
  *
  * MasterDetail also has the ability to initiate the creation of a new entity
- * using an (optional) add button. The state of such an entity will be set to
- * new.
+ * using an (optional) add button. In this case SelectionContext.isNew will be
+ * set to true.
  *
  * @param MasterComponent
  * @param DetailComponent
@@ -33,69 +27,88 @@ import { FloatingAddButton } from '../FloatingAddButton';
  * @param hideAddEntityButton (optional, default=false)
  */
 
-export interface SelectedEntity {
-    entityId: EntityId;
-    type?: string;
+/**
+ * A function that returns a new entity of type T.
+ * The optional parameter type can be used to control the exact type of entity
+ * that is created.
+ */
+export type EntityFactory<T extends Entity> = (type?: string) => T;
+
+export interface SelectionContext<T extends Entity> {
+    /** the selected entity */
+    entity: T;
+
+    /** is this a new Entity (e.g. not yet saved in the database */
     isNew: boolean;
+
+    /**
+     * Child components have the ability to tell the parent that the selected
+     * entity has been updated. This causes the version number in the context
+     * to be incremented resulting in the creation of a new detail component.
+     * This is important to erase any stale state held in the detail component.
+     */
     version: number;
 }
 
-export interface MasterDetailChildProps {
-    selectedEntity: SelectedEntity;
+export interface MasterDetailChildProps<T extends Entity> {
+    selectionContext: SelectionContext<T>;
 
-    // Sets state to {uuidv4(), type, isNew: true, version: 0}
+    // Creates a new entity with an optional type.
+    // Sets context to {entity, isNew: true, version: 0}
     onCreateNewEntity: (type?: string) => void;
 
-    // Sets state to {entityId, isNew: false, version: 0}
-    onEntitySelected: (entityId: EntityId) => void;
+    // Sets context to {entity, isNew: false, version: 0}
+    onEntitySelected: (entity: T) => void;
 
     // Increments selected entity's version number
     onEntityUpdated: () => void;
 }
 
-export interface MasterDetailProps {
-    MasterComponent: React.FC<MasterDetailChildProps>;
+export interface MasterDetailProps<T extends Entity> {
+    MasterComponent: React.FC<MasterDetailChildProps<T>>;
 
-    DetailComponent: React.FC<MasterDetailChildProps>;
+    DetailComponent: React.FC<MasterDetailChildProps<T>>;
 
     // Width of master component. For supported values, see
     // https://material-ui.com/system/sizing/#supported-values
     masterWidth?: number | string;
 
     hideAddEntityButton?: boolean;
+
+    createEntity: EntityFactory<T>;
 }
 
-export const MasterDetail = ({
+export function MasterDetail<T extends Entity>({
     MasterComponent,
     DetailComponent,
     masterWidth,
     hideAddEntityButton,
-}: MasterDetailProps) => {
-    const [selectedEntity, setSelectedEntity] = useState<SelectedEntity>({
-        entityId: uuidv4(),
+    createEntity,
+}: MasterDetailProps<T>) {
+    const [selectionContext, setSelectionContext] = useState<
+        SelectionContext<T>
+    >({
+        entity: createEntity(),
         isNew: true,
         version: 0,
     });
 
     const handleCreateNewEntity = (type?: string) => {
-        setSelectedEntity({
-            entityId: uuidv4(),
-            type,
+        setSelectionContext({
+            entity: createEntity(type),
             isNew: true,
             version: 0,
         });
     };
 
-    const handleEntitySelected = (entityId: EntityId) => {
-        const { type } = selectedEntity;
-        setSelectedEntity({ entityId, type, isNew: false, version: 0 });
+    const handleEntitySelected = (entity: T) => {
+        setSelectionContext({ entity, isNew: false, version: 0 });
     };
 
     const handleEntityUpdated = () => {
-        const { entityId, type, version } = selectedEntity;
-        setSelectedEntity({
-            entityId,
-            type,
+        const { entity, version } = selectionContext;
+        setSelectionContext({
+            entity,
             isNew: false,
             version: version + 1,
         });
@@ -118,7 +131,7 @@ export const MasterDetail = ({
             >
                 <ScrollingContainer data-testid="master-container">
                     <MasterComponent
-                        selectedEntity={selectedEntity}
+                        selectionContext={selectionContext}
                         onCreateNewEntity={handleCreateNewEntity}
                         onEntitySelected={handleEntitySelected}
                         onEntityUpdated={handleEntityUpdated}
@@ -131,8 +144,8 @@ export const MasterDetail = ({
             <Divider orientation="vertical" />
             <ScrollingContainer flex="1" data-testid="detail-container">
                 <DetailComponent
-                    key={`${selectedEntity.entityId}-${selectedEntity.version}`}
-                    selectedEntity={selectedEntity}
+                    key={`${selectionContext.entity.id}-${selectionContext.version}`}
+                    selectionContext={selectionContext}
                     onCreateNewEntity={handleCreateNewEntity}
                     onEntitySelected={handleEntitySelected}
                     onEntityUpdated={handleEntityUpdated}
@@ -140,4 +153,4 @@ export const MasterDetail = ({
             </ScrollingContainer>
         </HorizontalContainer>
     );
-};
+}

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Env, WindowEnv } from '../models';
+import { Env, WindowEnv } from '@react-force/models';
 
 const EnvContext = React.createContext<Env | undefined>(undefined);
 

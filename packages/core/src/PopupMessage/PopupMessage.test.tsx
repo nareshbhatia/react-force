@@ -1,6 +1,6 @@
 import React from 'react';
+import { MessageFactory } from '@react-force/models';
 import { render } from '../test';
-import { MessageFactory } from '../models';
 import { PopupMessage } from './PopupMessage';
 
 const handleClose = jest.fn();

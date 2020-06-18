@@ -1,7 +1,7 @@
 import React from 'react';
+import { MessageFactory } from '@react-force/models';
 import { fireEvent, render } from '../test';
 import { MessageProvider, useMessageSetter } from '../contexts';
-import { MessageFactory } from '../models';
 import { MessageRenderer } from './MessageRenderer';
 
 const messageText = 'Username or password did not match';

@@ -1,7 +1,7 @@
 {
   "name": "@react-force/core",
   "description": "Foundational components for React applications",
-  "version": "2.6.1",
+  "version": "3.0.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@react-force/date-utils": "^3.2.0",
+    "@react-force/models": "^1.0.0",
     "@react-force/utils": "^2.2.1"
   },
   "peerDependencies": {
@@ -36,8 +37,7 @@
     "@material-ui/icons": "^4.x",
     "@material-ui/lab": "^4.x",
     "classnames": "^2.x",
-    "react": "^16.x",
-    "uuid": "^8.x"
+    "react": "^16.x"
   },
   "jest": {
     "verbose": true,

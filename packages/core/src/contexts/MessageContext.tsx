@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Message } from '../models';
+import { Message } from '@react-force/models';
 
 // ---------- MessageContext ----------
 type MessageSetter = (message?: Message) => void;

@@ -1,8 +1,8 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
+import { MessageFactory } from '@react-force/models';
 import { storiesOf } from '@storybook/react';
 import { useMessageSetter } from '../contexts';
-import { MessageFactory } from '../models';
 import { StoryDecorator } from '../stories';
 import { CopyToClipboard } from './CopyToClipboard';
 

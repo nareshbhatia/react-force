@@ -1,7 +1,7 @@
 import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
-import { Message } from '../models';
+import { Message } from '@react-force/models';
 
 export interface MessagePopupProps {
     message?: Message;

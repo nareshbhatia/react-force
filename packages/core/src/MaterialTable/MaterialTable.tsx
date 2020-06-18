@@ -5,8 +5,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { Entity, SortOrder, SortSpec } from '@react-force/models';
 import classNames from 'classnames';
-import { Entity, EntityId, SortOrder, SortSpec } from '../models';
 
 /**
  * table: {
@@ -74,8 +74,8 @@ export function calculateSortSpec<T extends Entity>(
 export interface MaterialTableProps<T extends Entity> extends TableProps {
     entityList: Array<T>;
     columnDefs: Array<ColumnDef<T>>;
-    selectedEntityId?: EntityId;
-    onEntityClicked?: (entityId: EntityId) => void;
+    selectedEntity?: T;
+    onEntityClicked?: (entity: T) => void;
     // TODO: implement this
     onSortChanged?: (field: string, sortOrder: SortOrder | 'none') => void;
 }
@@ -86,7 +86,7 @@ export function MaterialTable<T extends Entity>(props: MaterialTableProps<T>) {
         className: classNameProp,
         entityList,
         columnDefs,
-        selectedEntityId,
+        selectedEntity,
         onEntityClicked,
         ...rest
     } = props;
@@ -117,9 +117,9 @@ export function MaterialTable<T extends Entity>(props: MaterialTableProps<T>) {
                     <TableRow
                         key={entity.id}
                         hover
-                        selected={entity.id === selectedEntityId}
+                        selected={entity === selectedEntity}
                         onClick={() => {
-                            if (onEntityClicked) onEntityClicked(entity.id);
+                            if (onEntityClicked) onEntityClicked(entity);
                         }}
                     >
                         {columnDefs.map((columnDef) => (

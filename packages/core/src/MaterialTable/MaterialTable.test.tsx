@@ -41,7 +41,9 @@ describe('MaterialTable', () => {
         );
 
         fireEvent.click(getByText('Dark Side of the Moon'));
-        expect(handleEntityClicked).toBeCalledWith('M14');
+        expect(handleEntityClicked).toBeCalledWith(
+            productStore.getEntity('M14')
+        );
     });
 
     it('does not call onRowClicked if it is not specified', () => {

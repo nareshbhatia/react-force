@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import { Message, MessageFactory } from '@react-force/models';
 import { storiesOf } from '@storybook/react';
-import { Message, MessageFactory } from '../models';
 import { StoryDecorator } from '../stories';
 import { ViewCenteredContainer } from '../Containers';
 import { PopupMessage } from './PopupMessage';

@@ -1,6 +1,6 @@
-import { JsProduct } from './Product';
+import { Product } from './Product';
 
-export const productData: Array<JsProduct> = [
+export const productData: Array<Product> = [
     {
         id: 'E01',
         department: 'electronics',

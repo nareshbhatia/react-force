@@ -4,40 +4,20 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import { MessageFactory } from '@react-force/models';
 import { storiesOf } from '@storybook/react';
 import { useMessageSetter } from '../contexts';
-import { JsProduct, Product, ProductStore } from '../test/mock-data';
-import { EntityId, MessageFactory } from '../models';
+import { newProduct, Product, ProductStore } from '../test/mock-data';
 import { StoryDecorator } from '../stories';
 import { calculateSortSpec, ColumnDef, MaterialTable } from '../MaterialTable';
-import {
-    MasterDetail,
-    MasterDetailChildProps,
-    SelectedEntity,
-} from './MasterDetail';
+import { MasterDetail, MasterDetailChildProps } from './MasterDetail';
 
 const productStore = new ProductStore();
 
-const getProduct = (selectedEntity: SelectedEntity): JsProduct | undefined => {
-    const { entityId, isNew } = selectedEntity;
-
-    const product = isNew
-        ? new Product(entityId)
-        : productStore.getEntity(entityId);
-
-    if (product) {
-        const jsProduct: JsProduct = product.serialize() as JsProduct;
-        jsProduct.id = product.id;
-        return jsProduct;
-    } else {
-        return undefined;
-    }
-};
-
 const Master = ({
-    selectedEntity,
+    selectionContext,
     onEntitySelected,
-}: MasterDetailChildProps) => {
+}: MasterDetailChildProps<Product>) => {
     const columnDefs: Array<ColumnDef<Product>> = [
         {
             field: 'name',
@@ -51,8 +31,8 @@ const Master = ({
         },
     ];
 
-    const handleEntityClicked = (entityId: EntityId) => {
-        onEntitySelected(entityId);
+    const handleEntityClicked = (entity: Product) => {
+        onEntitySelected(entity);
     };
 
     const sortSpec = calculateSortSpec(columnDefs);
@@ -63,7 +43,7 @@ const Master = ({
             <MaterialTable
                 entityList={entityList}
                 columnDefs={columnDefs}
-                selectedEntityId={selectedEntity.entityId}
+                selectedEntity={selectionContext.entity}
                 onEntityClicked={handleEntityClicked}
             />
         </Box>
@@ -71,18 +51,12 @@ const Master = ({
 };
 
 const Detail = ({
-    selectedEntity,
+    selectionContext,
     onEntitySelected,
     onEntityUpdated,
-}: MasterDetailChildProps) => {
+}: MasterDetailChildProps<Product>) => {
     const setMessage = useMessageSetter();
-    const [product, setProduct] = useState<JsProduct | undefined>(
-        getProduct(selectedEntity)
-    );
-
-    if (!product) {
-        return null;
-    }
+    const [product, setProduct] = useState<Product>(selectionContext.entity);
 
     const handleChange = (name: string) => (
         event: React.ChangeEvent<HTMLInputElement>
@@ -91,13 +65,13 @@ const Detail = ({
     };
 
     const handleSave = () => {
-        if (selectedEntity.isNew) {
+        if (selectionContext.isNew) {
             // This is bit of a cheating - we are always returning an
             // existing product. However this is required to test the
             // "New" case too. If we don't return a saved product,
             // the detail component will render as blank.
             setMessage(MessageFactory.success('Product created'));
-            onEntitySelected('M14');
+            onEntitySelected(productStore.getEntity('M14') as Product);
         } else {
             setMessage(MessageFactory.success('Product saved'));
             onEntityUpdated();
@@ -105,14 +79,14 @@ const Detail = ({
     };
 
     const handleCancel = () => {
-        setProduct(getProduct(selectedEntity));
+        setProduct(selectionContext.entity);
         setMessage(MessageFactory.success('Edits canceled'));
     };
 
     return (
         <Box p={2}>
             <Typography variant="h6" component="h2">
-                {selectedEntity.isNew ? 'Add Product' : 'Edit Product'}
+                {selectionContext.isNew ? 'Add Product' : 'Edit Product'}
             </Typography>
             <form>
                 <TextField
@@ -182,6 +156,7 @@ storiesOf('MasterDetail', module)
                 MasterComponent={Master}
                 DetailComponent={Detail}
                 masterWidth={400}
+                createEntity={newProduct}
             />
         </ViewVerticalContainer>
     ));
