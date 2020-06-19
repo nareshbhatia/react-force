@@ -13,6 +13,16 @@ export interface Entity {
  */
 export type EntityFactory<T extends Entity> = (type?: string) => T;
 
+/**
+ * A function that takes an Entity and returns a jsValue
+ */
+export type Serializer<T extends Entity> = (entity: T) => any;
+
+/**
+ * A function that takes an id and a jsValue and returns an entity with an embedded id
+ */
+export type Deserializer<T extends Entity> = (id: string, jsValue: any) => T;
+
 // ----- Helper Methods -----
 export const getEntityIds = (entities: ArrayOrNone<Entity>): Array<string> =>
     entities ? entities.map((entity) => entity.id) : [];
