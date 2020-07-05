@@ -121,6 +121,14 @@ function formatToShortDateTime(date: Date, timezone?: string): string {
 }
 
 /**
+ * @returns {string} e.g. 2016-01-01 09:00 AM
+ */
+function formatToXsDateTime(date: Date, timezone?: string): string {
+    const m = timezone ? moment(date).tz(timezone) : moment(date);
+    return m.format('YYYY-MM-DD hh:mm A');
+}
+
+/**
  * @returns {string} e.g. 9:00 AM
  */
 function formatToTime(date: Date, timezone?: string): string {
@@ -266,6 +274,7 @@ export const DateUtils = {
     formatToDayDate,
     formatToLongDateTime,
     formatToShortDateTime,
+    formatToXsDateTime,
     formatToTime,
     formatToFullTime,
     formatToISODate,

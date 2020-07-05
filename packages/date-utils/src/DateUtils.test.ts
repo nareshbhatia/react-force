@@ -11,6 +11,7 @@ const {
     formatToDayDate,
     formatToLongDateTime,
     formatToShortDateTime,
+    formatToXsDateTime,
     formatToTime,
     formatToFullTime,
     formatToISODate,
@@ -198,6 +199,13 @@ describe('DateUtils', () => {
         it('formats date as Jan 1, 2020 9:00 AM', () => {
             const dateStr = formatToShortDateTime(PST0900, PST);
             expect(dateStr).toBe('Jan 1, 2020 9:00 AM');
+        });
+    });
+
+    describe('formatToXsDateTime()', () => {
+        it('formats date as 2020-01-01 09:00 AM', () => {
+            const dateStr = formatToXsDateTime(PST0900, PST);
+            expect(dateStr).toBe('2020-01-01 09:00 AM');
         });
     });
 
