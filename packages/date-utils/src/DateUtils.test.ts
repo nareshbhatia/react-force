@@ -107,6 +107,42 @@ describe('DateUtils', () => {
             ).toBe(true);
         });
 
+        it('returns a date for partial inputs', () => {
+            expect(
+                format(
+                    createDate('2020', 'YYYY-MM-DD hh:mm A', PST),
+                    'YYYY-MM-DD hh:mm:ss A',
+                    PST
+                )
+            ).toBe('2020-01-01 12:00:00 AM');
+
+            expect(
+                format(
+                    createDate('2020-04', 'YYYY-MM-DD hh:mm A', PST),
+                    'YYYY-MM-DD hh:mm:ss A',
+                    PST
+                )
+            ).toBe('2020-04-01 12:00:00 AM');
+
+            expect(
+                format(
+                    createDate('2020-04-15 9', 'YYYY-MM-DD hh:mm A', PST),
+                    'YYYY-MM-DD hh:mm:ss A',
+                    PST
+                )
+            ).toBe('2020-04-15 09:00:00 AM');
+        });
+
+        it('returns a date for different separators', () => {
+            expect(
+                format(
+                    createDate('2020/04/15 9', 'YYYY-MM-DD hh:mm A', PST),
+                    'YYYY-MM-DD hh:mm:ss A',
+                    PST
+                )
+            ).toBe('2020-04-15 09:00:00 AM');
+        });
+
         it('throws if computed date is invalid', () => {
             expect(() =>
                 createDate('2020-01-00 09:00 AM', 'YYYY-MM-DD hh:mm A', PST)
