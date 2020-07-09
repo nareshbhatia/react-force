@@ -62,6 +62,34 @@ function createDate(
 }
 
 /**
+ * Validates the supplied date string
+ *
+ * Example:
+ *   validateDateString('2020-01-01 09:00 AM', 'YYYY-MM-DD hh:mm A', 'Asia/Calcutta')
+ *   => undefined
+ *
+ *   validateDateString('2020-01-00 09:00 AM', 'YYYY-MM-DD hh:mm A', 'Asia/Calcutta')
+ *   => 'Invalid date'
+ *
+ * @param {string} dateString, e.g. 2020-01-01 09:00 AM
+ * @param {string} format, e.g YYYY-MM-DD hh:mm A
+ * @param {string} timezone, e.g. Asia/Calcutta
+ * @returns {string | undefined}
+ *     date string is invalid => error message
+ *     date string is valid => undefined
+ */
+const validateDateString = (
+    dateString: string,
+    format: string,
+    timezone?: string
+): string | undefined => {
+    const m = timezone
+        ? moment.tz(dateString, format, timezone)
+        : moment(dateString, format);
+    return m.isValid() ? undefined : 'Invalid date';
+};
+
+/**
  * @param {string} durationStr - duration in formats acceptable to moment, e.g. PT1H30M (ISO 8601), 01:30
  * @returns {number} duration in milliseconds
  */
@@ -267,6 +295,7 @@ export const DateUtils = {
     isEqual,
     compare,
     createDate,
+    validateDateString,
     durationStrToMillis,
     format,
     formatMillisToDuration,

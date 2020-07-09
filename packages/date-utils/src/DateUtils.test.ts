@@ -4,6 +4,7 @@ const {
     isEqual,
     compare,
     createDate,
+    validateDateString,
     durationStrToMillis,
     format,
     formatMillisToDuration,
@@ -148,6 +149,28 @@ describe('DateUtils', () => {
             expect(() =>
                 createDate('2020-01-00 09:00 AM', 'YYYY-MM-DD hh:mm A', PST)
             ).toThrow();
+        });
+    });
+
+    describe('validateDateString()', () => {
+        it('returns undefined for a valid date string', () => {
+            expect(
+                validateDateString(
+                    '2020-01-01 09:00 AM',
+                    'YYYY-MM-DD hh:mm A',
+                    'Asia/Calcutta'
+                )
+            ).toBeUndefined();
+        });
+
+        it('returns undefined for a valid date string', () => {
+            expect(
+                validateDateString(
+                    '2020-01-00 09:00 AM',
+                    'YYYY-MM-DD hh:mm A',
+                    'Asia/Calcutta'
+                )
+            ).toBe('Invalid date');
         });
     });
 
