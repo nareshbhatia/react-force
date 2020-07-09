@@ -3,56 +3,54 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { storiesOf } from '@storybook/react';
 import { Form, Formik } from 'formik';
-import * as yup from 'yup';
 import { FormActions } from '../FormActions';
 import { StoryDecorator } from '../stories';
-import { Day, days } from '../test/mock-data';
-import { MultiSelectField } from './MultiSelectField';
+import { Day, DayEnum, days } from '../test/mock-data';
+import { SelectField } from './SelectField';
 
 const ExampleForm = () => {
-    const [selectedDays, setSelectedDays] = useState<Array<Day>>([
-        days[0],
-        days[2],
-        days[4],
-    ]);
-
-    const validationSchema = yup.object().shape({
-        days: yup.array().min(1),
-    });
+    const [dayId, setDayId] = useState<DayEnum | undefined>(undefined);
+    const selectedDay: Day | undefined =
+        dayId !== undefined ? days.find((day) => day.id === dayId) : undefined;
 
     return (
         <Fragment>
             <Formik
-                initialValues={{ selectedDays }}
-                validationSchema={validationSchema}
+                initialValues={{ dayId }}
                 onSubmit={(values, actions) => {
-                    setSelectedDays(values.selectedDays);
+                    setDayId(values.dayId);
                     actions.setSubmitting(false);
                 }}
             >
-                {() => (
+                {({ values }) => (
                     <Form>
-                        <MultiSelectField
-                            name="selectedDays"
-                            label="Days"
+                        <SelectField
+                            name="dayId"
+                            label="Day"
                             options={days}
-                            getOptionLabel={(option: Day) => option.name}
+                            isNullable={true}
+                            nullOptionName="None"
+                            margin="normal"
+                            fullWidth
                         />
+
+                        <Typography variant="body1">{values.dayId}</Typography>
+
                         <FormActions submitLabel="Save" />
                     </Form>
                 )}
             </Formik>
 
             <Box mt={4}>
-                <Typography variant="h6">Form values</Typography>
+                <Typography variant="h6">Selected Day</Typography>
                 <Typography>
-                    Days: {selectedDays.map((day) => day.name).join(', ')}
+                    {selectedDay !== undefined ? selectedDay.name : 'None'}
                 </Typography>
             </Box>
         </Fragment>
     );
 };
 
-storiesOf('MultiSelectField', module)
+storiesOf('SelectField', module)
     .addDecorator(StoryDecorator)
     .add('Example', () => <ExampleForm />);

@@ -29,7 +29,7 @@ const ExampleForm = () => {
                     actions.setSubmitting(false);
                 }}
             >
-                {({ resetForm }) => (
+                {() => (
                     <Form>
                         <RichTextField
                             name="message"
@@ -38,7 +38,7 @@ const ExampleForm = () => {
                             editorClassName={classes.editor}
                             fullWidth
                         />
-                        <FormActions submitLabel="Save" resetForm={resetForm} />
+                        <FormActions submitLabel="Save" />
                     </Form>
                 )}
             </Formik>

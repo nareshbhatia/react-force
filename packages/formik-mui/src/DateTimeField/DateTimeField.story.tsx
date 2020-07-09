@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import Box from '@material-ui/core/Box';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { DateUtils } from '@react-force/date-utils';
 import { storiesOf } from '@storybook/react';
@@ -10,15 +11,16 @@ import { FormActions } from '../FormActions';
 import { StoryDecorator } from '../stories';
 import { DateTimeField } from './DateTimeField';
 
-const { formatToShortDateTime } = DateUtils;
+const { createDate, format: formatDate, formatToShortDateTime } = DateUtils;
+const format = 'YYYY-MM-DD hh:mm A';
 
 // Defaults
-const DefaultTz = 'America/New_York';
 const EST0900AM = new Date('2019-01-01T14:00:00Z');
 const EST0500PM = new Date('2019-01-01T22:00:00Z');
 
 const useStyles = makeStyles((theme: Theme) => ({
     date: {
+        width: 175,
         marginRight: 12,
     },
 }));
@@ -27,38 +29,55 @@ const ExampleForm = () => {
     const classes = useStyles();
     const [startTime, setStartTime] = useState(EST0900AM);
     const [endTime, setEndTime] = useState(EST0500PM);
+    const timezone = 'America/New_York';
 
     const validationSchema = yup.object().shape({
-        startTime: yup.date().required(),
-        endTime: yup.date().required(),
+        startTime: yup.string().required(),
+        endTime: yup.string().required(),
     });
 
     return (
         <Fragment>
             <Formik
-                initialValues={{ startTime, endTime }}
+                initialValues={{
+                    startTime: formatDate(startTime, format, timezone),
+                    endTime: formatDate(endTime, format, timezone),
+                }}
                 validationSchema={validationSchema}
                 onSubmit={(values, actions) => {
-                    setStartTime(values.startTime);
-                    setEndTime(values.endTime);
+                    setStartTime(
+                        createDate(values.startTime, format, timezone)
+                    );
+                    setEndTime(createDate(values.endTime, format, timezone));
                     actions.setSubmitting(false);
                 }}
             >
-                {({ resetForm }) => (
+                {() => (
                     <Form>
+                        {/* renderContainer is needed only because we want to override marginRight */}
                         <DateTimeField
-                            className={classes.date}
                             name="startTime"
                             label="Start Time"
-                            timezone={DefaultTz}
+                            timezone={timezone}
+                            renderContainer={(props) => (
+                                <TextField
+                                    {...props}
+                                    className={classes.date}
+                                />
+                            )}
                         />
                         <DateTimeField
-                            className={classes.date}
                             name="endTime"
                             label="End Time"
-                            timezone={DefaultTz}
+                            timezone={timezone}
+                            renderContainer={(props) => (
+                                <TextField
+                                    {...props}
+                                    className={classes.date}
+                                />
+                            )}
                         />
-                        <FormActions submitLabel="Save" resetForm={resetForm} />
+                        <FormActions submitLabel="Save" />
                     </Form>
                 )}
             </Formik>
@@ -66,8 +85,8 @@ const ExampleForm = () => {
             <Box mt={4}>
                 <Typography variant="h6">Form values</Typography>
                 <Typography>
-                    {formatToShortDateTime(startTime, DefaultTz)} -{' '}
-                    {formatToShortDateTime(endTime, DefaultTz)}
+                    {formatToShortDateTime(startTime, timezone)} -{' '}
+                    {formatToShortDateTime(endTime, timezone)}
                 </Typography>
             </Box>
         </Fragment>

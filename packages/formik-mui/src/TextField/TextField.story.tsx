@@ -1,38 +1,41 @@
 import React, { Fragment, useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import { DefaultTz } from '@react-force/date-utils';
 import { storiesOf } from '@storybook/react';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 import { FormActions } from '../FormActions';
 import { StoryDecorator } from '../stories';
-import { TimezoneField } from './TimezoneField';
+import { TextField } from './TextField';
 
 const ExampleForm = () => {
-    const [timezone, setTimezone] = useState<string>(DefaultTz);
+    const [email, setEmail] = useState<string>('');
 
     const validationSchema = yup.object().shape({
-        timezone: yup.string().required(),
+        email: yup.string().email().required(),
     });
 
     return (
         <Fragment>
             <Formik
-                initialValues={{ timezone }}
+                initialValues={{ email }}
                 validationSchema={validationSchema}
                 onSubmit={(values, actions) => {
-                    setTimezone(values.timezone);
+                    setEmail(values.email);
                     actions.setSubmitting(false);
                 }}
             >
                 {({ values }) => (
                     <Form>
-                        <TimezoneField name="timezone" label="Time Zone" />
+                        <TextField
+                            name="email"
+                            type="text"
+                            label="Email"
+                            margin="normal"
+                            fullWidth
+                        />
 
-                        <Typography variant="body1">
-                            {values.timezone}
-                        </Typography>
+                        <Typography variant="body1">{values.email}</Typography>
 
                         <FormActions submitLabel="Save" />
                     </Form>
@@ -40,13 +43,13 @@ const ExampleForm = () => {
             </Formik>
 
             <Box mt={4}>
-                <Typography variant="h6">Form values</Typography>
-                <Typography>{timezone}</Typography>
+                <Typography variant="h6">Form value</Typography>
+                <Typography>{email}</Typography>
             </Box>
         </Fragment>
     );
 };
 
-storiesOf('TimezoneField', module)
+storiesOf('TextField', module)
     .addDecorator(StoryDecorator)
     .add('Example', () => <ExampleForm />);

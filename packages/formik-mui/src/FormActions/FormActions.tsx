@@ -16,29 +16,17 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export interface FormActionProps {
     submitLabel?: string;
-    resetForm: () => void;
 }
 
-export const FormActions = ({
-    submitLabel = 'Submit',
-    resetForm,
-}: FormActionProps) => {
+export const FormActions = ({ submitLabel = 'Submit' }: FormActionProps) => {
     const classes = useStyles();
-
-    const handleCancel = () => {
-        resetForm();
-    };
 
     return (
         <div className={classes.root}>
             <Button variant="contained" color="primary" type="submit">
                 {submitLabel}
             </Button>
-            <Button
-                variant="contained"
-                color="secondary"
-                onClick={handleCancel}
-            >
+            <Button variant="contained" color="secondary" type="reset">
                 Cancel
             </Button>
         </div>

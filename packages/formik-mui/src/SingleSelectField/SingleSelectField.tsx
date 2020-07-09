@@ -31,7 +31,9 @@ export interface SingleSelectFieldProps<OptionType> {
 }
 
 /**
- * Formik field that selects single option from an array of options.
+ * Formik field that returns one option from an array of options
+ * Field value type: option (the selected option)
+ * options: Array<option> (all options)
  */
 export function SingleSelectField<OptionType>({
     name,

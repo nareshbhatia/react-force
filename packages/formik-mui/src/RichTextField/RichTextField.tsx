@@ -31,6 +31,11 @@ export interface RichTextFieldProps extends FormControlProps {
     editorClassName?: string;
 }
 
+/**
+ * Formik field to edit HTML content
+ * Field value type: string
+ * Format: HTML
+ */
 export const RichTextField = ({
     name,
     label,

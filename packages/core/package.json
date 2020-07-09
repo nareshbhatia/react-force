@@ -28,7 +28,7 @@
     "test:coverage": "jest --coverage --no-cache"
   },
   "dependencies": {
-    "@react-force/date-utils": "^3.2.1",
+    "@react-force/date-utils": "^3.3.0",
     "@react-force/models": "^1.1.2",
     "@react-force/utils": "^2.2.1"
   },

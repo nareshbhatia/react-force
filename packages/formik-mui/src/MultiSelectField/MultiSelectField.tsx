@@ -33,7 +33,9 @@ export interface MultiSelectFieldProps<OptionType> {
 }
 
 /**
- * Formik field that provides multiple values for an array.
+ * Formik field that returns multiple options from an array of options
+ * Field value type: Array<option> (selected options)
+ * options: Array<option> (all options)
  *
  * Uses Material-UI's <Autocomplete> component for multiple selections.
  * The key prop to focus on is `renderContainer` which is the function

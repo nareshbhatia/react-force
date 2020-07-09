@@ -2,6 +2,10 @@ import React from 'react';
 import MuiTextField, { TextFieldProps } from '@material-ui/core/TextField';
 import { useField } from 'formik';
 
+/**
+ * Formik field to edit text
+ * Field value type: string
+ */
 export const TextField = ({ helperText, ...props }: TextFieldProps) => {
     // @ts-ignore
     const [field, meta] = useField(props.name);

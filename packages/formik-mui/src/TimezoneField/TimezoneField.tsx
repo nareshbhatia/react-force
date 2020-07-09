@@ -30,7 +30,9 @@ export interface TimezoneFieldProps {
 }
 
 /**
- * Formik field to select a timezone.
+ * Formik field to select a timezone
+ * Field value type: string
+ * Format: a valid timezone, e.g. America/New_York
  *
  * The internal implementation uses <AutoComplete> which is always given
  * TimeZone objects:

@@ -32,6 +32,11 @@ export interface DurationFieldProps extends InputProps {
     label?: string;
 }
 
+/**
+ * Formik field to edit a duration
+ * Field value type: string
+ * Format: 'hh:mm', e.g. 01:30
+ */
 export const DurationField = ({ className, ...props }: DurationFieldProps) => {
     const [field, meta] = useField(props.name);
 

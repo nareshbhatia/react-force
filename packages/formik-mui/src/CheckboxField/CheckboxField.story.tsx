@@ -28,7 +28,7 @@ const ExampleForm = () => {
                     actions.setSubmitting(false);
                 }}
             >
-                {({ resetForm }) => (
+                {() => (
                     <Form>
                         <FormControlLabel
                             control={<CheckboxField name="isAudioEnabled" />}
@@ -43,7 +43,7 @@ const ExampleForm = () => {
                             }
                             label="Video"
                         />
-                        <FormActions submitLabel="Save" resetForm={resetForm} />
+                        <FormActions submitLabel="Save" />
                     </Form>
                 )}
             </Formik>

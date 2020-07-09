@@ -35,7 +35,7 @@ const ExampleForm = () => {
                     actions.setSubmitting(false);
                 }}
             >
-                {({ resetForm, values }) => (
+                {({ values }) => (
                     <Form>
                         <SingleSelectField
                             name="timezone"
@@ -48,7 +48,7 @@ const ExampleForm = () => {
                             {values.timezone ? values.timezone.label : 'null'}
                         </Typography>
 
-                        <FormActions submitLabel="Save" resetForm={resetForm} />
+                        <FormActions submitLabel="Save" />
                     </Form>
                 )}
             </Formik>

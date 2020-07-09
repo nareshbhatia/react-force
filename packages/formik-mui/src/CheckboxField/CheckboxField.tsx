@@ -7,6 +7,10 @@ export interface CheckboxFieldProps {
     renderContainer?: (props: CheckboxProps) => JSX.Element;
 }
 
+/**
+ * Formik field to edit a boolean
+ * Field value type: boolean
+ */
 export const CheckboxField = ({
     name,
     renderContainer = (props) => <Checkbox {...props} />,
