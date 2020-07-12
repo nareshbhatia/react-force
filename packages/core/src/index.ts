@@ -13,6 +13,7 @@ export * from './MaterialTable';
 export * from './MenuButton';
 export * from './MessageRenderer';
 export * from './MultiSelectChipControl';
+export * from './NavBar';
 export * from './PopupMessage';
 export * from './SelectControl';
 export * from './TimezoneSelector';
