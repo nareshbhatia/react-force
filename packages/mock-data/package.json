@@ -1,7 +1,7 @@
 {
   "name": "@react-force/mock-data",
   "description": "Mock data to be used for examples",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
