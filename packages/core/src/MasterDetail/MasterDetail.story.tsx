@@ -4,13 +4,13 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import { Product, ProductStore } from '@react-force/mock-data';
 import { MessageFactory } from '@react-force/models';
 import { storiesOf } from '@storybook/react';
 import { ViewVerticalContainer } from '../Containers';
 import { useMessageSetter } from '../contexts';
 import { MaterialTable } from '../MaterialTable';
 import { StoryDecorator } from '../stories';
-import { Product, ProductStore } from '../test/mock-data';
 import { MasterDetail, MasterDetailChildProps } from './MasterDetail';
 
 const productStore = new ProductStore();

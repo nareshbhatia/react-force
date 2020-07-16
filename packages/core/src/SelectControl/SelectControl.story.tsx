@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+import { Day, DayEnum, days } from '@react-force/mock-data';
 import { storiesOf } from '@storybook/react';
-import { Day, DayEnum, days } from '../test/mock-data';
 import { StoryDecorator } from '../stories';
 import { SelectControl } from './SelectControl';
 

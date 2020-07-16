@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import Box from '@material-ui/core/Box';
 import { getSortSpec } from '@react-force/models';
+import {
+    Product,
+    productColumnDefs,
+    ProductStore,
+} from '@react-force/mock-data';
 import { storiesOf } from '@storybook/react';
-import { Product, productColumnDefs, ProductStore } from '../test/mock-data';
 import { StoryDecorator } from '../stories';
 import { MaterialTable } from './MaterialTable';
 

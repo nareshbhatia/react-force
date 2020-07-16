@@ -1,11 +1,11 @@
 import React from 'react';
-import { getSortSpec } from '@react-force/models';
-import { fireEvent, render } from '../test';
 import {
     productUnsortedColumnDefs,
     productColumnDefs,
     ProductStore,
-} from '../test/mock-data';
+} from '@react-force/mock-data';
+import { getSortSpec } from '@react-force/models';
+import { fireEvent, render } from '../test';
 import { MaterialTable } from './MaterialTable';
 
 const handleEntityClicked = jest.fn();

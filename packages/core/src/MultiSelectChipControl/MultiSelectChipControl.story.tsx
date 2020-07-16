@@ -1,9 +1,9 @@
 import React, { Fragment, useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+import { Day, days } from '@react-force/mock-data';
 import { storiesOf } from '@storybook/react';
 import { StoryDecorator } from '../stories';
-import { Day, days } from '../test/mock-data';
 import { MultiSelectChipControl } from './MultiSelectChipControl';
 
 const DayFilter = () => {

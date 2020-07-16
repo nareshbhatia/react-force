@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
+import { Product, ProductStore } from '@react-force/mock-data';
 import { ColumnDef, getSortSpec } from '@react-force/models';
 import { fireEvent, getByText, render } from '../test';
-import { Product, ProductStore } from '../test/mock-data';
 import { MaterialTable } from '../MaterialTable';
 import { MasterDetail, MasterDetailChildProps } from './MasterDetail';
 
