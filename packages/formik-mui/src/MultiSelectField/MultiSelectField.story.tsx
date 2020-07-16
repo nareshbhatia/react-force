@@ -1,12 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+import { Day, days } from '@react-force/mock-data';
 import { storiesOf } from '@storybook/react';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 import { FormActions } from '../FormActions';
 import { StoryDecorator } from '../stories';
-import { Day, days } from '../test/mock-data';
 import { MultiSelectField } from './MultiSelectField';
 
 const ExampleForm = () => {
