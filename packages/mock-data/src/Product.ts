@@ -29,7 +29,7 @@ export const findProduct = (products: Array<Product>, id: string) =>
  * (immutable update)
  */
 export const addProduct = (products: Array<Product>, productToAdd: Product) =>
-    products.slice().push(productToAdd);
+    products.concat([productToAdd]);
 
 /**
  * Updates a product in an array of products and return a new array
