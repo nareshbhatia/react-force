@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import { ProgressButton } from '@react-force/core';
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -16,16 +17,25 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export interface FormActionProps {
     submitLabel?: string;
+    isSubmitting?: boolean;
 }
 
-export const FormActions = ({ submitLabel = 'Submit' }: FormActionProps) => {
+export const FormActions = ({
+    submitLabel = 'Submit',
+    isSubmitting = false,
+}: FormActionProps) => {
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
-            <Button variant="contained" color="primary" type="submit">
+            <ProgressButton
+                variant="contained"
+                color="primary"
+                busy={isSubmitting}
+                type="submit"
+            >
                 {submitLabel}
-            </Button>
+            </ProgressButton>
             <Button variant="contained" color="secondary" type="reset">
                 Cancel
             </Button>
