@@ -15,6 +15,7 @@ export * from './MessageRenderer';
 export * from './MultiSelectChipControl';
 export * from './NavBar';
 export * from './PopupMessage';
+export * from './ProgressButton';
 export * from './SelectControl';
 export * from './TimezoneSelector';
 export * from './contexts';
