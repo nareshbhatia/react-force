@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "build": "lerna run build",
-    "build-storybook": "rimraf docs && build-storybook",
+    "build-storybook": "build-storybook -o docs",
     "cz-commit": "git-cz",
     "del-dist": "lerna run --parallel del-dist",
     "format": "lerna run format",
