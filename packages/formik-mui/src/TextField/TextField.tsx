@@ -1,6 +1,6 @@
-import React from 'react';
 import MuiTextField, { TextFieldProps } from '@material-ui/core/TextField';
 import { useField } from 'formik';
+import React from 'react';
 
 /**
  * Formik field to edit text

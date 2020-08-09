@@ -1,5 +1,5 @@
-import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import React from 'react';
 import { CenteredContainer } from '../Containers';
 
 export const CenteredMessage: React.FC = ({ children }) => {

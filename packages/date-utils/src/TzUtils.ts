@@ -1,6 +1,6 @@
-import { DateUtils } from './DateUtils';
 import moment from 'moment';
 import 'moment-timezone';
+import { DateUtils } from './DateUtils';
 
 const { gmtOffset, tzAbbr } = DateUtils;
 

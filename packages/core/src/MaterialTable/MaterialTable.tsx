@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table, { TableProps } from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,6 +6,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { ColumnDef, Entity, SortOrder } from '@react-force/models';
 import classNames from 'classnames';
+import React from 'react';
 
 /**
  * table: {

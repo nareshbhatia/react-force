@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import React, { Fragment } from 'react';
 
 const useStyles = makeStyles((theme: Theme) => ({
     '@global': {

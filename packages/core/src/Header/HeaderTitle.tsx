@@ -1,6 +1,6 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import React from 'react';
 
 // Tweak fontSize & lineHeight to support long titles (multiple lines) on mobile
 const useStyles = makeStyles({

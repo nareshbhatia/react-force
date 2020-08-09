@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import React, { Fragment } from 'react';
 
 export interface MenuButtonProps<OptionType> {
     /** menu button label */
@@ -36,7 +36,7 @@ export function MenuButton<OptionType>({
     };
 
     const handleMenuItemClick = (
-        event: React.MouseEvent<HTMLLIElement, MouseEvent>,
+        _event: React.MouseEvent<HTMLLIElement, MouseEvent>,
         index: number
     ) => {
         setAnchorEl(null);
@@ -78,7 +78,7 @@ export function MenuButton<OptionType>({
                         key={index}
                         onClick={(event) => handleMenuItemClick(event, index)}
                     >
-                        {getOptionLabel(options[index])}
+                        {getOptionLabel(option)}
                     </MenuItem>
                 ))}
             </Menu>

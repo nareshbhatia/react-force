@@ -1,9 +1,9 @@
-import React, { ReactNode } from 'react';
+import TextField, { TextFieldProps } from '@material-ui/core/TextField';
 import Autocomplete, {
     AutocompleteRenderInputParams,
 } from '@material-ui/lab/Autocomplete';
 import { useField } from 'formik';
-import TextField, { TextFieldProps } from '@material-ui/core/TextField';
+import React, { ReactNode } from 'react';
 
 interface AutocompleteInjectedProps<OptionType> {
     multiple: boolean;
@@ -77,7 +77,7 @@ export function MultiSelectField<OptionType>({
 }: MultiSelectFieldProps<OptionType>) {
     const [field, meta, helpers] = useField(name);
 
-    const handleChange = (event: any, value: any) => {
+    const handleChange = (_event: any, value: any) => {
         helpers.setValue(value);
     };
 

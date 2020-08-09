@@ -1,6 +1,6 @@
-import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import React from 'react';
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {

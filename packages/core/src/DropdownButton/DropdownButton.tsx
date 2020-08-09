@@ -1,13 +1,13 @@
-import React, { Fragment } from 'react';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
-import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import React, { Fragment } from 'react';
 
 export interface DropdownButtonProps<OptionType> {
     /** the value of the dropdown */
@@ -37,7 +37,7 @@ export function DropdownButton<OptionType>({
     };
 
     const handleMenuItemClick = (
-        event: React.MouseEvent<HTMLLIElement, MouseEvent>,
+        _event: React.MouseEvent<HTMLLIElement, MouseEvent>,
         index: number
     ) => {
         setOpen(false);
@@ -108,7 +108,7 @@ export function DropdownButton<OptionType>({
                                     {options.map((option, index) => (
                                         <MenuItem
                                             key={index}
-                                            selected={options[index] === value}
+                                            selected={option === value}
                                             onClick={(event) =>
                                                 handleMenuItemClick(
                                                     event,

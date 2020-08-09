@@ -1,6 +1,6 @@
 import React from 'react';
-import { PopupMessage } from '../PopupMessage';
 import { useMessage, useMessageSetter } from '../contexts';
+import { PopupMessage } from '../PopupMessage';
 
 export const MessageRenderer = () => {
     const message = useMessage();

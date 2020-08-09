@@ -1,10 +1,10 @@
-import React, { ReactNode } from 'react';
+import TextField, { TextFieldProps } from '@material-ui/core/TextField';
 import Autocomplete, {
     AutocompleteRenderInputParams,
 } from '@material-ui/lab/Autocomplete';
 import { Timezone, timezones, TzUtils } from '@react-force/date-utils';
 import { useField } from 'formik';
-import TextField, { TextFieldProps } from '@material-ui/core/TextField';
+import React, { ReactNode } from 'react';
 
 const { findTimezone } = TzUtils;
 
@@ -55,7 +55,7 @@ export function TimezoneField({
     // Field value is always a string representing the timezone
     const tz: string = field.value;
 
-    const handleChange = (event: any, timezone: any) => {
+    const handleChange = (_event: any, timezone: any) => {
         // Set field to only the name part
         helpers.setValue(timezone.name);
     };

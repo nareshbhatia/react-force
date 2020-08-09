@@ -1,36 +1,39 @@
 {
   "name": "@react-force/formik-mui",
   "description": "Formik components using Material-UI",
-  "version": "2.4.0",
+  "version": "2.5.0",
+  "author": "Naresh Bhatia",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nareshbhatia/react-force.git",
+    "directory": "packages/formik-mui"
+  },
   "publishConfig": {
     "access": "public"
   },
   "main": "dist/index.js",
+  "module": "dist/core.esm.js",
   "types": "dist/index.d.ts",
   "files": [
-    "src/",
     "dist/"
   ],
   "scripts": {
-    "build": "yarn build-src && yarn build-declaration",
-    "build:local": "yarn build && yarn lint && yarn test:coverage",
-    "build-src": "babel src --root-mode upward --out-dir dist --source-maps --extensions \".ts,.tsx\" --ignore **/*.story.tsx,**/*.test.ts,**/*.test.tsx,**/stories,**/test",
-    "build-declaration": "tsc --emitDeclarationOnly",
-    "build-storybook": "rimraf ../../docs && build-storybook -o ../../docs",
+    "build": "tsdx build --tsconfig tsconfig.build.json",
+    "build:local": "yarn lint && yarn test:coverage && yarn build",
     "del-dist": "rimraf dist",
-    "format": "prettier --write 'src/**/*.ts*'",
-    "lint": "eslint 'src/**/*.ts*'",
-    "prebuild": "yarn del-dist",
-    "storybook": "start-storybook -p 6006",
-    "report-coverage": "cat ./coverage/lcov.info | coveralls",
+    "format": "prettier --write '{src,test,stories}/**/*.ts*'",
+    "lint": "eslint '{src,test,stories}/**/*.ts*'",
+    "prepublish": "yarn build",
+    "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
     "test": "echo No tests in this package",
+    "test:watch": "echo No tests in this package",
     "test:coverage": "echo No tests in this package"
   },
   "dependencies": {
     "@nareshbhatia/slate-editor": "^1.3.1",
-    "@react-force/core": "^3.2.0",
-    "@react-force/date-utils": "^3.3.0",
+    "@react-force/core": "^3.3.0",
+    "@react-force/date-utils": "^3.4.0",
     "formik": "^2.1.5",
     "immutable": "^4.0.0-rc.12",
     "moment": "^2.27.0",
@@ -39,46 +42,19 @@
     "slate": "0.47.9",
     "slate-html-serializer": "0.8.11",
     "slate-react": "0.22.10",
-    "yup": "^0.29.1"
+    "yup": "^0.29.3",
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.x",
+    "@material-ui/icons": "^4.x",
     "@material-ui/lab": "^4.x",
+    "classnames": "^2.x",
     "react": "^16.x"
   },
   "devDependencies": {
     "@types/moment-timezone": "^0.5.13",
     "@types/react-text-mask": "^5.4.6",
-    "@types/yup": "^0.29.3"
-  },
-  "jest": {
-    "verbose": true,
-    "roots": [
-      "<rootDir>/src"
-    ],
-    "testRegex": "(\\.(test|spec))\\.(ts|tsx)$",
-    "transform": {
-      "^.+\\.[t|j]sx?$": "babel-jest"
-    },
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "setupFilesAfterEnv": [
-      "./src/test/setupTestsAfterEnv.ts"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 80,
-        "functions": 70,
-        "lines": 80,
-        "statements": 80
-      }
-    }
+    "@types/yup": "^0.29.4"
   }
 }

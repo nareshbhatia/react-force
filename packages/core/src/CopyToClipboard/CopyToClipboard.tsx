@@ -1,5 +1,5 @@
-import React from 'react';
 import Button, { ButtonProps } from '@material-ui/core/Button';
+import React from 'react';
 
 export interface CopyToClipboardProps {
     text: string;

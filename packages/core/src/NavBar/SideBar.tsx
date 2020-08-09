@@ -1,10 +1,10 @@
-import React from 'react';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 import { ScrollingContainer, VerticalContainer } from '../Containers';
 import { NavBarProps } from './NavBar';
 
@@ -25,7 +25,7 @@ export const SideBar = ({ components, onNavItemSelected }: NavBarProps) => {
             <ScrollingContainer flex="1">
                 {components.map((component, index) => {
                     switch (component.type) {
-                        case 'group':
+                        case 'group': {
                             const { title, items } = component;
                             return (
                                 <List
@@ -65,6 +65,7 @@ export const SideBar = ({ components, onNavItemSelected }: NavBarProps) => {
                                     </List>
                                 </List>
                             );
+                        }
                         case 'divider':
                             return <Divider key={`nav-component-${index}`} />;
                         default:

@@ -1,9 +1,9 @@
-import React from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Input, { InputProps } from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import { useField } from 'formik';
+import React from 'react';
 import MaskedInput from 'react-text-mask';
 
 interface TimeMaskedInputProps {

@@ -1,36 +1,40 @@
 {
   "name": "@react-force/core",
   "description": "Foundational components for React applications",
-  "version": "3.2.0",
+  "version": "3.3.0",
+  "author": "Naresh Bhatia",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nareshbhatia/react-force.git",
+    "directory": "packages/core"
+  },
   "publishConfig": {
     "access": "public"
   },
   "main": "dist/index.js",
+  "module": "dist/core.esm.js",
   "types": "dist/index.d.ts",
   "files": [
-    "src/",
     "dist/"
   ],
   "scripts": {
-    "build": "yarn build-src && yarn build-declaration",
-    "build:local": "yarn build && yarn lint && yarn test:coverage",
-    "build-src": "babel src --root-mode upward --out-dir dist --source-maps --extensions \".ts,.tsx\" --ignore **/*.story.tsx,**/*.test.ts,**/*.test.tsx,**/stories,**/test",
-    "build-declaration": "tsc --emitDeclarationOnly",
-    "build-storybook": "rimraf ../../docs && build-storybook -o ../../docs",
+    "build": "tsdx build --tsconfig tsconfig.build.json",
+    "build:local": "yarn lint && yarn test:coverage && yarn build",
     "del-dist": "rimraf dist",
-    "format": "prettier --write 'src/**/*.ts*'",
-    "lint": "eslint 'src/**/*.ts*'",
-    "prebuild": "yarn del-dist",
-    "storybook": "start-storybook -p 6006",
-    "report-coverage": "cat ./coverage/lcov.info | coveralls",
-    "test": "jest --watch",
-    "test:coverage": "jest --coverage --no-cache"
+    "format": "prettier --write '{src,test,stories}/**/*.ts*'",
+    "lint": "eslint '{src,test,stories}/**/*.ts*'",
+    "prepublish": "yarn build",
+    "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
+    "test": "tsdx test",
+    "test:watch": "tsdx test --watch",
+    "test:coverage": "tsdx test --coverage --no-cache"
   },
   "dependencies": {
-    "@react-force/date-utils": "^3.3.0",
-    "@react-force/models": "^1.1.2",
-    "@react-force/utils": "^2.2.1"
+    "@react-force/date-utils": "^3.4.0",
+    "@react-force/models": "^1.2.0",
+    "@react-force/utils": "^2.3.0",
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.x",
@@ -38,35 +42,5 @@
     "@material-ui/lab": "^4.x",
     "classnames": "^2.x",
     "react": "^16.x"
-  },
-  "jest": {
-    "verbose": true,
-    "roots": [
-      "<rootDir>/src"
-    ],
-    "testRegex": "(\\.(test|spec))\\.(ts|tsx)$",
-    "transform": {
-      "^.+\\.[t|j]sx?$": "babel-jest"
-    },
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "setupFilesAfterEnv": [
-      "./src/test/setupTestsAfterEnv.ts"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 80,
-        "functions": 70,
-        "lines": 80,
-        "statements": 80
-      }
-    }
   }
 }

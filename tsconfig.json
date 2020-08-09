@@ -1,17 +1,17 @@
 {
-    "compilerOptions": {
-        "allowSyntheticDefaultImports": true,
-        "declaration": true,
-        "esModuleInterop": true,
-        "experimentalDecorators": true,
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "preserve",
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "module": "esnext",
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "skipLibCheck": true,
-        "strict": true,
-        "target": "es5"
+  "extends": "./tsconfig.build.json",
+  "include": ["packages", "types", "scripts", "example"],
+  "compilerOptions": {
+    "allowJs": false,
+    "baseUrl": ".",
+    "typeRoots": ["./node_modules/@types", "./types"],
+    "paths": {
+      "@react-force/core": ["packages/core/src"],
+      "@react-force/date-utils": ["packages/date-utils/src"],
+      "@react-force/mock-data": ["packages/mock-data/src"],
+      "@react-force/models": ["packages/models/src"],
+      "@react-force/utils": ["packages/utils/src"],
+      "$test/*": ["test/*"]
     }
+  }
 }

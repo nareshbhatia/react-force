@@ -1,9 +1,9 @@
-import React from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select, { SelectProps } from '@material-ui/core/Select';
+import React from 'react';
 
 export interface SelectControlProps extends Omit<SelectProps, 'margin'> {
     classNameRoot?: string;

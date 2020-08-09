@@ -1,6 +1,6 @@
-import React from 'react';
 import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
 import { useField } from 'formik';
+import React from 'react';
 
 export interface CheckboxFieldProps {
     name: string;

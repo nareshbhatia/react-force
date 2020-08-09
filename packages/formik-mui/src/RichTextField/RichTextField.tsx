@@ -1,9 +1,9 @@
-import React from 'react';
 import FormControl, { FormControlProps } from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { SlateEditor } from '@nareshbhatia/slate-editor';
 import { useField } from 'formik';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import React from 'react';
 
 const useStyles = makeStyles((theme: Theme) => ({
     label: {

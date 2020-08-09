@@ -1,8 +1,8 @@
-import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { StringUtils } from '@react-force/utils';
-import { ViewCenteredContainer } from '..';
+import React from 'react';
+import { ViewCenteredContainer } from '../Containers';
 
 const useStyles = makeStyles((theme: Theme) => ({
     dark: {

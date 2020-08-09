@@ -1,11 +1,21 @@
 import numeral from 'numeral';
 
 /**
+ * Formats a number based on the specified format string
+ * Example: format(999.60, '0,0') --> 1,000
+ * @param value
+ * @param format
+ */
+function format(value: number, format: string): string {
+    return numeral(value).format(format);
+}
+
+/**
  * Formats value as a comma-separated number with 2 decimal digits
  * Example: 1000 --> 1,000.00
  * @param value
  */
-export function formatAsMoney(value: number) {
+function formatAsMoney(value: number) {
     return numeral(value).format('0,0.00');
 }
 
@@ -16,7 +26,7 @@ export function formatAsMoney(value: number) {
  *     -1 --> '-1'
  * @param value
  */
-export function formatWithSign(value: number) {
+function formatWithSign(value: number) {
     return numeral(value).format('+0.[0000]');
 }
 
@@ -26,7 +36,7 @@ export function formatWithSign(value: number) {
  *     100000 --> 100k
  * @param value
  */
-export function formatWithAbbreviation(value: number) {
+function formatWithAbbreviation(value: number) {
     return numeral(value).format('0a');
 }
 
@@ -41,11 +51,12 @@ export function formatWithAbbreviation(value: number) {
  *     '-76%'       --> -0.76
  * @param value
  */
-export function stringToNumber(value: string) {
+function stringToNumber(value: string) {
     return numeral(value).value();
 }
 
 export const NumberUtils = {
+    format,
     formatAsMoney,
     formatWithSign,
     formatWithAbbreviation,

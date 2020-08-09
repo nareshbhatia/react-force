@@ -1,7 +1,7 @@
-import React from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { ProgressButton } from '@react-force/core';
+import React from 'react';
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {

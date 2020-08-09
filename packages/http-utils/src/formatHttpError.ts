@@ -10,7 +10,10 @@ export const formatHttpError = (error: any): string => {
         // The request was made and the server responded with a
         // status code that falls out of the 2xx range
         const data = error.response.data;
-        return data.errors && data.errors.length > 0
+        if (data === undefined || data.errors === undefined) {
+            return error.message;
+        }
+        return data.errors.length > 0
             ? `${data.message} ${data.errors[0].message}`
             : data.message;
     } else if (error.request) {

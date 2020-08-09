@@ -1,5 +1,5 @@
-import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import React from 'react';
 import { ViewCenteredContainer } from '../Containers';
 
 export const ViewCenteredMessage: React.FC = ({ children }) => {

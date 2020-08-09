@@ -1,19 +1,39 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # Compiled output
+compiled
 dist
 
 # Dependencies
 node_modules
 
 # IDEs and editors
-/.idea
-/.vscode
+.idea
 
 # Misc
 coverage
+legacy.d.ts
+next.d.ts
 *.log
+*.orig
 
 # System Files
 .DS_Store
 Thumbs.db
+
+# Lock Files
+package-lock.json
+yarn.lock
+!/yarn.lock
+
+.vercel
+.yalc
+yalc.lock
+
+# Website
+website/translated_docs
+website/build
+website/yarn.lock
+website/node_modules
+website/i18n
+!website/yarn.lock

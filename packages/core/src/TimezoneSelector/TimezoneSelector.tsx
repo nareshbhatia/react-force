@@ -1,9 +1,9 @@
-import React, { ReactNode } from 'react';
 import TextField, { TextFieldProps } from '@material-ui/core/TextField';
 import Autocomplete, {
     AutocompleteRenderInputParams,
 } from '@material-ui/lab/Autocomplete';
 import { Timezone, timezones, TzUtils } from '@react-force/date-utils';
+import React, { ReactNode } from 'react';
 
 const { findTimezone } = TzUtils;
 
@@ -35,7 +35,7 @@ export function TimezoneSelector({
     onChange,
     renderContainer = (props) => <Autocomplete {...props} />,
 }: TimezoneSelectorProps) {
-    const handleChange = (event: any, value: any) => {
+    const handleChange = (_event: any, value: any) => {
         onChange(value.name);
     };
 

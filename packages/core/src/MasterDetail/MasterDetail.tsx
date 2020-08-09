@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
+import React, { useState } from 'react';
 import { HorizontalContainer, ScrollingContainer } from '../Containers';
 import { FloatingAddButton } from '../FloatingAddButton';
 
