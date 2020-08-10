@@ -1,0 +1,51 @@
+{
+  "name": "@react-force/eslint-config",
+  "description": "Shareable ESLint config for React + TypeScript projects",
+  "version": "1.0.0",
+  "author": "Naresh Bhatia",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nareshbhatia/react-force.git",
+    "directory": "packages/eslint-config"
+  },
+  "keywords": [
+    "eslint",
+    "eslintconfig"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "build": "echo No build for this package",
+    "build:local": "echo No build for this package",
+    "del-dist": "echo No del-dist for this package",
+    "format": "prettier --write '{src,test,stories}/**/*.ts*'",
+    "lint": "echo No lint for this package",
+    "prepublish": "echo No prepublish for this package",
+    "start": "echo No start for this package",
+    "test": "echo No tests in this package",
+    "test:watch": "echo No tests in this package",
+    "test:coverage": "echo No tests in this package"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.8.0",
+    "@typescript-eslint/parser": "^3.8.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-react-app": "^6.0.0-next.77"
+  },
+  "peerDependencies": {
+    "babel-eslint": ">= 10",
+    "eslint": ">= 7",
+    "eslint-plugin-flowtype": "^5.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.5",
+    "eslint-plugin-react-hooks": "^4.0.8",
+    "eslint-plugin-testing-library": "^3.4.1"
+  }
+}
