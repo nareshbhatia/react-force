@@ -9,12 +9,14 @@ import {
 } from '../packages/core/src';
 import { theme } from './theme';
 
-addDecorator((storyFn) => (
+const StoryDecorator = (Story: any) => (
     <ThemeProvider theme={theme}>
         <MessageProvider>
             <CssBaseline />
-            {storyFn()}
+            <Story />
             <MessageRenderer />
         </MessageProvider>
     </ThemeProvider>
-));
+);
+
+addDecorator(StoryDecorator);
