@@ -4,6 +4,7 @@
   "compilerOptions": {
     "allowJs": false,
     "baseUrl": ".",
+    "resolveJsonModule": true,
     "typeRoots": ["./node_modules/@types", "./types"],
     "paths": {
       "@react-force/core": ["packages/core/src"],
