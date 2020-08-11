@@ -32,6 +32,6 @@
   },
   "dependencies": {
     "@react-force/models": "^1.2.0",
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.1"
   }
 }

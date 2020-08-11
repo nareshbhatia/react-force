@@ -1,7 +1,7 @@
 {
   "name": "@react-force/eslint-config",
   "description": "Shareable ESLint config for React + TypeScript projects",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Naresh Bhatia",
   "license": "MIT",
   "repository": {
@@ -33,8 +33,8 @@
     "test:coverage": "echo No tests in this package"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^3.8.0",
-    "@typescript-eslint/parser": "^3.8.0",
+    "@typescript-eslint/eslint-plugin": "^3.9.0",
+    "@typescript-eslint/parser": "^3.9.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-react-app": "^6.0.0-next.77"
   },

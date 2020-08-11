@@ -43,7 +43,7 @@
     "slate-html-serializer": "0.8.11",
     "slate-react": "0.22.10",
     "yup": "^0.29.3",
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.1"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.x",
