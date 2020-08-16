@@ -81,6 +81,9 @@ const useStyles = makeStyles((theme: Theme) => ({
             marginLeft: theme.spacing(2),
             padding: 0,
         },
+        pre: {
+            fontSize: 16,
+        },
         '.rf-subtitle': {
             ...theme.typography.h6,
             marginTop: -6,

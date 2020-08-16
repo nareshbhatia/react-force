@@ -39,6 +39,6 @@
   },
   "devDependencies": {
     "@types/moment-duration-format": "^2.2.2",
-    "@types/moment-timezone": "^0.5.13"
+    "@types/moment-timezone": "^0.5.30"
   }
 }

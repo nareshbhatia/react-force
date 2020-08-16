@@ -1,0 +1,138 @@
+[
+    {
+        "type": "heading1",
+        "children": [{ "text": "Headline 1" }]
+    },
+    {
+        "type": "heading2",
+        "children": [{ "text": "Headline 2" }]
+    },
+    {
+        "type": "heading3",
+        "children": [{ "text": "Headline 3" }]
+    },
+    {
+        "type": "heading4",
+        "children": [{ "text": "Headline 4" }]
+    },
+    {
+        "type": "heading5",
+        "children": [{ "text": "Headline 5" }]
+    },
+    {
+        "type": "heading6",
+        "children": [{ "text": "Headline 6" }]
+    },
+    {
+        "type": "paragraph",
+        "children": [
+            {
+                "text": "The lion is a species in the family Felidae. It is a muscular, deep-chested cat with a short, rounded head, a reduced neck and round ears, and a hairy tuft at the end of its tail."
+            }
+        ]
+    },
+    {
+        "type": "paragraph",
+        "children": [
+            { "text": "Bold", "bold": true }
+        ]
+    },
+    {
+        "type": "paragraph",
+        "children": [
+            { "text": "Italic", "italic": true }
+        ]
+    },
+    {
+        "type": "paragraph",
+        "children": [
+            { "text": "Underline", "underline": true }
+        ]
+    },
+    {
+        "type": "paragraph",
+        "children": [
+            { "text": "Strikethrough", "strikethrough": true }
+        ]
+    },
+    {
+        "type": "paragraph",
+        "children": [
+            { "text": "Code", "code": true }
+        ]
+    },
+    {
+        "type": "paragraph",
+        "children": [
+            { "text": "Bold and italic", "bold": true, "italic": true }
+        ]
+    },
+    {
+        "type": "paragraph",
+        "children": [
+            { "text": "" },
+            {
+                "type": "link",
+                "url": "https://en.wikipedia.org/wiki/Lion",
+                "openInNewTab": true,
+                "children": [{ "text": "Lion" }]
+            }
+        ]
+    },
+    {
+        "type": "image",
+        "url": "https://source.unsplash.com/IPRFX7CVVoU/288x288",
+        "alt": "Lion",
+        "children": [{ "text": "" }]
+    },
+    {
+        "type": "bulleted-list",
+        "children": [
+            {
+                "type": "list-item",
+                "children": [{ "text": "Bullet 1" }]
+            },
+            {
+                "type": "list-item",
+                "children": [{ "text": "Bullet 2" }]
+            },
+            {
+                "type": "list-item",
+                "children": [{ "text": "Bullet 3" }]
+            }
+        ]
+    },
+    {
+        "type": "numbered-list",
+        "children": [
+            {
+                "type": "list-item",
+                "children": [{ "text": "Bullet 1" }]
+            },
+            {
+                "type": "list-item",
+                "children": [{ "text": "Bullet 2" }]
+            },
+            {
+                "type": "list-item",
+                "children": [{ "text": "Bullet 3" }]
+            }
+        ]
+    },
+    {
+        "type": "block-quote",
+        "children": [
+            {
+                "text": "Ask not what your country can do for you, but what you can do for your country. - John F. Kennedy"
+            }
+        ]
+    },
+    {
+        "type": "pre",
+        "children": [
+            {
+                "text": "const total = price * quantity;\nconst tax = total * taxRate"
+            }
+        ]
+    }
+]

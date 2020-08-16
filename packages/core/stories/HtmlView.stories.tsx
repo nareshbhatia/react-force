@@ -66,43 +66,47 @@ const cardContent = `
 `;
 
 const htmlElementsContent = `
-<h1 class="rf-mb-gutter">Headline 1</h1>
-<h2 class="rf-mb-gutter">Headline 2</h2>
-<h3 class="rf-mb-gutter">Headline 3</h3>
-<h4 class="rf-mb-gutter">Headline 4</h4>
-<h5 class="rf-mb-gutter">Headline 5</h5>
-<h6 class="rf-mb-gutter">Headline 6</h6>
-<h6 class="rf-subtitle1 rf-mb-gutter">Subtitle 1</h6>
-<h6 class="rf-subtitle2 rf-mb-gutter">Subtitle 2</h6>
+<h1>Headline 1</h1>
+<h2>Headline 2</h2>
+<h3>Headline 3</h3>
+<h4>Headline 4</h4>
+<h5>Headline 5</h5>
+<h6>Headline 6</h6>
+<h6 class="rf-subtitle1">Subtitle 1</h6>
+<h6 class="rf-subtitle2">Subtitle 2</h6>
 
-<p class="rf-body1 rf-mb-gutter">
+<p class="rf-body1">
     Body 1. The lion is a species in the family Felidae. It is a muscular,
     deep-chested cat with a short, rounded head, a reduced neck and
     round ears, and a hairy tuft at the end of its tail.
 </p>
 
 
-<p class="rf-body2 rf-mb-gutter">
+<p class="rf-body2">
     Body 2. The lion is a species in the family Felidae. It is a muscular,
     deep-chested cat with a short, rounded head, a reduced neck and
     round ears, and a hairy tuft at the end of its tail.
 </p>
 
+<p><strong>Bold</strong></p>
+<p><em>Italic</em></p>
+<p><u>Underline</u></p>
+<p><s>Strikethrough</s></p>
+<p><code>Code</code></p>
 <p>
-    <strong>Bold</strong><br />
-    <em>Italic</em><br />
-    <u>Underline</u><br />
-    <s>Strikethrough</s><br />
-    <code>Code</code>
+  <em><strong>Bold and italic</strong></em>
 </p>
 
 <p>
-    <a href="https://en.wikipedia.org/wiki/Lion">Lion</a>
+  <a
+    href="https://en.wikipedia.org/wiki/Lion"
+    target="_blank"
+    rel="noopener noreferrer"
+    >Lion</a
+  >
 </p>
 
-<p>
-    <img src="https://source.unsplash.com/IPRFX7CVVoU/288x288" alt="Lion" />
-</p>
+<img src="https://source.unsplash.com/IPRFX7CVVoU/288x288" alt="Lion" />
 
 <ul>
     <li>The lion is a species in the family Felidae. It is a muscular,
@@ -129,10 +133,8 @@ const htmlElementsContent = `
 </blockquote>
 
 <pre>
-<code>
 const total = price * quantity;
 const tax = total * taxRate
-</code>
 </pre>
 `;
 
@@ -160,36 +162,20 @@ HtmlElementsStory.storyName = 'HTML Elements';
 export const MuiTypographyStory = () => {
     return (
         <Box maxWidth={480}>
-            <Typography variant="h1" gutterBottom>
-                Headline 1
-            </Typography>
-            <Typography variant="h2" gutterBottom>
-                Headline 2
-            </Typography>
-            <Typography variant="h3" gutterBottom>
-                Headline 3
-            </Typography>
-            <Typography variant="h4" gutterBottom>
-                Headline 4
-            </Typography>
-            <Typography variant="h5" gutterBottom>
-                Headline 5
-            </Typography>
-            <Typography variant="h6" gutterBottom>
-                Headline 6
-            </Typography>
-            <Typography variant="subtitle1" gutterBottom>
-                Subtitle 1
-            </Typography>
-            <Typography variant="subtitle2" gutterBottom>
-                Subtitle 2
-            </Typography>
-            <Typography variant="body1" gutterBottom>
+            <Typography variant="h1">Headline 1</Typography>
+            <Typography variant="h2">Headline 2</Typography>
+            <Typography variant="h3">Headline 3</Typography>
+            <Typography variant="h4">Headline 4</Typography>
+            <Typography variant="h5">Headline 5</Typography>
+            <Typography variant="h6">Headline 6</Typography>
+            <Typography variant="subtitle1">Subtitle 1</Typography>
+            <Typography variant="subtitle2">Subtitle 2</Typography>
+            <Typography variant="body1">
                 Body 1. The lion is a species in the family Felidae. It is a
                 muscular, deep-chested cat with a short, rounded head, a reduced
                 neck and round ears, and a hairy tuft at the end of its tail.
             </Typography>
-            <Typography variant="body2" gutterBottom>
+            <Typography variant="body2">
                 Body 2. The lion is a species in the family Felidae. It is a
                 muscular, deep-chested cat with a short, rounded head, a reduced
                 neck and round ears, and a hairy tuft at the end of its tail.
