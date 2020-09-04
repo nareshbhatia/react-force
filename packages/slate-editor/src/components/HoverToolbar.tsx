@@ -39,34 +39,44 @@ export const HoverToolbar = () => {
     const [linkState, setLinkState] = useState<LinkState | undefined>();
 
     const editor = useSlate();
+
+    // Compute editor selection string
+    // This is to trigger useEffect even when the content of the selection
+    // object changes without the object itself changing.
     const { selection } = editor;
+    const selectionStr = JSON.stringify(selection);
+
+    // Compute isTextSelected
+    // This is to simply trigger the opening of the toolbar when text is selected
     const isTextSelected =
         ReactEditor.isFocused(editor) &&
         selection !== null &&
         !Range.isCollapsed(selection) &&
         Editor.string(editor, selection) !== '';
 
-    const computeAnchorEl = () => {
-        const nativeSelection = window.getSelection();
-        const range = nativeSelection!.getRangeAt(0);
-        const rect = range.getBoundingClientRect();
-        return {
-            clientWidth: rect.width,
-            clientHeight: rect.height,
-            getBoundingClientRect: () => range.getBoundingClientRect(),
-        };
-    };
-
     useEffect(() => {
-        if (editMode === 'toolbar' && isTextSelected) {
-            if (!isToolbarOpen) {
+        if (editMode === 'toolbar') {
+            if (isTextSelected) {
+                const domSelection = window.getSelection();
+                if (domSelection === null || domSelection.rangeCount === 0) {
+                    return;
+                }
+                const domRange = domSelection.getRangeAt(0);
+                const rect = domRange.getBoundingClientRect();
+                setAnchorEl({
+                    clientWidth: rect.width,
+                    clientHeight: rect.height,
+                    getBoundingClientRect: () =>
+                        domRange.getBoundingClientRect(),
+                });
                 setToolbarOpen(true);
-                setAnchorEl(computeAnchorEl());
+            } else {
+                setToolbarOpen(false);
             }
         } else {
             setToolbarOpen(false);
         }
-    }, [editMode, isToolbarOpen, isTextSelected]);
+    }, [editMode, isTextSelected, selection, selectionStr]);
 
     const handleEditModeChanged = (editMode: EditMode) => {
         setEditMode(editMode);
