@@ -15,8 +15,20 @@ import { insertLink, unwrapLink } from '../transforms';
 import { LinkEditor } from './LinkEditor';
 import { Toolbar } from './Toolbar';
 
-// Dark theme for the menu
-const menuTheme = createMuiTheme({
+/**
+ * Returns the range of the DOM selection.
+ * Returns null if there is no selection.
+ */
+const getDomSelectionRange = () => {
+    const domSelection = window.getSelection();
+    if (domSelection === null || domSelection.rangeCount === 0) {
+        return null;
+    }
+    return domSelection.getRangeAt(0);
+};
+
+/** Dark theme for the toolbar */
+const toolbarTheme = createMuiTheme({
     palette: {
         type: 'dark',
         background: {
@@ -57,17 +69,27 @@ export const HoverToolbar = () => {
     useEffect(() => {
         if (editMode === 'toolbar') {
             if (isTextSelected) {
-                const domSelection = window.getSelection();
-                if (domSelection === null || domSelection.rangeCount === 0) {
+                const domRange = getDomSelectionRange();
+                if (domRange === null) {
                     return;
                 }
-                const domRange = domSelection.getRangeAt(0);
                 const rect = domRange.getBoundingClientRect();
                 setAnchorEl({
                     clientWidth: rect.width,
                     clientHeight: rect.height,
-                    getBoundingClientRect: () =>
-                        domRange.getBoundingClientRect(),
+                    /**
+                     * This function will be called by the popper to get the
+                     * bounding rectangle for the selection. Since the selection
+                     * can change when a toolbar button is clicked, we need to
+                     * get a fresh selection range before computing the bounding
+                     * rect. (see https://stackoverflow.com/questions/63747451)
+                     */
+                    getBoundingClientRect: () => {
+                        const innerDomRange = getDomSelectionRange();
+                        return innerDomRange === null
+                            ? new DOMRect()
+                            : innerDomRange.getBoundingClientRect();
+                    },
                 });
                 setToolbarOpen(true);
             } else {
@@ -127,9 +149,9 @@ export const HoverToolbar = () => {
 
     return (
         <Fragment>
-            <ThemeProvider theme={menuTheme}>
+            <ThemeProvider theme={toolbarTheme}>
                 <Popper
-                    id="menu-popper"
+                    id="toolbar-popper"
                     open={isToolbarOpen}
                     anchorEl={anchorEl}
                     placement="top"
