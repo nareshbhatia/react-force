@@ -37,6 +37,7 @@
     "is-url": "^1.2.4",
     "slate": "0.58.4",
     "slate-history": "0.58.4",
+    "slate-hyperscript": "0.58.4",
     "slate-react": "0.58.4",
     "tslib": "^2.0.1"
   },

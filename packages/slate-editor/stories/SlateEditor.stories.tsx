@@ -2,9 +2,8 @@ import Box from '@material-ui/core/Box';
 import { HtmlView } from '@react-force/core';
 import React, { Fragment, useState } from 'react';
 import { Node } from 'slate';
-// import { htmlContent } from '../mock-data/htmlContent';
-import content from '../mock-data/slate-document.json';
-import { serializeToHtml, SlateEditor } from '../src';
+import { htmlContent } from '../mock-data/htmlContent';
+import { deserializeFromHtml, serializeToHtml, SlateEditor } from '../src';
 
 const metadata = {
     component: SlateEditor,
@@ -16,7 +15,7 @@ const metadata = {
 export default metadata;
 
 export const SlateEditorStory = () => {
-    // const content = deserializeFromHtml(htmlContent);
+    const content = deserializeFromHtml(htmlContent);
     const [value, setValue] = useState<Array<Node>>(content);
 
     return (
