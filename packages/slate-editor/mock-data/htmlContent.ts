@@ -8,8 +8,8 @@ const content = `
 
 <p>
 The lion is a species in the family Felidae. It is a muscular, deep-chested
-cat with a short, rounded head, a reduced neck and round ears, and a hairy
-tuft at the end of its tail.
+ cat with a short, rounded head, a reduced neck and round ears, and a hairy
+ tuft at the end of its tail.
 </p>
 
 <p><strong>Bold</strong></p>
@@ -44,7 +44,7 @@ tuft at the end of its tail.
 
 <blockquote>
 Ask not what your country can do for you, but what you can do for your
-country. - John F. Kennedy
+ country. - John F. Kennedy
 </blockquote>
 
 <pre>const total = price * quantity; const tax = total * taxRate</pre>

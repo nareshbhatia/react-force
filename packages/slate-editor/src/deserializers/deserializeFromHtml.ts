@@ -1,11 +1,53 @@
-import { Node } from 'slate';
+import { Node, Text } from 'slate';
 import { jsx } from 'slate-hyperscript';
+import { MarkType } from '../models';
+
+const marks: Array<MarkType> = [];
+
+const createTextNode = (text: string, marks: Array<MarkType>): Text => {
+    // create raw text node
+    const textNode: Text = {
+        text,
+    };
+
+    // set marks
+    marks.forEach((mark) => {
+        textNode[mark] = true;
+    });
+
+    return textNode;
+};
 
 const deserialize = (el: any): any => {
     if (el.nodeType === 3) {
-        return el.textContent;
+        // create the text node including the marks set by parent nodes
+        const textNode = createTextNode(el.textContent, marks);
+
+        // clear marks for next use in a text node
+        marks.length = 0;
+
+        return textNode;
     } else if (el.nodeType !== 1) {
         return null;
+    }
+
+    // ------ collect marks before diving into children ------
+    switch (el.nodeName) {
+        case 'CODE':
+            marks.push('code');
+            break;
+        case 'EM':
+            marks.push('italic');
+            break;
+        case 'S':
+            marks.push('strikethrough');
+            break;
+        case 'STRONG':
+            marks.push('bold');
+            break;
+        case 'U':
+            marks.push('underline');
+            break;
     }
 
     const children = Array.from(el.childNodes).map(deserialize);
@@ -59,6 +101,15 @@ const deserialize = (el: any): any => {
             return jsx('element', { type: 'pre' }, children);
         case 'UL':
             return jsx('element', { type: 'bulleted-list' }, children);
+
+        // marks are already included in the returned text node
+        case 'CODE':
+        case 'EM':
+        case 'S':
+        case 'STRONG':
+        case 'U':
+            return children;
+
         default:
             return el.textContent;
     }
