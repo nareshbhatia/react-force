@@ -14,21 +14,10 @@ This example uses a Slate document as its input and output.
 ```typescript jsx
 import React, { useState } from 'react';
 import { Node } from 'slate';
-import { SlateEditor } from '@react-force/slate-editor';
-
-const initialValue: Array<Node> = [
-    {
-        type: 'paragraph',
-        children: [
-            {
-                text: 'Hello World!',
-            },
-        ],
-    },
-];
+import { EmptyDocument, SlateEditor } from '@react-force/slate-editor';
 
 export const Example = () => {
-    const [value, setValue] = useState<Array<Node>>(initialValue);
+    const [value, setValue] = useState<Array<Node>>(EmptyDocument);
 
     return <SlateEditor value={value} onChange={setValue} />;
 };
@@ -60,3 +49,9 @@ export const Example = () => {
     );
 };
 ```
+
+### Using in a form with Formik
+
+To use the Slate Editor in a form, use the `RichTextField` component from
+`@react-force/formik-mui`. See an example
+[here](https://nareshbhatia.github.io/react-force/?path=/story/formik-richtextfield--rich-text-field-story).
