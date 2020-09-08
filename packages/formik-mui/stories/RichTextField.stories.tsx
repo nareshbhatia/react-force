@@ -1,8 +1,11 @@
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { htmlSerializer } from '@nareshbhatia/slate-editor';
 import { HtmlView } from '@react-force/core';
+import {
+    deserializeFromHtml,
+    serializeToHtml,
+} from '@react-force/slate-editor';
 import { Form, Formik } from 'formik';
 import React, { Fragment, useState } from 'react';
 import { FormActions, RichTextField } from '../src';
@@ -26,9 +29,9 @@ export const RichTextFieldStory = () => {
     return (
         <Fragment>
             <Formik
-                initialValues={{ message: htmlSerializer.deserialize(message) }}
+                initialValues={{ message: deserializeFromHtml(message) }}
                 onSubmit={(values, actions) => {
-                    setMessage(htmlSerializer.serialize(values.message));
+                    setMessage(serializeToHtml(values.message));
                     actions.setSubmitting(false);
                 }}
             >

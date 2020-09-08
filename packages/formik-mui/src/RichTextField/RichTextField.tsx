@@ -1,7 +1,7 @@
 import FormControl, { FormControlProps } from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { SlateEditor } from '@nareshbhatia/slate-editor';
+import { SlateEditor } from '@react-force/slate-editor';
 import { useField } from 'formik';
 import React from 'react';
 
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         lineHeight: 1,
         marginBottom: theme.spacing(1),
     },
-    editorWrapper: {
+    editorContainer: {
         borderColor:
             theme.palette.type === 'light'
                 ? 'rgba(0, 0, 0, 0.23)'
@@ -45,19 +45,15 @@ export const RichTextField = ({
     const classes = useStyles();
     const [field, meta, helpers] = useField(name);
 
-    const handleChange = (option: any) => {
-        helpers.setValue(option.value);
+    const handleChange = (value: any) => {
+        helpers.setValue(value);
     };
 
     return (
         <FormControl {...rest}>
             {label ? <label className={classes.label}>{label}</label> : null}
-            <div className={classes.editorWrapper}>
-                <SlateEditor
-                    className={editorClassName}
-                    value={field.value}
-                    onChange={handleChange}
-                />
+            <div className={`${classes.editorContainer} ${editorClassName}`}>
+                <SlateEditor value={field.value} onChange={handleChange} />
             </div>
             {meta.touched && meta.error ? (
                 <FormHelperText error={true}>{meta.error}</FormHelperText>
