@@ -43,7 +43,7 @@ export const TimezoneFieldStory = () => {
             </Formik>
 
             <Box mt={4}>
-                <Typography variant="h6">Form values</Typography>
+                <Typography variant="h6">Form value</Typography>
                 <Typography>{timezone}</Typography>
             </Box>
         </Fragment>

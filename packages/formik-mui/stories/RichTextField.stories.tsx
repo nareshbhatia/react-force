@@ -12,7 +12,7 @@ import { FormActions, RichTextField } from '../src';
 
 const useStyles = makeStyles({
     editor: {
-        minHeight: 80,
+        minHeight: 200,
     },
 });
 
@@ -50,7 +50,7 @@ export const RichTextFieldStory = () => {
             </Formik>
 
             <Box mt={4}>
-                <Typography variant="h6">Form values</Typography>
+                <Typography variant="h6">Form value</Typography>
                 <HtmlView html={message} />
             </Box>
         </Fragment>

@@ -47,9 +47,9 @@ export const MultiSelectFieldStory = () => {
             </Formik>
 
             <Box mt={4}>
-                <Typography variant="h6">Form values</Typography>
+                <Typography variant="h6">Form value</Typography>
                 <Typography>
-                    Days: {selectedDays.map((day) => day.name).join(', ')}
+                    {selectedDays.map((day) => day.name).join(', ')}
                 </Typography>
             </Box>
         </Fragment>

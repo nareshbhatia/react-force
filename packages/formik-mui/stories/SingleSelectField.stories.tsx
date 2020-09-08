@@ -57,7 +57,7 @@ export const SingleSelectFieldStory = () => {
             </Formik>
 
             <Box mt={4}>
-                <Typography variant="h6">Form values</Typography>
+                <Typography variant="h6">Form value</Typography>
                 {timezone !== undefined ? (
                     <Typography>{timezone.label}</Typography>
                 ) : null}
