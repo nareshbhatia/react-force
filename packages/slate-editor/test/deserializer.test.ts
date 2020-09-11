@@ -20,7 +20,11 @@ describe('deserializeFromHtml', () => {
         const output = [
             {
                 type: 'paragraph',
-                children: [],
+                children: [
+                    {
+                        text: '',
+                    },
+                ],
             },
         ];
 
@@ -101,7 +105,11 @@ describe('deserializeFromHtml', () => {
                 type: 'image',
                 url: 'https://example.com/lion.png',
                 alt: 'Lion',
-                children: [],
+                children: [
+                    {
+                        text: '',
+                    },
+                ],
             },
         ];
 

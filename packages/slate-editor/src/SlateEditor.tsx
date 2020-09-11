@@ -18,10 +18,7 @@ export interface SlateEditorProps {
     onChange: (value: Array<Node>) => void;
 }
 
-export const SlateEditor = ({
-    value,
-    onChange,
-}: SlateEditorProps) => {
+export const SlateEditor = ({ value, onChange }: SlateEditorProps) => {
     const editor = useMemo(
         () => withImages(withLinks(withHistory(withReact(createEditor())))),
         []
