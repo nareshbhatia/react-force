@@ -14,6 +14,7 @@
       "@react-force/mock-data": ["packages/mock-data/src"],
       "@react-force/models": ["packages/models/src"],
       "@react-force/number-utils": ["packages/number-utils/src"],
+      "@react-force/slate-editor": ["packages/slate-editor/src"],
       "@react-force/utils": ["packages/utils/src"],
       "@react-force/web-utils": ["packages/web-utils/src"],
       "$test/*": ["test/*"]

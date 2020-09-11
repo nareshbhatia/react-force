@@ -3,12 +3,7 @@ import { HtmlView } from '@react-force/core';
 import React, { Fragment, useState } from 'react';
 import { Node } from 'slate';
 import { htmlContent } from '../mock-data/htmlContent';
-import {
-    deserializeFromHtml,
-    EmptyDocument,
-    serializeToHtml,
-    SlateEditor,
-} from '../src';
+import { deserializeFromHtml, serializeToHtml, SlateEditor } from '../src';
 
 const metadata = {
     component: SlateEditor,
@@ -22,17 +17,13 @@ export default metadata;
 const initialValue = deserializeFromHtml(htmlContent);
 
 export const SlateEditorStory = () => {
-    const [value, setValue] = useState<Array<Node>>(EmptyDocument);
+    const [value, setValue] = useState<Array<Node>>(initialValue);
 
     return (
         <Fragment>
             <Box display="flex">
                 <Box flex={1} p={2}>
-                    <SlateEditor
-                        initialValue={initialValue}
-                        value={value}
-                        onChange={setValue}
-                    />
+                    <SlateEditor value={value} onChange={setValue} />
                 </Box>
                 <HtmlView
                     flex={1}

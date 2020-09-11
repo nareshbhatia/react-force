@@ -36,7 +36,7 @@ import {
     SlateEditor,
 } from '@react-force/slate-editor';
 
-const initialValue: Array<Node> = deserializeFromHtml('<p>Hello World!</p>');
+const initialValue = deserializeFromHtml('<p>Hello World!</p>');
 
 export const Example = () => {
     const [value, setValue] = useState<Array<Node>>(initialValue);

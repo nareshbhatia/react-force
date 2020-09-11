@@ -1,6 +1,6 @@
 import isHotkey from 'is-hotkey';
-import React, { useCallback, useEffect, useMemo } from 'react';
-import { createEditor, Editor, Node } from 'slate';
+import React, { useCallback, useMemo } from 'react';
+import { createEditor, Node } from 'slate';
 import { withHistory } from 'slate-history';
 import { Slate, Editable, withReact } from 'slate-react';
 import { Element, HoverToolbar, Leaf } from './components';
@@ -14,13 +14,11 @@ const HOTKEYS: { [key: string]: string } = {
 };
 
 export interface SlateEditorProps {
-    initialValue: Array<Node>;
     value: Array<Node>;
     onChange: (value: Array<Node>) => void;
 }
 
 export const SlateEditor = ({
-    initialValue,
     value,
     onChange,
 }: SlateEditorProps) => {
@@ -30,11 +28,6 @@ export const SlateEditor = ({
     );
     const renderElement = useCallback((props) => <Element {...props} />, []);
     const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
-
-    useEffect(() => {
-        editor.children = initialValue;
-        Editor.normalize(editor, { force: true });
-    }, [editor, initialValue]);
 
     return (
         <Slate editor={editor} value={value} onChange={onChange}>

@@ -1,4 +1,4 @@
-import { Node } from 'slate';
+import { Element, Node, Text } from 'slate';
 import { jsx } from 'slate-hyperscript';
 
 const ELEMENT_TAGS: { [key: string]: (el: any) => any } = {
@@ -75,7 +75,27 @@ const deserialize = (el: any): any => {
     return children;
 };
 
+const normalize = (node: Node) => {
+    if (Text.isText(node)) {
+        return;
+    }
+
+    // Ensure that block and inline nodes have at least one text child.
+    if (Element.isElement(node) && node.children.length === 0) {
+        node.children.push({ text: '' });
+        return;
+    }
+};
+
 export const deserializeFromHtml = (html: string): Array<Node> => {
+    // parse html into a DOM document
     const document = new DOMParser().parseFromString(html, 'text/html');
-    return deserialize(document.body);
+
+    // deserialize DOM document into an array of nodes
+    const nodes: Array<Node> = deserialize(document.body);
+
+    // normalize nodes to Slate compatible format
+    nodes.forEach((node) => normalize(node));
+
+    return nodes;
 };
