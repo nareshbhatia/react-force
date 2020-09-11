@@ -1,7 +1,7 @@
 {
   "name": "@react-force/slate-editor",
   "description": "A pre-packaged editor built on top of Slate",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Naresh Bhatia",
   "license": "MIT",
   "repository": {
@@ -26,9 +26,9 @@
     "lint": "eslint '{src,test,stories}/**/*.ts*'",
     "prepublish": "yarn build",
     "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
-    "test": "echo No tests in this package",
-    "test:watch": "echo No tests in this package",
-    "test:coverage": "echo No tests in this package"
+    "test": "tsdx test",
+    "test:watch": "tsdx test --watch",
+    "test:coverage": "tsdx test --coverage --no-cache"
   },
   "dependencies": {
     "escape-html": "^1.0.3",

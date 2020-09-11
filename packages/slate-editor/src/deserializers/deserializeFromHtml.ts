@@ -1,118 +1,78 @@
-import { Node, Text } from 'slate';
+import { Node } from 'slate';
 import { jsx } from 'slate-hyperscript';
-import { MarkType } from '../models';
 
-const marks: Array<MarkType> = [];
+const ELEMENT_TAGS: { [key: string]: (el: any) => any } = {
+    A: (el) => ({
+        type: 'link',
+        url: el.getAttribute('href'),
+        openInNewTab: el.getAttribute('target') === '_blank',
+    }),
+    BLOCKQUOTE: () => ({ type: 'block-quote' }),
+    H1: () => ({ type: 'heading1' }),
+    H2: () => ({ type: 'heading2' }),
+    H3: () => ({ type: 'heading3' }),
+    H4: () => ({ type: 'heading4' }),
+    H5: () => ({ type: 'heading5' }),
+    H6: () => ({ type: 'heading6' }),
+    IMG: (el) => ({
+        type: 'image',
+        url: el.getAttribute('src'),
+        alt: el.getAttribute('alt'),
+    }),
+    LI: () => ({ type: 'list-item' }),
+    OL: () => ({ type: 'numbered-list' }),
+    P: () => ({ type: 'paragraph' }),
+    PRE: () => ({ type: 'pre' }),
+    UL: () => ({ type: 'bulleted-list' }),
+};
 
-const createTextNode = (text: string, marks: Array<MarkType>): Text => {
-    // create raw text node
-    const textNode: Text = {
-        text,
-    };
-
-    // set marks
-    marks.forEach((mark) => {
-        textNode[mark] = true;
-    });
-
-    return textNode;
+// COMPAT: `B` is omitted here because Google Docs uses `<b>` in weird ways.
+const TEXT_TAGS: { [key: string]: (el: any) => any } = {
+    CODE: () => ({ code: true }),
+    DEL: () => ({ strikethrough: true }),
+    EM: () => ({ italic: true }),
+    I: () => ({ italic: true }),
+    S: () => ({ strikethrough: true }),
+    STRONG: () => ({ bold: true }),
+    U: () => ({ underline: true }),
 };
 
 const deserialize = (el: any): any => {
     if (el.nodeType === 3) {
-        // create the text node including the marks set by parent nodes
-        const textNode = createTextNode(el.textContent, marks);
-
-        // clear marks for next use in a text node
-        marks.length = 0;
-
-        return textNode;
+        return el.textContent;
     } else if (el.nodeType !== 1) {
         return null;
+    } else if (el.nodeName === 'BR') {
+        return '\n';
     }
 
-    // ------ collect marks before diving into children ------
-    switch (el.nodeName) {
-        case 'CODE':
-            marks.push('code');
-            break;
-        case 'EM':
-            marks.push('italic');
-            break;
-        case 'S':
-            marks.push('strikethrough');
-            break;
-        case 'STRONG':
-            marks.push('bold');
-            break;
-        case 'U':
-            marks.push('underline');
-            break;
+    const { nodeName } = el;
+    let parent = el;
+
+    if (
+        nodeName === 'PRE' &&
+        el.childNodes[0] &&
+        el.childNodes[0].nodeName === 'CODE'
+    ) {
+        parent = el.childNodes[0];
+    }
+    const children = Array.from(parent.childNodes).map(deserialize).flat();
+
+    if (el.nodeName === 'BODY') {
+        return jsx('fragment', {}, children);
     }
 
-    const children = Array.from(el.childNodes).map(deserialize);
-
-    switch (el.nodeName) {
-        case 'A':
-            return jsx(
-                'element',
-                {
-                    type: 'link',
-                    url: el.getAttribute('href'),
-                    openInNewTab: el.getAttribute('target') === '_blank',
-                },
-                children
-            );
-        case 'BLOCKQUOTE':
-            return jsx('element', { type: 'block-quote' }, children);
-        case 'BODY':
-            return jsx('fragment', {}, children);
-        case 'BR':
-            return '\n';
-        case 'H1':
-            return jsx('element', { type: 'heading1' }, children);
-        case 'H2':
-            return jsx('element', { type: 'heading2' }, children);
-        case 'H3':
-            return jsx('element', { type: 'heading3' }, children);
-        case 'H4':
-            return jsx('element', { type: 'heading4' }, children);
-        case 'H5':
-            return jsx('element', { type: 'heading5' }, children);
-        case 'H6':
-            return jsx('element', { type: 'heading6' }, children);
-        case 'IMG':
-            return jsx(
-                'element',
-                {
-                    type: 'image',
-                    url: el.getAttribute('src'),
-                    alt: el.getAttribute('alt'),
-                },
-                [{ text: '' }]
-            );
-        case 'LI':
-            return jsx('element', { type: 'list-item' }, children);
-        case 'OL':
-            return jsx('element', { type: 'numbered-list' }, children);
-        case 'P':
-            return jsx('element', { type: 'paragraph' }, children);
-        case 'PRE':
-            return jsx('element', { type: 'pre' }, children);
-        case 'UL':
-            return jsx('element', { type: 'bulleted-list' }, children);
-
-        // marks are already included in the returned text node
-        case 'CODE':
-        case 'EM':
-        case 'S':
-        case 'STRONG':
-        case 'U':
-            return children;
-
-        default:
-            return el.textContent;
+    if (ELEMENT_TAGS[nodeName]) {
+        const attrs = ELEMENT_TAGS[nodeName](el);
+        return jsx('element', attrs, children);
     }
+
+    if (TEXT_TAGS[nodeName]) {
+        const attrs = TEXT_TAGS[nodeName](el);
+        return children.map((child) => jsx('text', attrs, child));
+    }
+
+    return children;
 };
 
 export const deserializeFromHtml = (html: string): Array<Node> => {
