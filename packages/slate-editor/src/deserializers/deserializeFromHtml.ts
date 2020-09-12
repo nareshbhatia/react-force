@@ -1,5 +1,6 @@
 import { Element, Node, Text } from 'slate';
 import { jsx } from 'slate-hyperscript';
+import { EmptyDocument } from '../utils';
 
 const ELEMENT_TAGS: { [key: string]: (el: any) => any } = {
     A: (el) => ({
@@ -87,7 +88,16 @@ const normalize = (node: Node) => {
     }
 };
 
-export const deserializeFromHtml = (html: string): Array<Node> => {
+/**
+ * If input is undefined, null or blank, an empty document will be returned
+ */
+export const deserializeFromHtml = (
+    html: string | undefined | null
+): Array<Node> => {
+    if (!html || html.trim().length === 0) {
+        return EmptyDocument;
+    }
+
     // parse html into a DOM document
     const document = new DOMParser().parseFromString(html, 'text/html');
 

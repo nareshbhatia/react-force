@@ -1,6 +1,12 @@
-import { deserializeFromHtml } from '../src';
+import { deserializeFromHtml, EmptyDocument } from '../src';
 
 describe('deserializeFromHtml', () => {
+    it('deserializes undefined, null and blank strings as an empty document', () => {
+        expect(deserializeFromHtml(undefined)).toEqual(EmptyDocument);
+        expect(deserializeFromHtml(null)).toEqual(EmptyDocument);
+        expect(deserializeFromHtml('  ')).toEqual(EmptyDocument);
+    });
+
     it('deserializes a heading correctly', () => {
         const input = '<h1>Headline 1</h1>';
 

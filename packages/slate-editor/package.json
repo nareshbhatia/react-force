@@ -1,7 +1,7 @@
 {
   "name": "@react-force/slate-editor",
   "description": "A pre-packaged editor built on top of Slate",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "Naresh Bhatia",
   "license": "MIT",
   "repository": {
