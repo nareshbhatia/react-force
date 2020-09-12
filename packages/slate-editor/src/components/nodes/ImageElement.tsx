@@ -19,7 +19,8 @@ export const ImageElement = ({
 
     const url = element.url as string;
     const alt = typeof element.alt === 'string' ? element.alt : undefined;
-    const imgClass = selected && focused ? classes.selected : undefined;
+    const imgClass =
+        selected && focused ? `rf-img ${classes.selected}` : 'rf-img';
 
     return (
         <div {...attributes}>

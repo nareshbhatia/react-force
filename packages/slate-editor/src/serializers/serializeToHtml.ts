@@ -30,7 +30,7 @@ const serialize = (node: Node): string => {
         case 'image': {
             const url = escapeHtml(node.url as string);
             const alt = escapeHtml(node.alt as string);
-            return `<img src="${url}" alt="${alt}" />`;
+            return `<img src="${url}" alt="${alt}" class="rf-img" />`;
         }
     }
 

@@ -124,6 +124,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         '.rf-mb-gutter': {
             marginBottom: '0.35em',
         },
+        '.rf-img': {
+            maxWidth: '100%',
+        },
     },
 }));
 

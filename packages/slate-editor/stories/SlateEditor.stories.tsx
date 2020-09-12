@@ -105,6 +105,16 @@ To paste an image into the Slate Editor, copy an image URL and paste it in
 
 <p></p>
 
+<p>
+Note that <code>&lt;img&gt;</code> tags are rendered with a class called
+ <code>rf-img</code>. We recommend defining this class in your CSS to
+ set the max-width of the image to 100%. See below:
+</p>
+
+<pre>
+.rf-img { max-width: 100%; }
+</pre>
+
 <h6>Links</h6>
 
 <p>
@@ -119,9 +129,9 @@ The easiest way to enter a link into the Slate Editor is to use the link button
 <em>https://medium.com/naresh-bhatia/graphql-concepts-i-wish-someone-explained-to-me-a-year-ago-514d5b3c0eab</em>
 </p>
 
-<p>
+<blockquote>
 GraphQL is a modern approach to access data from one or more data sources.
-</p>
+</blockquote>
 `)
 );
 

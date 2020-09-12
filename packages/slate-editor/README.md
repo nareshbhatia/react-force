@@ -15,7 +15,7 @@ floating toolbar to support basic editing functions. It is based on the
 -   Supported elements: `h1`, `h2`, `h3`, `h4`, `h5`, `h6`, `p`, `blockquote`,
     `ul`, `ol`, `li`, `a`, `pre`, `img`
 -   Supported marks: bold, italic, underline, strikethrough, code
--   Full undo/redo 
+-   Full undo/redo
 -   Paste HTML from clipboard
 -   Paste links and images form clipboard
 
@@ -69,3 +69,18 @@ export const Example = () => {
 To use the Slate Editor in a form, use the `RichTextField` component from
 `@react-force/formik-mui`. See an example
 [here](https://nareshbhatia.github.io/react-force/?path=/story/formik-richtextfield--rich-text-field-story).
+
+## Styling
+
+The editor is styled using your CSS. You can set the styles to whatever you
+want.
+
+Note that `<img>` tags are rendered with a class called `rf-img`. We recommend
+defining this class in your CSS to set the max-width of images to 100%. For
+example:
+
+```css
+.rf-img {
+    max-width: 100%;
+}
+```
