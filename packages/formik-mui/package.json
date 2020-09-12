@@ -1,7 +1,7 @@
 {
   "name": "@react-force/formik-mui",
   "description": "Formik components using Material-UI",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "author": "Naresh Bhatia",
   "license": "MIT",
   "repository": {
@@ -33,7 +33,7 @@
   "dependencies": {
     "@react-force/core": "^3.3.0",
     "@react-force/date-utils": "^3.4.0",
-    "@react-force/slate-editor": "^1.0.3",
+    "@react-force/slate-editor": "^1.0.4",
     "formik": "^2.1.5",
     "moment": "^2.27.0",
     "moment-timezone": "^0.5.31",
