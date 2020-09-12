@@ -1,3 +1,5 @@
+import { removeLineBreaks } from '../src';
+
 const content = `
 <h1>Headline 1</h1>
 <h2>Headline 2</h2>
@@ -52,4 +54,4 @@ Ask not what your country can do for you, but what you can do for your
 
 // TODO: pre tags don't work well with this solution
 // Remove line breaks, deserialize does not handle them well
-export const htmlContent = content.replace(/(\r\n|\n|\r)/gm, '');
+export const htmlContent = removeLineBreaks(content);

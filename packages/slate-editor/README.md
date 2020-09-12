@@ -1,9 +1,23 @@
 # React Force Slate Editor
 
 This is a light-weight medium-style editor with no editor chrome - only a
-floating toolbar to support basic editing functions. It based on the
+floating toolbar to support basic editing functions. It is based on the
 [Slate](https://docs.slatejs.org/) framework. You can try out a live demo
 [here](https://nareshbhatia.github.io/react-force/?path=/story/slate-editor-slateeditor--slate-editor-story).
+
+![Screen Shot](assets/screen-shot.png)
+
+## Features
+
+-   Import from JSON or HTML
+-   Export as JSON or HTML
+-   Floating toolbar pops up when text is selected
+-   Supported elements: `h1`, `h2`, `h3`, `h4`, `h5`, `h6`, `p`, `blockquote`,
+    `ul`, `ol`, `li`, `a`, `pre`, `img`
+-   Supported marks: bold, italic, underline, strikethrough, code
+-   Full undo/redo 
+-   Paste HTML from clipboard
+-   Paste links and images form clipboard
 
 ## Usage
 

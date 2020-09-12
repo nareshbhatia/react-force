@@ -4,7 +4,7 @@ import { createEditor, Node } from 'slate';
 import { withHistory } from 'slate-history';
 import { Slate, Editable, withReact } from 'slate-react';
 import { Element, HoverToolbar, Leaf } from './components';
-import { withImages, withLinks } from './plugins';
+import { withHtml, withImages, withLinks } from './plugins';
 import { toggleMark } from './transforms';
 
 const HOTKEYS: { [key: string]: string } = {
@@ -19,8 +19,13 @@ export interface SlateEditorProps {
 }
 
 export const SlateEditor = ({ value, onChange }: SlateEditorProps) => {
+    // Ensure the following order of precedence for the plugins:
+    //   withImages > withLinks > withHtml
     const editor = useMemo(
-        () => withImages(withLinks(withHistory(withReact(createEditor())))),
+        () =>
+            withImages(
+                withLinks(withHtml(withHistory(withReact(createEditor()))))
+            ),
         []
     );
     const renderElement = useCallback((props) => <Element {...props} />, []);
