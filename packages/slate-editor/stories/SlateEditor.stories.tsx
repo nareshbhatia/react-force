@@ -94,8 +94,10 @@ const pastingImagesAndLinksContent = deserializeFromHtml(
 <h6>Images</h6>
 
 <p>
-To paste an image into the Slate Editor, copy an image URL and paste it in
- the editor. The URL should end with an image extension such as .png or .jpg.
+The easiest way to insert or edit an image in the Slate Editor is to use the
+ mod+k hot key. However you can also paste an image URL from your paste buffer.
+ To do this, copy an image URL and paste it in the editor at the desired
+ location. The URL should end with an image extension such as .png or .jpg.
  Try it out by pasting this URL below:
 </p>
 

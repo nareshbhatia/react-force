@@ -1,40 +1,38 @@
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Checkbox from '@material-ui/core/Checkbox';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import isUrl from 'is-url';
 import React, { useState } from 'react';
-import { LinkState } from '../models';
+import { ImageState } from '../../models';
 
 const invalidUrlMessage =
-    'Please enter a valid URL, e.g., "http://google.com".';
+    'Please enter a valid URL, e.g., "http://example.com/test.png".';
 
-export interface LinkEditorProps {
-    linkState: LinkState;
-    onSave: (url: string, openInNewTab: boolean) => void;
+export interface ImageDialogProps {
+    imageState: ImageState;
+    onSave: (url: string, alt: string) => void;
     onRemove: () => void;
     onCancel: () => void;
 }
 
-export function LinkEditor({
-    linkState,
+export function ImageDialog({
+    imageState,
     onSave,
     onRemove,
     onCancel,
-}: LinkEditorProps) {
-    const [url, setUrl] = useState(linkState.url);
+}: ImageDialogProps) {
+    const [url, setUrl] = useState(imageState.url);
     const [isUrlTouched, setUrlTouched] = useState(false);
     const [isUrlValid, setUrlValid] = useState(true);
-    const [openInNewTab, setOpenInNewTab] = useState(linkState.openInNewTab);
+    const [alt, setAlt] = useState(imageState.alt);
 
     const handleSave = () => {
         if (isUrl(url)) {
-            onSave(url, openInNewTab);
+            onSave(url, alt);
         }
     };
 
@@ -50,10 +48,10 @@ export function LinkEditor({
 
     /**
      * React to special keys:
-     *   Enter: create link
+     *   Enter: create image
      *   Esc: cancel
      */
-    const handleKeyDown = (event: React.KeyboardEvent) => {
+    const handleUrlKeyDown = (event: React.KeyboardEvent) => {
         if (event.key === 'Enter') {
             event.preventDefault();
             setUrlTouched(true);
@@ -65,16 +63,24 @@ export function LinkEditor({
         }
     };
 
-    const handleOpenInNewTabChange = (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        setOpenInNewTab(event.target.checked);
+    const handleAltChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setAlt(event.target.value);
+    };
+
+    const handleAltKeyDown = (event: React.KeyboardEvent) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            handleSave();
+        } else if (event.key === 'Escape') {
+            event.preventDefault();
+            onCancel();
+        }
     };
 
     return (
-        <Dialog open={true} fullWidth={true} maxWidth="sm" onClose={onCancel}>
+        <Dialog open={true} fullWidth={true} maxWidth="sm">
             <DialogTitle>
-                {linkState.isNew ? 'Insert Link' : 'Edit Link'}
+                {imageState.isNew ? 'Insert Image' : 'Edit Image'}
             </DialogTitle>
 
             <DialogContent>
@@ -83,7 +89,8 @@ export function LinkEditor({
                     label="URL"
                     type="url"
                     value={url}
-                    placeholder="Paste or type a link..."
+                    placeholder="Paste or type an image URL..."
+                    margin="normal"
                     fullWidth
                     autoFocus
                     error={isUrlTouched && !isUrlValid}
@@ -94,26 +101,24 @@ export function LinkEditor({
                     }
                     onChange={handleUrlChange}
                     onBlur={handleUrlBlur}
-                    onKeyDown={handleKeyDown}
+                    onKeyDown={handleUrlKeyDown}
                 />
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={openInNewTab}
-                            name="openInNewTab"
-                            color="primary"
-                            onChange={handleOpenInNewTabChange}
-                        />
-                    }
-                    label="Open in new tab"
+                <TextField
+                    id="alt"
+                    label="Alternate Text"
+                    value={alt}
+                    margin="normal"
+                    fullWidth
+                    onChange={handleAltChange}
+                    onKeyDown={handleAltKeyDown}
                 />
             </DialogContent>
 
             <DialogActions>
-                {!linkState.isNew ? (
+                {!imageState.isNew ? (
                     <Box flex={1}>
                         <Button color="primary" onClick={onRemove}>
-                            Remove Link
+                            Remove Image
                         </Button>
                     </Box>
                 ) : null}

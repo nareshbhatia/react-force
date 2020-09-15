@@ -84,3 +84,12 @@ example:
     max-width: 100%;
 }
 ```
+
+## Hot Keys
+
+Note: `mod` represents the Command key on Mac and the Control key on Windows.
+
+1. mod+b: bold
+2. mod+i: italic
+3. mod+u: underline
+4. mod+k: add/edit image

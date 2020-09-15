@@ -1,15 +1,9 @@
 // @ts-ignore: Cannot find module 'image-extensions' or its corresponding type declarations
 import imageExtensions from 'image-extensions';
 import isUrl from 'is-url';
-import { Editor, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { ElementType } from '../models';
-
-const insertImage = (editor: Editor, url: string, alt?: string) => {
-    const text = { text: '' };
-    const image = { type: 'image', url, alt, children: [text] };
-    Transforms.insertNodes(editor, image);
-};
+import { insertImage } from '../transforms';
 
 const isImageUrl = (url: any) => {
     if (!url) return false;
