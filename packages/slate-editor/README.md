@@ -19,6 +19,12 @@ floating toolbar to support basic editing functions. It is based on the
 -   Paste HTML from clipboard
 -   Paste links and images form clipboard
 
+## Installation
+
+```bash
+npm install @react-force/slate-editor @material-ui/core @material-ui/icons @material-ui/lab
+```
+
 ## Usage
 
 ### Minimal Example
@@ -28,10 +34,21 @@ This example uses a Slate document as its input and output.
 ```typescript jsx
 import React, { useState } from 'react';
 import { Node } from 'slate';
-import { EmptyDocument, SlateEditor } from '@react-force/slate-editor';
+import { SlateEditor } from '@react-force/slate-editor';
+
+const initialValue: Array<Node> = [
+    {
+        type: 'paragraph',
+        children: [
+            {
+                text: 'Hello World!',
+            },
+        ],
+    },
+];
 
 export const Example = () => {
-    const [value, setValue] = useState<Array<Node>>(EmptyDocument);
+    const [value, setValue] = useState<Array<Node>>(initialValue);
 
     return <SlateEditor value={value} onChange={setValue} />;
 };
