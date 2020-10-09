@@ -33,13 +33,13 @@
   "dependencies": {
     "@react-force/core": "^3.3.1",
     "@react-force/date-utils": "^3.4.0",
-    "@react-force/slate-editor": "^1.1.0",
-    "formik": "^2.1.5",
-    "moment": "^2.28.0",
+    "@react-force/slate-editor": "^1.1.1",
+    "formik": "^2.2.0",
+    "moment": "^2.29.1",
     "moment-timezone": "^0.5.31",
     "react-text-mask": "^5.4.3",
     "yup": "^0.29.3",
-    "tslib": "^2.0.1"
+    "tslib": "^2.0.2"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.x",
@@ -51,6 +51,6 @@
   "devDependencies": {
     "@types/moment-timezone": "^0.5.30",
     "@types/react-text-mask": "^5.4.6",
-    "@types/yup": "^0.29.7"
+    "@types/yup": "^0.29.8"
   }
 }

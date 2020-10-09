@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "numeral": "^2.0.6",
-    "tslib": "^2.0.1"
+    "tslib": "^2.0.2"
   },
   "devDependencies": {
     "@types/numeral": "^0.0.28"

@@ -31,6 +31,6 @@
     "test:coverage": "echo No tests in this package"
   },
   "dependencies": {
-    "tslib": "^2.0.1"
+    "tslib": "^2.0.2"
   }
 }
