@@ -38,9 +38,11 @@ module.exports = {
             },
         ],
 
-        // disable the base "no-redeclare" rule as it reports incorrect errors
+        // disable base rules as they reports incorrect errors
         // see https://bit.ly/3luvr3M
         'no-redeclare': 'off',
+        'no-use-before-define': 'off',
         '@typescript-eslint/no-redeclare': ['error'],
+        '@typescript-eslint/no-use-before-define': ['error'],
     },
 };
