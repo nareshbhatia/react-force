@@ -34,7 +34,7 @@ describe('isBlank()', () => {
         expect(isBlank('')).toBe(true);
     });
 
-    it('returns false for whitespace-only string', () => {
+    it('returns true for whitespace-only string', () => {
         expect(isBlank('  ')).toBe(true);
     });
 
