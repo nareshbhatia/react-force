@@ -10,7 +10,6 @@
       "@react-force/core": ["packages/core/src"],
       "@react-force/date-utils": ["packages/date-utils/src"],
       "@react-force/formik-mui": ["packages/formik-mui/src"],
-      "@react-force/http-utils": ["packages/http-utils/src"],
       "@react-force/mock-data": ["packages/mock-data/src"],
       "@react-force/models": ["packages/models/src"],
       "@react-force/number-utils": ["packages/number-utils/src"],
